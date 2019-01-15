@@ -8,6 +8,9 @@ College : SeoKyeong University
 
 Major : Computer Engineering
 
+Start Date : 2019. 01. 15
 
-# MobileNet V2
+
+
+# MobileNet-v2-tensorflow.py
 Date : 2019. 01. 15
