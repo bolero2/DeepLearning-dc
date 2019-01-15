@@ -349,16 +349,16 @@ if __name__ == '__main__':
             #     save_path = saver4.save(sess, ModelDir + "EPOCH_" + str(
             #         epoch + 1) + "\\" + ModelName + "_Epoch_" + str(epoch + 1) + ".ckpt")
             #
-            # for t in range(int(Total_Test / BatchSize)):
-            #     ex, ey, ex2 = Batch_Eval(BatchSize)
+            # for t in range(int(Total_Eval / BatchSize)):
+            #     ex, ey, ex2 = batch_eval(BatchSize)
             #     ex = np.reshape(ex, [BatchSize, FrameSize, image_Width, image_Height, channel])
             #     ex2 = np.reshape(ex2, [BatchSize, FrameSize, image_Width, image_Height, 1])
-            #     acc = sess.run(accuracy, feed_dict={X: ex, X2: ex2, Y: ey, istraining.name: False, dropout_rate: 1.0})
+            #     acc = sess.run(accuracy, feed_dict={X: ex, X2: ex2, Y: ey, istraining.name: False})
             #     print("epoch ", (epoch + 1), "          mini accuracy : ", acc)
             #     accuracy_sum = accuracy_sum + acc
             # print('Epoch %d' % (epoch + 1), 'test : %f' % (accuracy_sum / (Total_Test / BatchSize) * 100))
             #
-            # accuracy_list.append(accuracy_sum / (Total_Test / BatchSize) * 100)
+            # accuracy_list.append(accuracy_sum / (Total_Eval / BatchSize) * 100)
             # accuracy_sum = 0
             # index_eval = 0
 
