@@ -4,6 +4,7 @@ Date : 2019-01-14
 Author : Noh Dae Cheol
 
 Network : MobileNet V2(2D)
+Framework : Tensorflow
 Dataset : 2D Hand Gesture
 Dropout : Don't use.
 """
