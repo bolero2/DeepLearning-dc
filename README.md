@@ -14,3 +14,8 @@ Start Date : 2019. 01. 15
 
 # MobileNet-v2-tensorflow.py
 Date : 2019. 01. 15
+
+
+
+# ShuffleNet-v1-tensorflow.py
+Date : 2019. 01. 22
