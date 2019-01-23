@@ -180,7 +180,7 @@ def bottleneck_conv(input, expansion_ratio, output_dim, istraining, strides=1, p
     return output
 
 
-def MobileNetV1(input, weight, b_training, expansion_rate, label_size):
+def MobileNetV2(input, weight, b_training, expansion_rate, label_size):
     """
     :param input: Input Image
     :param weight: Weight
@@ -266,7 +266,7 @@ if __name__ == '__main__':
     istraining = tf.placeholder(tf.bool, name='istraining')
     keep_prob = tf.placeholder(tf.float32, name='keep_prob')
 
-    result = MobileNetV1(input=X,
+    result = MobileNetV2(input=X,
                          weight=weights,
                          b_training=istraining,
                          expansion_rate=exp,
