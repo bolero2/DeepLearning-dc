@@ -6,10 +6,6 @@ srcDir = "D:\\Tiny_ImageNet\\Tiny_ImageNet\\Train\\"       # Location of Origina
 dstDir = "D:\\Tiny_ImageNet\\Tiny_ImageNet\\Train\\"
 
 """
-만약... 원본 파일과 같은 폴더에 저장하고 싶으면
-dstDir 변수에 다른 폴더경로 말고
-dstDir = srcDir 하면 됨.
-
 1. Original + flip
 2. left-top crop
 3. left-top crop + flip
@@ -22,8 +18,6 @@ dstDir = srcDir 하면 됨.
 10. center crop
 11. center crop + flip
 """
-
-
 
 setN = 0
 
