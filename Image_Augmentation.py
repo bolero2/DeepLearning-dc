@@ -5,6 +5,8 @@ import copy
 srcDir = "D:\\Tiny_ImageNet\\Tiny_ImageNet\\Train\\"       # Location of Original Data
 dstDir = "D:\\Tiny_ImageNet\\Tiny_ImageNet\\Train\\"
 
+crop_percent = 0.8
+
 """
 1. Original + flip
 2. left-top crop
@@ -33,8 +35,8 @@ for dir_num in dirList:
         value = cv2.imread(srcDir + dir_num + "\\" + i)
         value2 = copy.deepcopy(value)
         row, col, ch = value.shape   # row = height / col = width
-        new_row = round(row * 0.8)
-        new_col = round(col * 0.8)
+        new_row = round(row * crop_percent)
+        new_col = round(col * crop_percent)
         filename, ext = i.split('.')
 
         # Original + Flip
