@@ -1,12 +1,11 @@
 """
 Title : mobilenetv2_1.py
-Date : 2019-01-14
+Date : 2019-02-25
 Author : Noh Dae Cheol
 
 Network : MobileNet V2(2D)
-Framework : Tensorflow
-Dataset : 2D Hand Gesture
-Dropout : Don't use.
+Dataset : ImageNet 100 Labels
+Dropout : 0.5
 """
 
 import cv2
@@ -16,11 +15,11 @@ import numpy as np
 import tensorflow as tf
 import time
 
-TrainDir = "D:\\2D_DATA\\RGB\\"  # 120,000 images
-EvalDir = "D:\\SDATA\\TEST_RGB\\NORMAL\\BRIGHT\\"  # 12,000 images
+TrainDir = "D:\\Tiny_ImageNet\\Tiny_ImageNet\\Train\\"  # 1,537,631 images
+EvalDir = "D:\\Tiny_ImageNet\\Tiny_ImageNet\\Test\\"  # 119,424 images
 
 # The names of this variables(=ModelDir, ModelName) must come from the script name.
-ModelName = "MobileNetv2_1"
+ModelName = "MobileNetv2_dropout_190225"
 ModelDir = "D:\\SavedModel\\" + ModelName + "\\"
 
 
@@ -30,23 +29,23 @@ Filenames_Eval = []
 index_train = 0
 index_eval = 0
 
-BatchSize = 32
+BatchSize = 64
 
-Total_Train = 120000
-Total_Eval = 12000
+Total_Train = 1537631
+Total_Eval = 119424
 # Total_List = np.zeros([16], dtype=int)
 
 # Declaring Image Width and Image Height.
-image_Width = 224
-image_Height = 224
+image_Width = 112
+image_Height = 112
 
-label_size = 6
+label_size = 100
 
 channel = 3
 exp = 6  # expansion ratio
 
 # Count of Epoch(Epoch 1 ~ Epoch ?)
-ForEpoch = 20
+ForEpoch = 30
 dropout_rate = 0.5
 
 
@@ -180,12 +179,13 @@ def bottleneck_conv(input, expansion_ratio, output_dim, istraining, strides=1, p
     return output
 
 
-def MobileNetV2(input, weight, b_training, expansion_rate, label_size):
+def MobileNetV2(input, weight, b_training, expansion_rate, label_size, keep_prob):
     """
     :param input: Input Image
     :param weight: Weight
     :param b_training: bool variable(istraining, True or False)
     :param expansion_rate: expansion rate
+    :param label_size: label size
     :return: Last Fully-Connected Layer
     """
 
@@ -194,7 +194,7 @@ def MobileNetV2(input, weight, b_training, expansion_rate, label_size):
     # ================================================================================
 
     C1 = tf.nn.relu(batch_norm(conv2d(input, weight['wc1'], strides=2, padding='SAME'), n_out=32,
-                               training=b_training), name='Conv_1')
+                               training=b_training), name='C1')
     print(C1)  # 112 * 112
 
     C2 = bottleneck_conv(C1, 1, 16, istraining=b_training, strides=1, padding='SAME', name='C2')
@@ -231,13 +231,15 @@ def MobileNetV2(input, weight, b_training, expansion_rate, label_size):
     C9 = conv2d_1x1(C8, 1280, strides=1, padding='SAME', name='C9')
     print(C9)
 
-    AVP = tf.nn.avg_pool(C9, ksize=[1, 7, 7, 1], strides=[1, 1, 1, 1], padding='VALID', name='avg_pool')
+    AVP = tf.nn.avg_pool(C9, ksize=[1, 4, 4, 1], strides=[1, 1, 1, 1], padding='VALID', name='avg_pool')
     print(AVP)
 
     C10 = conv2d_1x1(AVP, label_size, strides=1, padding='SAME', name='C10')
     print(C10)
 
-    FC1 = tf.reshape(C10, shape=[-1, weight['wfc1'].get_shape().as_list()[0]])
+    C11 = tf.nn.dropout(C10, keep_prob=keep_prob)
+
+    FC1 = tf.reshape(C11, shape=[-1, weight['wfc1'].get_shape().as_list()[0]])
     print(FC1)
 
     FC2 = tf.matmul(FC1, weight['wfc1'])
@@ -270,7 +272,8 @@ if __name__ == '__main__':
                          weight=weights,
                          b_training=istraining,
                          expansion_rate=exp,
-                         label_size=label_size)
+                         label_size=label_size,
+                         keep_prob=keep_prob)
 
     cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=result,
                                                                            labels=Y))
@@ -290,78 +293,84 @@ if __name__ == '__main__':
     train_step = tf.train.AdamOptimizer(0.00001 * BatchSize).minimize(cross_entropy)
     accuracy_list = []
     accuracy_sum = 0
+    time_list = []
+    time_sum = 0
 
-    with tf.Session() as sess:
-        sess.run(tf.global_variables_initializer())
-        total_time = 0
-        accuracy_list = []
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
 
-        # ==========================================================================================================
-        # Training!
-        # ==========================================================================================================
-        for epoch in range(0, ForEpoch):  # epoch 1 ~ epoch 20
-            for i in range(int(Total_Train / BatchSize)):
-                bx, by = batch_train(BatchSize)
-                bx = np.reshape(bx, [BatchSize, image_Width, image_Height, channel])
-                ts, cost, train_accuracy, ra, la = sess.run([train_step, cross_entropy, accuracy, Result_argmax,
-                                                             Label_argmax], feed_dict={X: bx,
-                                                                                       Y: by,
-                                                                                       istraining.name: True})
-                # for r in range(0, 5):
-                #     print("Result Weight [" + str(r * 3 + 0) + "] " + str(RS[0][r * 3 + 0]) + "     " +
-                #           "Result Weight [" + str(r * 3 + 1) + "] " + str(RS[0][r * 3 + 1]) + "     " +
-                #           "Result Weight [" + str(r * 3 + 2) + "] " + str(RS[0][r * 3 + 2]) + "     ")
+    saver = tf.train.Saver()  # Network model Save
+    # save_path = saver.restore(sess, ModelDir + ModelName + "_Epoch_7.ckpt")
 
-                print('Epoch %d    ' % (epoch + 1),
-                      'Training accuracy %g     ' % train_accuracy,
-                      'loss %g        ' % cost)
+    # ==========================================================================================================
+    # Training!
+    # ==========================================================================================================
+    for epoch in range(0, ForEpoch):  # epoch 1 ~ epoch 20
+        count = 0
+        # =============================================
+        percentage = epoch / ForEpoch
+        dropout_rate = (dropout_rate * percentage + 0.17)
+        dropout_rate = round(dropout_rate, 2)
+        # =============================================
+        for i in range(int(Total_Train / BatchSize)):
+            count = count + 1
+            bx, by = batch_train(BatchSize)
+            bx = np.reshape(bx, [BatchSize, image_Width, image_Height, channel])
+            ts, loss, train_accuracy, ra, la = sess.run([train_step, cross_entropy, accuracy, Result_argmax,
+                                                         Label_argmax], feed_dict={X: bx,
+                                                                                   Y: by,
+                                                                                   istraining.name: True,
+                                                                                   keep_prob: 0.5})
+            # for r in range(0, 5):
+            #     print("Result Weight [" + str(r * 3 + 0) + "] " + str(RS[0][r * 3 + 0]) + "     " +
+            #           "Result Weight [" + str(r * 3 + 1) + "] " + str(RS[0][r * 3 + 1]) + "     " +
+            #           "Result Weight [" + str(r * 3 + 2) + "] " + str(RS[0][r * 3 + 2]) + "     ")
 
-            for j in range(int(Total_Eval / BatchSize)):
-                Start = time.time()  # For Time Checking!
-                ex, ey = batch_eval(BatchSize)
-                ex = np.reshape(ex, [BatchSize, image_Width, image_Height, channel])
-                l, y, acc = sess.run([ly, ay, accuracy], feed_dict={X: ex,
-                                                                    Y: ey,
-                                                                    istraining.name: False})
-                End = time.time() - Start
-                print("epoch ", (epoch + 1), "     mini accuracy : ", acc, "     mini time(sec) : ", End)
-                total_time = total_time + End
-                accuracy_sum = accuracy_sum + acc
+            print('[%d]' % count,
+                  'Epoch %d    ' % (epoch + 1),
+                  'Training accuracy %g     ' % train_accuracy,
+                  'loss %g        ' % loss)
 
-            print('Epoch %d' % (epoch + 1), 'test : %f' % (accuracy_sum / (Total_Eval / BatchSize) * 100))
-            accuracy_list.append(accuracy_sum / (Total_Eval / BatchSize) * 100)
-            accuracy_sum = 0
-            index_eval = 0
+        # save_path = saver.save(sess, ModelDir + "\\" + ModelName + "_Epoch_" + str(epoch + 1) + ".ckpt")
+        count = 0
+        for j in range(int(Total_Eval / BatchSize)):
+            count = count + 1
+            Start = time.time()  # For Time Checking!
+            ex, ey = batch_eval(BatchSize)
+            ex = np.reshape(ex, [BatchSize, image_Width, image_Height, channel])
+            loss, l, y, eval_accuracy = sess.run([cross_entropy, ly, ay, accuracy],
+                                                 feed_dict={X: ex,
+                                                            Y: ey,
+                                                            istraining.name: False,
+                                                            keep_prob: 1.0})
+            End = time.time() - Start
+            print("[" + str(count) + "] Epoch", (epoch + 1),
+                  "    mini accuracy", eval_accuracy,
+                  "       mini time(sec)", End,
+                  "     loss %g" % loss)
+            time_sum = time_sum + End
+            accuracy_sum = accuracy_sum + eval_accuracy
 
-        for i in range(0, ForEpoch):
-            print('Epoch %d' % (i + 1), 'test : %f' % accuracy_list[i])
+        print('Epoch %d' % (epoch + 1), 'test : %f' % (accuracy_sum / (Total_Eval / BatchSize) * 100))
+        print('Time per Image : ', time_sum / Total_Eval)
+        accuracy_list.append(accuracy_sum / (Total_Eval / BatchSize) * 100)
+        time_list.append(time_sum / Total_Eval)
+        accuracy_sum = 0
+        time_sum = 0
+        index_eval = 0
 
-            # if epoch < 5:
-            #     save_path = saver1.save(sess, ModelDir + "EPOCH_" + str(
-            #         epoch + 1) + "\\" + ModelName + "_Epoch_" + str(epoch + 1) + ".ckpt")
-            # elif epoch < 10:
-            #     save_path = saver2.save(sess, ModelDir + "EPOCH_" + str(
-            #         epoch + 1) + "\\" + ModelName + "_Epoch_" + str(epoch + 1) + ".ckpt")
-            # elif epoch < 15:
-            #     save_path = saver3.save(sess, ModelDir + "EPOCH_" + str(
-            #         epoch + 1) + "\\" + ModelName + "_Epoch_" + str(epoch + 1) + ".ckpt")
-            # elif epoch < 20:
-            #     save_path = saver4.save(sess, ModelDir + "EPOCH_" + str(
-            #         epoch + 1) + "\\" + ModelName + "_Epoch_" + str(epoch + 1) + ".ckpt")
-            #
-            # for t in range(int(Total_Eval / BatchSize)):
-            #     ex, ey, ex2 = batch_eval(BatchSize)
-            #     ex = np.reshape(ex, [BatchSize, FrameSize, image_Width, image_Height, channel])
-            #     ex2 = np.reshape(ex2, [BatchSize, FrameSize, image_Width, image_Height, 1])
-            #     acc = sess.run(accuracy, feed_dict={X: ex, X2: ex2, Y: ey, istraining.name: False})
-            #     print("epoch ", (epoch + 1), "          mini accuracy : ", acc)
-            #     accuracy_sum = accuracy_sum + acc
-            # print('Epoch %d' % (epoch + 1), 'test : %f' % (accuracy_sum / (Total_Test / BatchSize) * 100))
-            #
-            # accuracy_list.append(accuracy_sum / (Total_Eval / BatchSize) * 100)
-            # accuracy_sum = 0
-            # index_eval = 0
+        # dropout_rate = 0.75
 
-        print("### Finish Training! ###")
+        print("===================== Accuracy List =====================")
+        for i in range(0, epoch + 1):
+            print('Epoch %d' % (i + 1), '   Test : %f' % accuracy_list[i], '   Time per Image : %f' % time_list[i])
+        print("=========================================================")
+
+    for i in range(0, ForEpoch):
+        print('Epoch %d' % (i + 1), '   Test : %f' % accuracy_list[i], '   Time per Image : %f' % time_list[i])
+
+    print("### Finish Training! ###")
+
+
 
 
