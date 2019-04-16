@@ -42,6 +42,10 @@ Date : 2019. 02. 25
 
 # 3D_NUMBER_Demo_1.py
 Date : 2019. 04. 16
+
 Version : version. 1
+
 Used Network : VGG16
+
 Dataset : 3D Hand Gesture, Drawing Number (0~9, 10EA)
+
