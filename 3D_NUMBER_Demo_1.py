@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 import os
 import time
+import threading
 import random
 
 TrainDir = "D:\\3D_NUMBER_3\\Train\\"
@@ -22,6 +23,10 @@ Total_Batch = int(162000 / (framesize))
 Total_Test = int(3000 / (framesize))
 image_Width = 112
 image_Height = 112
+
+framelist = list()
+
+flag = True
 
 channel = 3
 
@@ -46,11 +51,9 @@ Weights = {
 
 def Load_Image():
     TempList = []
-
     for i in range(0, label_size):
         FileList = os.listdir(EvalDir + str(i))
         for j in range(0, len(FileList)):
-
             TempList.append(EvalDir + str(i) + '/' + FileList[j])
             if (j + 1) % framesize == 0 and j != 0:
                 Filenames_Eval.append([TempList, i])
@@ -58,31 +61,47 @@ def Load_Image():
 
 
 def MS_camera():
-    cv2.namedWindow('MyWindow')
-    count = 0
-    x_data = np.zeros([batchsize, framesize, image_Height, image_Width, channel], dtype=np.float32)
-    cameraCapture = cv2.VideoCapture(0)
-    success, frame = cameraCapture.read()
+    global framelist, flag
 
+    cv2.namedWindow('MyWindow')
+    cameraCapture = cv2.VideoCapture(0)
+    success, frame = cameraCapture.read()   # discard first frame image!
+
+    # Real Start saving frame image
     while success and cv2.waitKey(1) == -1:
-        print("frame count:", count)
+        if flag is False:
+            continue
         success, frame = cameraCapture.read()
         frame = cv2.resize(frame, (image_Height, image_Width))
         frame = frame / 255
-        x_data[batchsize - 1][count] = frame
-        count = count + 1
+        framelist.append(frame)
         cv2.imshow('MyWindow', cv2.resize(frame, (640, 480)))
-        cv2.waitKey(100)
+        cv2.waitKey(2)
+        if len(framelist) % 200 == 0:
+            print("framelist size:", len(framelist))
     cameraCapture.release()
+
+
+def frame_cut():
+    global framelist
+    x_data = np.zeros([batchsize, framesize, image_Height, image_Width, channel], dtype=np.float32)
+    val = 0
+    length = len(framelist)
+    gap = length / framesize
+    print(length, gap)
+
+    for i in range(0, framesize):
+        x_data[batchsize - 1][i] = framelist[round(val)]
+        val = val + gap
 
     return x_data
 
 
 def Batch_Eval(sess, batchsize):
     global index_eval
-    y_data = np.zeros((batchsize, label_size), dtype=np.float32)  # one hot encoding
+    y_data = np.zeros((batchsize, label_size), dtype=np.float32)  # one hot encoding을 위해 0으로 채워진 리스트를 만듭니다
     for i in range(0, batchsize):
-        y_data[i][Filenames_Eval[index_eval+i][1]] = 1
+        y_data[i][Filenames_Eval[index_eval+i][1]] = 1  # label에 해당하는 column을 1로 설정합니다 (one hot encoding)
     index_eval += batchsize
     if index_eval + batchsize >= Total_Test:
         index_eval = 0
@@ -112,52 +131,64 @@ Y_ = tf.placeholder(tf.float32, [batchsize, label_size])
 istraining = tf.placeholder(tf.bool, name='istraining')
 
 # L1
-C1 = tf.nn.relu(batch_norm(tf.nn.conv3d(X,Weights['wc1'],strides=[1,1,2,2,1],padding='SAME'),n_out=64,training=istraining))
+C1 = tf.nn.relu(batch_norm(tf.nn.conv3d(X, Weights['wc1'], strides=[1, 1, 2, 2, 1], padding='SAME'), n_out=64,
+                           training=istraining))
 print(C1)
-C2 = tf.nn.relu(batch_norm(tf.nn.conv3d(C1,Weights['wc2'],strides=[1,1,1,1,1],padding='SAME'),n_out=64,training=istraining))
+C2 = tf.nn.relu(batch_norm(tf.nn.conv3d(C1, Weights['wc2'], strides=[1, 1, 1, 1, 1], padding='SAME'), n_out=64,
+                           training=istraining))
 print(C2)
-L1 = tf.nn.max_pool3d(C2,ksize=[1,1,2,2,1],strides=[1,1,2,2,1],padding='SAME')
+L1 = tf.nn.max_pool3d(C2, ksize=[1, 1, 2, 2, 1], strides=[1, 1, 2, 2, 1], padding='SAME')
 print(L1)
 
 # L2
-C3 = tf.nn.relu(batch_norm(tf.nn.conv3d(L1,Weights['wc3'],strides=[1,1,1,1,1],padding='SAME'),n_out=128,training=istraining))
+C3 = tf.nn.relu(batch_norm(tf.nn.conv3d(L1, Weights['wc3'], strides=[1, 1, 1, 1, 1], padding='SAME'), n_out=128,
+                           training=istraining))
 print(C3)
-C4 = tf.nn.relu(batch_norm(tf.nn.conv3d(C3,Weights['wc4'],strides=[1,1,1,1,1],padding='SAME'),n_out=128,training=istraining))
+C4 = tf.nn.relu(batch_norm(tf.nn.conv3d(C3, Weights['wc4'], strides=[1, 1, 1, 1, 1], padding='SAME'), n_out=128,
+                           training=istraining))
 print(C4)
-L2 = tf.nn.max_pool3d(C4,ksize=[1,1,2,2,1],strides=[1,1,2,2,1],padding='SAME')
+L2 = tf.nn.max_pool3d(C4, ksize=[1, 1, 2, 2, 1], strides=[1, 1, 2, 2, 1], padding='SAME')
 print(L2)
 
 # L3
-C5 = tf.nn.relu(batch_norm(tf.nn.conv3d(L2,Weights['wc5'],strides=[1,1,1,1,1],padding='SAME'),n_out=256,training=istraining))
+C5 = tf.nn.relu(batch_norm(tf.nn.conv3d(L2, Weights['wc5'], strides=[1, 1, 1, 1, 1], padding='SAME'), n_out=256,
+                           training=istraining))
 print(C5)
-C6 = tf.nn.relu(batch_norm(tf.nn.conv3d(C5,Weights['wc6'],strides=[1,1,1,1,1],padding='SAME'),n_out=256,training=istraining))
+C6 = tf.nn.relu(batch_norm(tf.nn.conv3d(C5, Weights['wc6'], strides=[1, 1, 1, 1, 1], padding='SAME'), n_out=256,
+                           training=istraining))
 print(C6)
-C7 = tf.nn.relu(batch_norm(tf.nn.conv3d(C6,Weights['wc7'],strides=[1,1,1,1,1],padding='SAME'),n_out=256,training=istraining))
+C7 = tf.nn.relu(batch_norm(tf.nn.conv3d(C6, Weights['wc7'], strides=[1, 1, 1, 1, 1], padding='SAME'), n_out=256,
+                           training=istraining))
 print(C7)
-L3 = tf.nn.max_pool3d(C7,ksize=[1,1,2,2,1],strides=[1,1,2,2,1],padding='SAME')
+L3 = tf.nn.max_pool3d(C7, ksize=[1, 1, 2, 2, 1], strides=[1, 1, 2, 2, 1], padding='SAME')
 print(L3)
 
-
 # L4
-C8 = tf.nn.relu(batch_norm(tf.nn.conv3d(L3,Weights['wc8'],strides=[1,1,1,1,1],padding='SAME'),n_out=512,training=istraining))
+C8 = tf.nn.relu(batch_norm(tf.nn.conv3d(L3, Weights['wc8'], strides=[1, 1, 1, 1, 1], padding='SAME'), n_out=512,
+                           training=istraining))
 print(C8)
-C9 = tf.nn.relu(batch_norm(tf.nn.conv3d(C8,Weights['wc9'],strides=[1,1,1,1,1],padding='SAME'),n_out=512,training=istraining))
+C9 = tf.nn.relu(batch_norm(tf.nn.conv3d(C8, Weights['wc9'], strides=[1, 1, 1, 1, 1], padding='SAME'), n_out=512,
+                           training=istraining))
 print(C9)
-C10 = tf.nn.relu(batch_norm(tf.nn.conv3d(C9,Weights['wc10'],strides=[1,1,1,1,1],padding='SAME'),n_out=512,training=istraining))
+C10 = tf.nn.relu(batch_norm(tf.nn.conv3d(C9, Weights['wc10'], strides=[1, 1, 1, 1, 1], padding='SAME'), n_out=512,
+                            training=istraining))
 print(C10)
-L4 = tf.nn.max_pool3d(C10,ksize=[1,1,2,2,1],strides=[1,1,2,2,1],padding='SAME')
+L4 = tf.nn.max_pool3d(C10, ksize=[1, 1, 2, 2, 1], strides=[1, 1, 2, 2, 1], padding='SAME')
 print(L4)
 
 # L4
-C11 = tf.nn.relu(batch_norm(tf.nn.conv3d(L4,Weights['wc11'],strides=[1,1,1,1,1],padding='SAME'),n_out=512,training=istraining))
-C12 = tf.nn.relu(batch_norm(tf.nn.conv3d(C11,Weights['wc12'],strides=[1,1,1,1,1],padding='SAME'),n_out=512,training=istraining))
-C13 = tf.nn.relu(batch_norm(tf.nn.conv3d(C12,Weights['wc13'],strides=[1,1,1,1,1],padding='SAME'),n_out=512,training=istraining))
-L5 = tf.nn.max_pool3d(C13,ksize=[1,1,2,2,1],strides=[1,1,2,2,1],padding='SAME')
+C11 = tf.nn.relu(batch_norm(tf.nn.conv3d(L4, Weights['wc11'], strides=[1, 1, 1, 1, 1], padding='SAME'), n_out=512,
+                            training=istraining))
+C12 = tf.nn.relu(batch_norm(tf.nn.conv3d(C11, Weights['wc12'], strides=[1, 1, 1, 1, 1], padding='SAME'), n_out=512,
+                            training=istraining))
+C13 = tf.nn.relu(batch_norm(tf.nn.conv3d(C12, Weights['wc13'], strides=[1, 1, 1, 1, 1], padding='SAME'), n_out=512,
+                            training=istraining))
+L5 = tf.nn.max_pool3d(C13, ksize=[1, 1, 2, 2, 1], strides=[1, 1, 2, 2, 1], padding='SAME')
 print("L5 SIZE : " + str(L5))
 
-
-#FC
-Global_Avg = tf.nn.avg_pool3d(L5, ksize=[1, framesize, 2, 2, 1], strides=[1, 1, 1, 1, 1], padding='VALID', name='Global_Avg2')
+# FC
+Global_Avg = tf.nn.avg_pool3d(L5, ksize=[1, framesize, 2, 2, 1], strides=[1, 1, 1, 1, 1], padding='VALID',
+                              name='Global_Avg2')
 print(Global_Avg)
 FC1 = tf.reshape(Global_Avg, [-1, Weights['wfc1'].get_shape().as_list()[0]])
 FC1 = tf.nn.relu(tf.matmul(FC1, Weights['wfc1']), name='fc1')
@@ -168,6 +199,7 @@ print(FC2)
 # SoftMax
 cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=FC2, labels=Y_))
 correct_prediction = tf.equal(tf.argmax(tf.nn.softmax(FC2), 1), tf.argmax(Y_, 1))
+data_acc = tf.nn.softmax(FC2)
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 train_step = tf.train.AdamOptimizer(0.00001 * batchsize).minimize(cross_entropy)
 accuracy_sum = 0
@@ -179,19 +211,39 @@ accuracy_sum = 0
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
 
-    saver = tf.train.Saver()  # network model saver variable
+    saver = tf.train.Saver()  # network model saver
     accuracy_list = []
 
     save_path = saver.restore(sess, "D:/Saver/VGG16_3D/EPOCH_15/VGG_3D_Epoch_15.ckpt")
 
-    while (True):
-        ex = MS_camera()
+    print("Session Initializating...")
+    ex = np.zeros([batchsize, framesize, image_Height, image_Width, channel])
+    ey = Batch_Eval(sess, batchsize)
+    ep, acc = sess.run([tf.argmax(FC2, 1), accuracy], feed_dict={X: ex, Y_: ey, istraining.name: False})
+    print("Init Finish!")
+
+    print("--- Capture Start (Capture Threading) ---")
+    captureThread = threading.Thread(target=MS_camera)
+    captureThread.start()
+
+    while flag is True:
+        if len(framelist) < 20:
+            # print("not enough frames!")
+            continue
+        ex = frame_cut()
         ey = Batch_Eval(sess, batchsize)
         # ex = np.reshape(ex, [batchsize, framesize, image_Height, image_Width, channel])
         start = time.time()
-        ep, acc = sess.run([tf.argmax(FC2, 1), accuracy], feed_dict={X: ex, Y_: ey, istraining.name: False})
+        ep, acc = sess.run([tf.argmax(FC2, 1), data_acc], feed_dict={X: ex, Y_: ey, istraining.name: False})
         end = time.time() - start
-        for i in range(0, 1):
-            print("label:", ep, "time:", end, "Accuracy: %f" % acc)   # accuracy is not correct!!! -- problem 1
-        print("END")
+        if max(acc[0]) >= 0.99:
+            for i in range(0, batchsize):
+                print("label:", str(ep)[1], "time:", end, "Accuracy:", max(acc[0]))
+            print("CYCLE END")
 
+            # flag = False
+            framelist = []
+            # time.sleep(0.5)
+            # flag = True
+        elif max(acc[0]) < 0.99:
+            continue
