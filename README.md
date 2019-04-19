@@ -1,5 +1,5 @@
 # DeepLearning
-For my Deep Learning Sources!
+For my [Deep Learning] Sources!
 
 
 Name : Noh Dae Cheol
