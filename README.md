@@ -1,5 +1,5 @@
 # DeepLearning
-Deep Learning (Especially -> Tensorflow)
+Deep Learning (using Tensorflow)
 
 
 
