@@ -49,9 +49,9 @@ def load_image():
     print("###############################################")
     print("Start Image Loading ...")
     print("###############################################")
-    templist = []
+    templist = list()
     filelist = os.listdir(TrainDir)
-    print(len(filelist))
+    print(f'Total number of Images : {len(filelist)}')
 
     for f in range(0, len(filelist)):
         tree = xml.ElementTree(file=TrainDir_Annot + filelist[f][:-4] + '.xml')
@@ -68,78 +68,56 @@ def load_image():
                             xmax = int(float(list(list(elem)[tag])[count].text))
                         elif list(list(elem)[tag])[count].tag == 'ymax':
                             ymax = int(float(list(list(elem)[tag])[count].text))
-                    templist.append([xmin, ymin, xmax, ymax, str(label_full.index(label))])
+                    templist.append([xmin, ymin, xmax, ymax, label_full.index(label)])
                 else:
                     continue
             else:
                 continue
         Filenames_Train.append([TrainDir + filelist[f], templist])
-    # random.shuffle(Filenames_Train)
+        templist = list()
+    random.shuffle(Filenames_Train)
     print(Filenames_Train)
     print("Finish Image Loading !")
     print("###############################################")
 
 
 def batch_train(batchsize):
-    """
-    > about Filenames_Train[index_train + i][0] <
-
-    [0] : filename(XXX.jpg)
-    [1] : annotation - X min
-    [2] : annotation - Y min
-    [3] : annotation - X max
-    [4] : annotation - Y man
-    [5] : annotation - label value
-
-    We should normalize(0 ~ 1) [1]~[4] and make [5] one-hot encoding(0 ~ label size)
-    """
     global index_train
     x_data = np.zeros([batchsize, image_Width, image_Height, channel], dtype=np.float32)
-    y_data = np.zeros((batchsize, grid, grid, 5 + label_size), dtype=np.float32)  # one hot encoding을 위해 0으로 채워진 리스트를 만듭니다
-    # y_data = np.zeros((batchsize, 1, 1, label_size), dtype=np.float32)  # one hot encoding을 위해 0으로 채워진 리스트를 만듭니다
+    y_data = np.zeros((batchsize, grid, grid, 5 + label_size), dtype=np.float32)  # -> one hot encoding
     for i in range(0, batchsize):
-        # print(f'target file={Filenames_Train[index_train + i][0]}')
         value = cv2.imread(Filenames_Train[index_train + i][0])
         original_h = value.shape[0]     # height = row
         original_w = value.shape[1]     # width = column(=col)
-        # width <-> xmin/xmax
-        # height <-> ymin/ymax
-        print(original_h)
-        print(original_w)
-        val_label = Filenames_Train[index_train + i][5]
-        xmin = int(int(Filenames_Train[index_train + i][1]) / original_w * image_Width)
-        ymin = int(int(Filenames_Train[index_train + i][2]) / original_h * image_Height)
-        xmax = int(int(Filenames_Train[index_train + i][3]) / original_w * image_Width)
-        ymax = int(int(Filenames_Train[index_train + i][4]) / original_h * image_Height)
-        print(xmin, ymin, xmax, ymax, val_label)
-        norm_xmin = xmin / original_w
-        norm_ymin = ymin / original_h
-        norm_xmax = xmax / original_w
-        norm_ymax = ymax / original_h
-        print(norm_xmin, norm_ymin, norm_xmax, norm_ymax)
-        xrange = [norm_xmin, norm_xmax]
-        yrange = [norm_ymin, norm_ymax]
-        size = float(1 / 7)
-        print(size)
+        size_x = float(original_w / grid)
+        size_y = float(original_h / grid)
 
-        # for r in range(0, grid):
-        #     for c in range(0, grid):
-        #         now = [r * size, c * size]
-        #
+        for count in Filenames_Train[index_train + i][1]:
+            xmin = count[0]
+            ymin = count[1]
+            xmax = count[2]
+            ymax = count[3]
+            label = count[4]
 
-        one_hot = np.squeeze(np.zeros(shape=(1, label_size)))
-        one_hot[int(val_label)] = 1
-        print(one_hot)
+            box_width = abs(xmin - xmax) / 2.0
+            box_height = abs(ymin - ymax) / 2.0
+
+            center_x = xmin + box_width
+            center_y = ymin + box_height
+
+            offset_x = center_x / size_x
+            offset_y = center_y / size_y
+            label_value = np.zeros(shape=(5 + label_size))
+            label_value[0] = 1
+            label_value[1] = center_x
+            label_value[2] = center_y
+            label_value[3] = box_width
+            label_value[4] = box_height
+            label_value[5 + label] = 1
+            y_data[i, int(offset_x), int(offset_y), :] = label_value
 
         value = cv2.resize(value, (image_Height, image_Width))
-        x_data[i] = value
-        y_data[i][0] = Filenames_Train[index_train + i][1]
-        y_data[i][1] = int(int(Filenames_Train[index_train + i][2]) / original_w * image_Width)
-        y_data[i][2] = int(int(Filenames_Train[index_train + i][3]) / original_h * image_Height)
-        y_data[i][3] = int(int(Filenames_Train[index_train + i][4]) / original_w * image_Width)
-        y_data[i][4] = int(int(Filenames_Train[index_train + i][5]) / original_h * image_Height)
-        # y_data[i, :, :, Filenames_Train[index_train + i][1]] = 1
-    # print(y_data)
+        x_data[i, :, :, :] = value
     index_train += batchsize
     if index_train + batchsize >= Total_Train:
         index_train = 0
@@ -191,7 +169,6 @@ load_image()
 X = tf.compat.v1.placeholder(tf.uint8, [batchsize, image_Width, image_Height, channel])
 X = tf.math.divide(tf.cast(X, tf.float32), 255.0, name='input_node')
 Y = tf.compat.v1.placeholder(tf.float32, [batchsize, grid, grid, 5 + label_size], name='Y')
-print("Y:", Y)
 # Y = tf.compat.v1.placeholder(tf.float32, [batchsize, 1, 1, label_size], name='Y')
 istraining = tf.compat.v1.placeholder(tf.bool, name='istraining')
 
