@@ -6,15 +6,14 @@ image_Height = 448
 channel = 3
 label_size = 20     # pascal VOC 2012 Dataset
 grid = 7
-batchsize = 16
+batchsize = 1
 Learning_Rate = 0.00001
 
 box_per_cell = 2        # one cell have 2 box
 boundary1 = grid * grid * label_size  # 7 * 7 * 20
 boundary2 = boundary1 + grid * grid * box_per_cell  # 7 * 7 * 20 + 7 * 7 *2
 
-offset = np.transpose(np.reshape(np.array([np.arange(grid)] * grid * box_per_cell), (box_per_cell, grid, grid)),
-                      (1, 2, 0))
+
 
 
 def sigmoid(x):
@@ -41,7 +40,7 @@ def batch_norm(input, n_out, training, scope='bn'):
 
 
 def block_conv(input, ksize, ch_input, output_ch, stride, istraining, name):
-    ksize = [ksize, ksize, ch_input, output_ch]
+    ksize = [ksize, ksize, int(ch_input), output_ch]
     strides = [1, stride, stride, 1]
     n_out = ksize[-1]
 
@@ -56,7 +55,7 @@ def block_conv(input, ksize, ch_input, output_ch, stride, istraining, name):
 
 
 def block_residual(input, output_ch1, output_ch2, stride, istraining, name):
-    ksize1 = [1, 1, input.shape[-1], output_ch1]
+    ksize1 = [1, 1, int(input.shape[-1]), output_ch1]
     ksize2 = [3, 3, output_ch1, output_ch2]
     strides = [1, stride, stride, 1]
 
@@ -283,7 +282,7 @@ class network:
         with tf.name_scope('fc1') as scope:
             # ksize = [1, 1, 512, 512]
             # strides = [1, 1, 1, 1]
-            ksize = [self.conv15.shape[1] * self.conv15.shape[2] * self.conv15.shape[3], 4096]
+            ksize = [int(self.conv15.shape[1] * self.conv15.shape[2] * self.conv15.shape[3]), 4096]
 
             kernel = tf.Variable(tf.random.truncated_normal(ksize, stddev=0.1), name='weights_fc1')
             # conv = tf.nn.conv2d(self.gap, kernel, strides, padding='SAME')
@@ -298,18 +297,18 @@ class network:
         with tf.name_scope('fc2') as scope:
             # ksize = [1, 1, 512, 512]
             # strides = [1, 1, 1, 1]
-            ksize = [self.fc1.shape[-1], grid * grid * (2 * 5 + self.label_size)]
+            ksize = [int(self.fc1.shape[-1]), grid * grid * (box_per_cell * 5 + self.label_size)]
 
             kernel = tf.Variable(tf.random.truncated_normal(ksize, stddev=0.1), name='weights_fc2')
             # conv = tf.nn.conv2d(self.gap, kernel, strides, padding='SAME')
             # fc1 = tf.reshape(self.fc1, shape=[-1, self.conv15.shape[-1]])
             fc2 = tf.matmul(self.fc1, kernel)
-            fc3 = tf.reshape(fc2, shape=[-1, grid, grid, (2 * 5 + self.label_size)])
-            self.fc2 = fc3
-            # b, c = self.fc2.shape
-            b, h, w, c = self.fc2.shape
-            # print(scope[:-1] + " output ->", "[" + str(b) + ", " + str(c) + "]")
-            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+            # fc3 = tf.reshape(fc2, shape=[-1, grid, grid, (2 * 5 + self.label_size)])
+            self.fc2 = fc2
+            b, c = self.fc2.shape
+            # b, h, w, c = self.fc2.shape
+            print(scope[:-1] + " output ->", "[" + str(b) + ", " + str(c) + "]")
+            # print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
 
 
 def calc_iou(boxes1, boxes2, scope='iou'):
@@ -358,14 +357,18 @@ def loss_layer(predicts, labels, scope='loss_layer'):
     coord_scale = 5.0
 
     with tf.variable_scope(scope):
+        # print(boundary1)
+        # print(predicts[:, :boundary1])
         predict_classes = tf.reshape(predicts[:, :boundary1], [batchsize, grid, grid, label_size])
         predict_scales = tf.reshape(predicts[:, boundary1:boundary2], [batchsize, grid, grid, box_per_cell])
         predict_boxes = tf.reshape(predicts[:, boundary2:], [batchsize, grid, grid, box_per_cell, 4])
 
-        response = tf.reshape(labels[..., 0], [batchsize, grid, grid, 1])
+        response = tf.reshape(labels[..., 0], [batchsize, grid, grid, 1])       # response = confidence score
         boxes = tf.reshape(labels[..., 1:5], [batchsize, grid, grid, 1, 4])
         boxes = tf.tile(boxes, [1, 1, 1, box_per_cell, 1]) / image_Width
         classes = labels[..., 5:]
+        offset = np.transpose(np.reshape(np.array([np.arange(grid)] * grid * box_per_cell), (box_per_cell, grid, grid)),
+                              (1, 2, 0))
         offset = tf.reshape(tf.constant(offset, dtype=tf.float32), [1, grid, grid, box_per_cell])    #由7*7*2 reshape成 1*7*7*2
         offset = tf.tile(offset, [batchsize, 1, 1, 1])  #在第一个维度上进行复制，变成 [batchsize, 7, 7,2]
         offset_tran = tf.transpose(offset, (0, 2, 1, 3))  #维度为[batchsize, 7, 7, 2]
@@ -421,3 +424,4 @@ def loss_layer(predicts, labels, scope='loss_layer'):
         tf.summary.histogram('boxes_delta_h', boxes_delta[..., 3])
         tf.summary.histogram('iou', iou_predict_truth)
 
+    return class_loss + object_loss + noobject_loss + coord_loss
