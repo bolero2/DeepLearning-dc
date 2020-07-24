@@ -369,9 +369,9 @@ def loss_layer(predicts, labels, scope='loss_layer'):
         classes = labels[..., 5:]
         offset = np.transpose(np.reshape(np.array([np.arange(grid)] * grid * box_per_cell), (box_per_cell, grid, grid)),
                               (1, 2, 0))
-        offset = tf.reshape(tf.constant(offset, dtype=tf.float32), [1, grid, grid, box_per_cell])    #由7*7*2 reshape成 1*7*7*2
-        offset = tf.tile(offset, [batchsize, 1, 1, 1])  #在第一个维度上进行复制，变成 [batchsize, 7, 7,2]
-        offset_tran = tf.transpose(offset, (0, 2, 1, 3))  #维度为[batchsize, 7, 7, 2]
+        offset = tf.reshape(tf.constant(offset, dtype=tf.float32), [1, grid, grid, box_per_cell])    # Reshape from 7*7*2 to 1*7*7*2
+        offset = tf.tile(offset, [batchsize, 1, 1, 1])  # Copy on the first dimension and become [batchsize, 7, 7, 2]
+        offset_tran = tf.transpose(offset, (0, 2, 1, 3))  # The dimension is [batchsize, 7, 7, 2]
 
         predict_boxes_tran = tf.stack(
             [(predict_boxes[..., 0] + offset) / grid,
@@ -394,7 +394,7 @@ def loss_layer(predicts, labels, scope='loss_layer'):
              tf.sqrt(boxes[..., 2]),
              tf.sqrt(boxes[..., 3])], axis=-1)
 
-        # class_loss, 计算类别的损失
+        # class_loss, calculate the loss of the category
         class_delta = response * (predict_classes - classes)
         class_loss = tf.reduce_mean(tf.reduce_sum(tf.square(class_delta), axis=[1, 2, 3]), name='class_loss') * class_scale
 
