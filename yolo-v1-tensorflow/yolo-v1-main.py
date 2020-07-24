@@ -30,7 +30,7 @@ label_size = 20     # => len(label_full)
 Total_Train = 17125
 # Total_Eval = 4000
 
-batchsize = 16
+batchsize = 1
 image_Width = 448
 image_Height = 448
 channel = 3
@@ -42,6 +42,10 @@ grid = 7
 def load_image():
     global Filenames_Train
     global Filenames_Eval
+    xmin = 0
+    ymin = 0
+    xmax = 0
+    ymax = 0
     print("###############################################")
     print("Start Image Loading ...")
     print("###############################################")
@@ -50,13 +54,11 @@ def load_image():
     print(len(filelist))
 
     for f in range(0, len(filelist)):
-        # print(f'target file={filelist[f]}')
         tree = xml.ElementTree(file=TrainDir_Annot + filelist[f][:-4] + '.xml')
         for elem in tree.iter(tag='object'):
             label = list(elem)[0].text
             for tag in range(0, len(list(elem))):
                 if list(elem)[tag].tag == 'bndbox':
-                    # print(elem.getchildren()[tag].getchildren())
                     for count in range(0, len(list(list(elem)[tag]))):
                         if list(list(elem)[tag])[count].tag == 'xmin':
                             xmin = int(float(list(list(elem)[tag])[count].text))
@@ -66,67 +68,76 @@ def load_image():
                             xmax = int(float(list(list(elem)[tag])[count].text))
                         elif list(list(elem)[tag])[count].tag == 'ymax':
                             ymax = int(float(list(list(elem)[tag])[count].text))
-                    #     print()
-                    # exit(0)
-                    # xmin = int(elem.getchildren()[tag].getchildren()[0].text)
-                    # ymin = int(elem.getchildren()[tag].getchildren()[1].text)
-                    # xmax = int(elem.getchildren()[tag].getchildren()[2].text)
-                    # ymax = int(elem.getchildren()[tag].getchildren()[3].text)
-
-                    # print(label_full.index(label))
-                    # print(elem.tag, elem.attrib)
-                    # print(f'label= {elem.getchildren()[0].text}')
-                    # print(f'xmin= {elem.getchildren()[4].getchildren()[0].text}')
-                    # print(f'ymin= {elem.getchildren()[4].getchildren()[1].text}')
-                    # print(f'xmax= {elem.getchildren()[4].getchildren()[2].text}')
-                    # print(f'ymax= {elem.getchildren()[4].getchildren()[3].text}\n')
-
-                    templist.append([TrainDir + filelist[f], xmin, ymin, xmax, ymax, str(label_full.index(label))])
-                    # print([TrainDir + filelist[f], label_full.index(label), xmin, ymin, xmax, ymax])
-                    # input()
+                    templist.append([xmin, ymin, xmax, ymax, str(label_full.index(label))])
                 else:
                     continue
             else:
                 continue
-    Filenames_Train = templist
-    random.shuffle(Filenames_Train)
-    # templist = []
-    #
-    # for i in range(0, label_size):
-    #     filelist = os.listdir(EvalDir + str(i))
-    #     for j in range(0, len(filelist)):
-    #         templist.append([EvalDir + str(i) + '/' + filelist[j], i])
-    # Filenames_Eval = templist
-    # random.shuffle(Filenames_Eval)
+        Filenames_Train.append([TrainDir + filelist[f], templist])
+    # random.shuffle(Filenames_Train)
     print(Filenames_Train)
     print("Finish Image Loading !")
     print("###############################################")
 
 
 def batch_train(batchsize):
+    """
+    > about Filenames_Train[index_train + i][0] <
+
+    [0] : filename(XXX.jpg)
+    [1] : annotation - X min
+    [2] : annotation - Y min
+    [3] : annotation - X max
+    [4] : annotation - Y man
+    [5] : annotation - label value
+
+    We should normalize(0 ~ 1) [1]~[4] and make [5] one-hot encoding(0 ~ label size)
+    """
     global index_train
-    x_data = np.zeros([batchsize, image_Width, image_Height, channel], dtype=np.uint8)
-    y_data = np.zeros((batchsize, 5), dtype=np.uint8)  # one hot encoding을 위해 0으로 채워진 리스트를 만듭니다
+    x_data = np.zeros([batchsize, image_Width, image_Height, channel], dtype=np.float32)
+    y_data = np.zeros((batchsize, grid, grid, 5 + label_size), dtype=np.float32)  # one hot encoding을 위해 0으로 채워진 리스트를 만듭니다
     # y_data = np.zeros((batchsize, 1, 1, label_size), dtype=np.float32)  # one hot encoding을 위해 0으로 채워진 리스트를 만듭니다
     for i in range(0, batchsize):
         # print(f'target file={Filenames_Train[index_train + i][0]}')
         value = cv2.imread(Filenames_Train[index_train + i][0])
-        original_h = value.shape[0]
-        original_w = value.shape[1]
-        original_xmin = Filenames_Train[index_train + i][2]
-        original_ymin = Filenames_Train[index_train + i][3]
-        original_xmax = Filenames_Train[index_train + i][4]
-        original_ymax = Filenames_Train[index_train + i][5]
-        # print(original_w, original_h, original_xmin, original_ymin, original_xmax, original_ymax)
-        # print(Filenames_Train[index_train + i][1])
+        original_h = value.shape[0]     # height = row
+        original_w = value.shape[1]     # width = column(=col)
+        # width <-> xmin/xmax
+        # height <-> ymin/ymax
+        print(original_h)
+        print(original_w)
+        val_label = Filenames_Train[index_train + i][5]
+        xmin = int(int(Filenames_Train[index_train + i][1]) / original_w * image_Width)
+        ymin = int(int(Filenames_Train[index_train + i][2]) / original_h * image_Height)
+        xmax = int(int(Filenames_Train[index_train + i][3]) / original_w * image_Width)
+        ymax = int(int(Filenames_Train[index_train + i][4]) / original_h * image_Height)
+        print(xmin, ymin, xmax, ymax, val_label)
+        norm_xmin = xmin / original_w
+        norm_ymin = ymin / original_h
+        norm_xmax = xmax / original_w
+        norm_ymax = ymax / original_h
+        print(norm_xmin, norm_ymin, norm_xmax, norm_ymax)
+        xrange = [norm_xmin, norm_xmax]
+        yrange = [norm_ymin, norm_ymax]
+        size = float(1 / 7)
+        print(size)
+
+        # for r in range(0, grid):
+        #     for c in range(0, grid):
+        #         now = [r * size, c * size]
+        #
+
+        one_hot = np.squeeze(np.zeros(shape=(1, label_size)))
+        one_hot[int(val_label)] = 1
+        print(one_hot)
 
         value = cv2.resize(value, (image_Height, image_Width))
         x_data[i] = value
         y_data[i][0] = Filenames_Train[index_train + i][1]
-        y_data[i][1] = int(Filenames_Train[index_train + i][2] / original_w * image_Width)
-        y_data[i][2] = int(Filenames_Train[index_train + i][3] / original_h * image_Height)
-        y_data[i][3] = int(Filenames_Train[index_train + i][4] / original_w * image_Width)
-        y_data[i][4] = int(Filenames_Train[index_train + i][5] / original_h * image_Height)
+        y_data[i][1] = int(int(Filenames_Train[index_train + i][2]) / original_w * image_Width)
+        y_data[i][2] = int(int(Filenames_Train[index_train + i][3]) / original_h * image_Height)
+        y_data[i][3] = int(int(Filenames_Train[index_train + i][4]) / original_w * image_Width)
+        y_data[i][4] = int(int(Filenames_Train[index_train + i][5]) / original_h * image_Height)
         # y_data[i, :, :, Filenames_Train[index_train + i][1]] = 1
     # print(y_data)
     index_train += batchsize
@@ -179,22 +190,14 @@ load_image()
 
 X = tf.compat.v1.placeholder(tf.uint8, [batchsize, image_Width, image_Height, channel])
 X = tf.math.divide(tf.cast(X, tf.float32), 255.0, name='input_node')
-Y = tf.compat.v1.placeholder(tf.float32, [batchsize, 5], name='Y')
+Y = tf.compat.v1.placeholder(tf.float32, [batchsize, grid, grid, 5 + label_size], name='Y')
+print("Y:", Y)
 # Y = tf.compat.v1.placeholder(tf.float32, [batchsize, 1, 1, label_size], name='Y')
 istraining = tf.compat.v1.placeholder(tf.bool, name='istraining')
 
 result = network(X, istraining)
-print(f" *** result={result}")
-exit(0)
+print(f" *** result={result.fc2}")
 
-yolo = yolo(darknet, istraining)
-route = yolo.route
-yolo = yolo.yolo3
-print(f" *** yolo layer={yolo} + route={route}")
-
-detection = detection(yolo, istraining).predictions
-print(f" *** yolo layer={detection}")
-exit(0)
 # for b in range(0, batchsize):
 # res = sess.run([result.fc3])
 # print(res)
@@ -204,10 +207,10 @@ exit(0)
 # print(result.fc3)
 # print(Y)
 
-loss = sum(pow(result.fc - Y, 2))
-
-# cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits=result.fc3, labels=Y))
+loss = loss_layer(predicts=result.fc2, labels=Y)
+print(f" *** loss = {loss}")
 cross_entropy = tf.reduce_mean(loss)
+# cross_entropy = tf.reduce_mean(loss)
 train_step = tf.compat.v1.train.AdamOptimizer(Learning_Rate * batchsize).minimize(cross_entropy)
 #
 # print(" *** Softmax(X):", tf.nn.softmax(result.fc3))
@@ -224,7 +227,7 @@ train_step = tf.compat.v1.train.AdamOptimizer(Learning_Rate * batchsize).minimiz
 # accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 tf.compat.v1.summary.scalar("loss", cross_entropy)
-tf.compat.v1.summary.scalar("accuracy", accuracy)
+# tf.compat.v1.summary.scalar("accuracy", accuracy)
 
 merge_summary_op = tf.compat.v1.summary.merge_all()
 total_time = 0
@@ -250,8 +253,10 @@ with tf.compat.v1.Session() as sess:
         # for i in range(1):
             count += 1
             bx, by = batch_train(batchsize)
+            # print(f'bx={bx}')
+            # print(f'by={by}')
             bx = np.reshape(bx, [batchsize, image_Width, image_Height, channel])
-            ts, cost, res = sess.run([train_step, cross_entropy, result.fc3], feed_dict={X: bx, Y: by, istraining.name: True})
+            ts, cost, res = sess.run([train_step, cross_entropy, result.fc2], feed_dict={X: bx, Y: by, istraining.name: True})
 
             print('[' + str(count) + '] ',
                   'Epoch %d    ' % (epoch + 1),
