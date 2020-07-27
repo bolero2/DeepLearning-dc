@@ -30,7 +30,7 @@ label_size = 20     # => len(label_full)
 Total_Train = 17125
 # Total_Eval = 4000
 
-batchsize = 1
+batchsize = 4
 image_Width = 448
 image_Height = 448
 channel = 3
@@ -184,26 +184,12 @@ print(f" *** result={result.fc2}")
 # print(result.fc3)
 # print(Y)
 
-loss = loss_layer(predicts=result.fc2, labels=Y)
+loss_layer(predicts=result.fc2, labels=Y)
+loss = tf.losses.get_total_loss()
 print(f" *** loss = {loss}")
-cross_entropy = tf.reduce_mean(loss)
-# cross_entropy = tf.reduce_mean(loss)
-train_step = tf.compat.v1.train.AdamOptimizer(Learning_Rate * batchsize).minimize(cross_entropy)
-#
-# print(" *** Softmax(X):", tf.nn.softmax(result.fc3))
-# print(" *** Softmax(Y):", tf.nn.softmax(Y))
-#
-# ay = tf.argmax(tf.nn.softmax(result.fc3), 1)
-# ly = tf.argmax(tf.nn.softmax(Y), 1)
-#
-# print(" *** Argmax(X):", ay)
-# print(" *** Argmax(Y):", ly)
+train_step = tf.train.AdamOptimizer(Learning_Rate * batchsize).minimize(loss)
 
-# correct_prediction = tf.equal(tf.nn.softmax(result.fc3), Y)
-# correct_prediction = tf.equal(tf.argmax(tf.nn.softmax(result.fc3), 1), tf.argmax(Y, 1))
-# accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-
-tf.compat.v1.summary.scalar("loss", cross_entropy)
+tf.compat.v1.summary.scalar("loss", loss)
 # tf.compat.v1.summary.scalar("accuracy", accuracy)
 
 merge_summary_op = tf.compat.v1.summary.merge_all()
@@ -233,13 +219,12 @@ with tf.compat.v1.Session() as sess:
             # print(f'bx={bx}')
             # print(f'by={by}')
             bx = np.reshape(bx, [batchsize, image_Width, image_Height, channel])
-            ts, cost, res = sess.run([train_step, cross_entropy, result.fc2], feed_dict={X: bx, Y: by, istraining.name: True})
+            ts, cost = sess.run([train_step, loss], feed_dict={X: bx, Y: by, istraining.name: True})
 
             print('[' + str(count) + '] ',
                   'Epoch %d    ' % (epoch + 1),
                   # 'Training accuracy %g     ' % train_accuracy,
-                  'loss %g        ' % cost,
-                  'result=', res)
+                  'loss %g        ' % cost)
 
         save_path2 = saver.save(sess, ModelDir + "\\" + ModelName + "_Epoch_" + str(epoch + 1) + ".ckpt")
         tf.io.write_graph(sess.graph_def, ModelDir, "trained_" + ModelName + ".pb", as_text=False)
