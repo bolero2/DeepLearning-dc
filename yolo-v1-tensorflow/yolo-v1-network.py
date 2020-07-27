@@ -311,9 +311,11 @@ class network:
             # print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
 
     def load_weights(self, weight_file, sess):
+        print(f"Weight Loading Start! -> {weight_file}")
         saver = tf.compat.v1.train.Saver()  # Network model Save
         meta_saver = tf.train.import_meta_graph(weight_file + ".meta")
         save_path = saver.restore(sess, weight_file)
+        print(f"Weight Loading is successful")
 
 
 def calc_iou(boxes1, boxes2, scope='iou'):
@@ -430,4 +432,3 @@ def loss_layer(predicts, labels, scope='loss_layer'):
         tf.summary.histogram('iou', iou_predict_truth)
 
     return class_loss + object_loss + noobject_loss + coord_loss
-
