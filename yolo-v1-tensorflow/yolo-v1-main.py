@@ -166,39 +166,40 @@ def batch_norm(input, n_out, training, scope='bn'):
 
 load_image()
 
-X = tf.compat.v1.placeholder(tf.uint8, [batchsize, image_Width, image_Height, channel])
-X = tf.math.divide(tf.cast(X, tf.float32), 255.0, name='input_node')
-Y = tf.compat.v1.placeholder(tf.float32, [batchsize, grid, grid, 5 + label_size], name='Y')
-# Y = tf.compat.v1.placeholder(tf.float32, [batchsize, 1, 1, label_size], name='Y')
-istraining = tf.compat.v1.placeholder(tf.bool, name='istraining')
-
-result = network(X, istraining)
-print(f" *** result={result.fc2}")
-
-# for b in range(0, batchsize):
-# res = sess.run([result.fc3])
-# print(res)
-# print(result.fc3.shape)
-# # result = np.array(result.fc3)
-# # Y = np.array(Y)
-# print(result.fc3)
-# print(Y)
-
-loss_layer(predicts=result.fc2, labels=Y)
-loss = tf.losses.get_total_loss()
-print(f" *** loss = {loss}")
-train_step = tf.train.AdamOptimizer(Learning_Rate * batchsize).minimize(loss)
-
-tf.compat.v1.summary.scalar("loss", loss)
-# tf.compat.v1.summary.scalar("accuracy", accuracy)
-
-merge_summary_op = tf.compat.v1.summary.merge_all()
-total_time = 0
-accuracy_sum = 0
-
-merged = tf.compat.v1.summary.merge_all()
-
 with tf.compat.v1.Session() as sess:
+    X = tf.compat.v1.placeholder(tf.uint8, [batchsize, image_Width, image_Height, channel])
+    X = tf.math.divide(tf.cast(X, tf.float32), 255.0, name='input_node')
+    Y = tf.compat.v1.placeholder(tf.float32, [batchsize, grid, grid, 5 + label_size], name='Y')
+    # Y = tf.compat.v1.placeholder(tf.float32, [batchsize, 1, 1, label_size], name='Y')
+    istraining = tf.compat.v1.placeholder(tf.bool, name='istraining')
+
+    result = network(X, istraining, "C:\\1+works\\2+Python\\1+Saver\\4lab_detection1\\4lab_detection1_Epoch_5.ckpt", sess)
+    print(f" *** result={result.fc2}")
+
+    # for b in range(0, batchsize):
+    # res = sess.run([result.fc3])
+    # print(res)
+    # print(result.fc3.shape)
+    # # result = np.array(result.fc3)
+    # # Y = np.array(Y)
+    # print(result.fc3)
+    # print(Y)
+
+    loss_layer(predicts=result.fc2, labels=Y)
+    loss = tf.losses.get_total_loss()
+    print(f" *** loss = {loss}")
+    train_step = tf.train.AdamOptimizer(Learning_Rate * batchsize).minimize(loss)
+
+    tf.compat.v1.summary.scalar("loss", loss)
+    # tf.compat.v1.summary.scalar("accuracy", accuracy)
+
+    merge_summary_op = tf.compat.v1.summary.merge_all()
+    total_time = 0
+    accuracy_sum = 0
+
+    merged = tf.compat.v1.summary.merge_all()
+
+
     sess.run(tf.compat.v1.global_variables_initializer())
     accuracy_list = []
 
