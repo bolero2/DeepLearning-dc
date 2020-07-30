@@ -313,7 +313,7 @@ class network:
     def load_weights(self, weight_file, sess):
         print(f"Weight Loading Start! -> {weight_file}")
         saver = tf.compat.v1.train.Saver()  # Network model Save
-        meta_saver = tf.train.import_meta_graph(weight_file + ".meta")
+        meta_saver = tf.compat.v1.train.import_meta_graph(weight_file + ".meta")
         save_path = saver.restore(sess, weight_file)
         print(f"Weight Loading is successful")
 
