@@ -3,7 +3,6 @@ import os
 import random
 import numpy as np
 import tensorflow as tf
-import time
 from yolo1_darknet import network, loss_layer
 import xml.etree.ElementTree as xml
 
@@ -124,26 +123,6 @@ def batch_train(batchsize):
     return x_data, y_data
 
 
-# def batch_eval(batchsize):
-#     global index_eval
-#     x_data = np.zeros([batchsize, image_Width, image_Height, channel], dtype=np.uint8)
-#     y_data = np.zeros((batchsize, label_size), dtype=np.float32)  # one hot encoding을 위해 0으로 채워진 리스트를 만듭니다
-#     # y_data = np.zeros((batchsize, 1, 1, label_size), dtype=np.float32)  # one hot encoding을 위해 0으로 채워진 리스트를 만듭니다
-#     for i in range(0, batchsize):
-#         rand = random.randrange(0, 2)
-#         value = cv2.imread(Filenames_Eval[index_eval + i][0])
-#         if rand == 1:
-#             value = cv2.flip(value, 1)
-#         value = cv2.resize(value, (image_Height, image_Width))
-#         x_data[i] = value
-#         y_data[i][Filenames_Eval[index_eval + i][1]] = 1
-#         # y_data[i, :, :, Filenames_Eval[index_eval + i][1]] = 1
-#     index_eval += batchsize
-#     if index_eval + batchsize >= Total_Eval:
-#         index_eval = 0
-#     return x_data, y_data
-
-
 def batch_norm(input, n_out, training, scope='bn'):
     with tf.compat.v1.variable_scope(scope):
         beta = tf.Variable(tf.constant(0.0, shape=[n_out]), name='beta', trainable=True)
@@ -173,39 +152,21 @@ with tf.compat.v1.Session() as sess:
     # Y = tf.compat.v1.placeholder(tf.float32, [batchsize, 1, 1, label_size], name='Y')
     istraining = tf.compat.v1.placeholder(tf.bool, name='istraining')
 
-    result = network(X, istraining, "C:\\1+works\\2+Python\\1+Saver\\4lab_detection1\\4lab_detection1_Epoch_5.ckpt", sess)
+    result = network(X, istraining)
     print(f" *** result={result.fc2}")
-
-    # for b in range(0, batchsize):
-    # res = sess.run([result.fc3])
-    # print(res)
-    # print(result.fc3.shape)
-    # # result = np.array(result.fc3)
-    # # Y = np.array(Y)
-    # print(result.fc3)
-    # print(Y)
 
     loss_layer(predicts=result.fc2, labels=Y)
     loss = tf.losses.get_total_loss()
     print(f" *** loss = {loss}")
-    train_step = tf.train.AdamOptimizer(Learning_Rate * batchsize).minimize(loss)
+    train_step = tf.compat.v1.train.AdamOptimizer(Learning_Rate * batchsize).minimize(loss)
 
     tf.compat.v1.summary.scalar("loss", loss)
-    # tf.compat.v1.summary.scalar("accuracy", accuracy)
 
     merge_summary_op = tf.compat.v1.summary.merge_all()
-    total_time = 0
-    accuracy_sum = 0
-
     merged = tf.compat.v1.summary.merge_all()
 
-
     sess.run(tf.compat.v1.global_variables_initializer())
-    accuracy_list = []
-
     saver = tf.compat.v1.train.Saver()  # Network model Save
-    # save_path = saver.restore(sess, "D:\\Saver\\3lab_fingertip_vgg19_2\\3lab_fingertip_vgg19_2_Epoch_10.ckpt")
-
     writer = tf.compat.v1.summary.FileWriter(ModelDir + "logs", sess.graph)
 
     # ==========================================================================================================
@@ -217,8 +178,6 @@ with tf.compat.v1.Session() as sess:
         # for i in range(1):
             count += 1
             bx, by = batch_train(batchsize)
-            # print(f'bx={bx}')
-            # print(f'by={by}')
             bx = np.reshape(bx, [batchsize, image_Width, image_Height, channel])
             ts, cost = sess.run([train_step, loss], feed_dict={X: bx, Y: by, istraining.name: True})
 
