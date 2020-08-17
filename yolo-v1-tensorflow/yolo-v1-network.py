@@ -13,7 +13,7 @@ box_per_cell = 2        # one cell have 2 box
 boundary1 = grid * grid * label_size  # 7 * 7 * 20
 boundary2 = boundary1 + grid * grid * box_per_cell  # 7 * 7 * 20 + 7 * 7 *2
 
-
+dropout_rate = 0.5
 
 
 def sigmoid(x):
@@ -113,10 +113,10 @@ class network:
         self.imgs = imgs
         self.training = training
         self.grid = grid
+        self.dropout_rate = dropout_rate
         self.convlayers()
         # self.gap_layers()
         self.fc_layers()
-        # self.probs = tf.nn.softmax(self.fc)
         if weights is not None and sess is not None:
             self.load_weights(weights, sess)
 
@@ -294,15 +294,20 @@ class network:
             print(scope[:-1] + " output ->", "[" + str(b) + ", " + str(c) + "]")
             # print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
 
+        with tf.name_scope('dropout') as scope:
+            self.dropout = tf.nn.dropout(self.fc1, rate=self.dropout_rate)
+            b, c = self.dropout.shape
+            print(scope[:-1] + " output ->", "[" + str(b) + ", " + str(c) + "]")
+
         with tf.name_scope('fc2') as scope:
             # ksize = [1, 1, 512, 512]
             # strides = [1, 1, 1, 1]
-            ksize = [int(self.fc1.shape[-1]), grid * grid * (box_per_cell * 5 + self.label_size)]
+            ksize = [int(self.dropout.shape[-1]), grid * grid * (box_per_cell * 5 + self.label_size)]
 
             kernel = tf.Variable(tf.random.truncated_normal(ksize, stddev=0.1), name='weights_fc2')
             # conv = tf.nn.conv2d(self.gap, kernel, strides, padding='SAME')
             # fc1 = tf.reshape(self.fc1, shape=[-1, self.conv15.shape[-1]])
-            fc2 = tf.matmul(self.fc1, kernel)
+            fc2 = tf.matmul(self.dropout, kernel)
             # fc3 = tf.reshape(fc2, shape=[-1, grid, grid, (2 * 5 + self.label_size)])
             self.fc2 = fc2
             b, c = self.fc2.shape
