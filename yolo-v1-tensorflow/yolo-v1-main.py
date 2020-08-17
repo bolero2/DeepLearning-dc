@@ -150,8 +150,9 @@ def batch_norm(input, n_out, training, scope='bn'):
 load_image()
 
 with tf.compat.v1.Session() as sess:
-    X = tf.compat.v1.placeholder(tf.uint8, [batchsize, image_Width, image_Height, channel])
-    X = tf.math.divide(tf.cast(X, tf.float32), 255.0, name='input_node')
+    sess.run(tf.compat.v1.global_variables_initializer())
+
+    X = tf.compat.v1.placeholder(tf.float32, [batchsize, image_Width, image_Height, channel], name='X')
     Y = tf.compat.v1.placeholder(tf.float32, [batchsize, grid, grid, 5 + label_size], name='Y')
     # Y = tf.compat.v1.placeholder(tf.float32, [batchsize, 1, 1, label_size], name='Y')
     istraining = tf.compat.v1.placeholder(tf.bool, name='istraining')
