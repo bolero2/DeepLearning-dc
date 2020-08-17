@@ -6,7 +6,7 @@ image_Height = 448
 channel = 3
 label_size = 20     # pascal VOC 2012 Dataset
 grid = 7
-batchsize = 1
+batchsize = 4
 Learning_Rate = 0.00001
 
 box_per_cell = 2        # one cell have 2 box
@@ -313,7 +313,7 @@ class network:
     def load_weights(self, weight_file, sess):
         print(f"Weight Loading Start! -> {weight_file}")
         saver = tf.compat.v1.train.Saver()  # Network model Save
-        meta_saver = tf.compat.v1.train.import_meta_graph(weight_file + ".meta")
+        meta_saver = tf.train.import_meta_graph(weight_file + ".meta")
         save_path = saver.restore(sess, weight_file)
         print(f"Weight Loading is successful")
 
