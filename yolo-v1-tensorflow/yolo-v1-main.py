@@ -86,6 +86,9 @@ def batch_train(batchsize):
     y_data = np.zeros((batchsize, grid, grid, 5 + label_size), dtype=np.float32)  # -> one hot encoding
     for i in range(0, batchsize):
         value = cv2.imread(Filenames_Train[index_train + i][0])
+        value = cv2.cvtColor(value, cv2.COLOR_BGR2RGB).astype(np.float32)
+        value = value / 255.0
+        value = (value / 255.0) * 2.0 - 1.0
         original_h = value.shape[0]     # height = row
         original_w = value.shape[1]     # width = column(=col)
         size_x = float(original_w / grid)
@@ -120,6 +123,7 @@ def batch_train(batchsize):
     index_train += batchsize
     if index_train + batchsize >= Total_Train:
         index_train = 0
+
     return x_data, y_data
 
 
