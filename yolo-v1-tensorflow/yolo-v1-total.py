@@ -5,8 +5,9 @@ import os
 import random
 import xml.etree.ElementTree as xml
 import config as cfg
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 
+weight_file = cfg.weight_file
 
 image_Width = cfg.image_Width
 image_Height = cfg.image_Height
@@ -580,30 +581,11 @@ def batch_train(batchsize):
     return x_data, y_data
 
 
-def batch_norm(input, n_out, training, scope='bn'):
-    with tf.compat.v1.variable_scope(scope):
-        beta = tf.Variable(tf.constant(0.0, shape=[n_out]), name='beta', trainable=True)
-        gamma = tf.Variable(tf.constant(1.0, shape=[n_out]), name='gamma', trainable=True)
-        batch_mean, batch_var = tf.nn.moments(input, [0, 1, 2], name='moments')
-        ema = tf.train.ExponentialMovingAverage(decay=0.5)
-
-        def mean_var_with_update():
-            ema_apply_op = ema.apply([batch_mean, batch_var])
-            with tf.control_dependencies([ema_apply_op]):
-                return tf.identity(batch_mean), tf.identity(batch_var)
-
-        mean, var = tf.cond(training, true_fn=mean_var_with_update,
-                            false_fn=lambda: (ema.average(batch_mean), ema.average(batch_var)))
-        normed = tf.nn.batch_normalization(input, mean, var, beta, gamma, 1e-3)
-    return normed
-
-
 ############
 
 load_image()
 
 with tf.compat.v1.Session() as sess:
-    sess.run(tf.compat.v1.global_variables_initializer())
 
     X = tf.compat.v1.placeholder(tf.float32, [batchsize, image_Width, image_Height, channel], name='input')
     Y = tf.compat.v1.placeholder(tf.float32, [batchsize, grid, grid, 5 + label_size], name='label')
@@ -616,10 +598,9 @@ with tf.compat.v1.Session() as sess:
     loss_layer(predicts=result.fc2, labels=Y)
     loss = tf.compat.v1.losses.get_total_loss()
     print(f" *** loss = {loss}")
-
-    global_step = tf.train.create_global_step()
     optimizer = tf.train.AdamOptimizer(learning_rate=Learning_Rate)
-    # train_step = tf.compat.v1.train.AdamOptimizer(Learning_Rate * batchsize).minimize(loss)
+    global_step = tf.train.create_global_step()
+
     train_step = tf.contrib.training.create_train_op(loss, optimizer, global_step=global_step)
 
     tf.compat.v1.summary.scalar("loss", loss)
@@ -630,6 +611,12 @@ with tf.compat.v1.Session() as sess:
     sess.run(tf.compat.v1.global_variables_initializer())
     saver = tf.compat.v1.train.Saver()  # Network model Save
     writer = tf.compat.v1.summary.FileWriter(ModelDir + "logs", sess.graph)
+
+    if weight_file is not None:
+        print(f"Weight file Loading Start! -> {weight_file}")
+        meta_saver = tf.train.import_meta_graph(weight_file + ".meta")
+        save_path = saver.restore(sess, weight_file)
+        print(f"Weight file Loading is successful")
 
     # ==========================================================================================================
     # Training!
