@@ -82,7 +82,7 @@ def block_residual(input, output_ch1, output_ch2, stride, istraining, name):
 def block_upsample(input, name, method="deconv"):
     assert method in ["resize", "deconv"]
 
-    with tf.variable_scope(name):
+    with tf.compat.v1.variable_scope(name):
         if method == "resize":      # case in resize
             input_shape = tf.shape(input)
             output = tf.image.resize_nearest_neighbor(input, (input_shape[1] * 2, input_shape[2] * 2))
@@ -339,7 +339,7 @@ def calc_iou(boxes1, boxes2, scope='iou'):
     Return:
       iou: 4-D tensor [BATCH_SIZE, CELL_SIZE, CELL_SIZE, BOXES_PER_CELL]
     """
-    with tf.variable_scope(scope):
+    with tf.compat.v1.variable_scope(scope):
         # transform (x_center, y_center, w, h) to (x1, y1, x2, y2)
         boxes1_t = tf.stack([boxes1[..., 0] - boxes1[..., 2] / 2.0,
                              boxes1[..., 1] - boxes1[..., 3] / 2.0,
@@ -376,9 +376,9 @@ def loss_layer(predicts, labels, scope='loss_layer'):
     class_scale = cfg.class_scale
     coord_scale = cfg.coord_scale
 
-    with tf.variable_scope(scope):
-        # print(boundary1)
-        # print(predicts[:, :boundary1])
+    with tf.compat.v1.variable_scope(scope):
+        print(boundary1)
+        print(predicts[:, :boundary1])
         predict_classes = tf.reshape(predicts[:, :boundary1], [batchsize, grid, grid, label_size])
         predict_scales = tf.reshape(predicts[:, boundary1:boundary2], [batchsize, grid, grid, box_per_cell])
         predict_boxes = tf.reshape(predicts[:, boundary2:], [batchsize, grid, grid, box_per_cell, 4])
@@ -428,20 +428,20 @@ def loss_layer(predicts, labels, scope='loss_layer'):
         boxes_delta = coord_mask * (predict_boxes - boxes_tran)
         coord_loss = tf.reduce_mean(tf.reduce_sum(tf.square(boxes_delta), axis=[1, 2, 3, 4]), name='coord_loss') * coord_scale
 
-        tf.losses.add_loss(class_loss)
-        tf.losses.add_loss(object_loss)
-        tf.losses.add_loss(noobject_loss)
-        tf.losses.add_loss(coord_loss)
+        tf.compat.v1.losses.add_loss(class_loss)
+        tf.compat.v1.losses.add_loss(object_loss)
+        tf.compat.v1.losses.add_loss(noobject_loss)
+        tf.compat.v1.losses.add_loss(coord_loss)
 
-        tf.summary.scalar('class_loss', class_loss)
-        tf.summary.scalar('object_loss', object_loss)
-        tf.summary.scalar('noobject_loss', noobject_loss)
-        tf.summary.scalar('coord_loss', coord_loss)
+        tf.compat.v1.summary.scalar('class_loss', class_loss)
+        tf.compat.v1.summary.scalar('object_loss', object_loss)
+        tf.compat.v1.summary.scalar('noobject_loss', noobject_loss)
+        tf.compat.v1.summary.scalar('coord_loss', coord_loss)
 
-        tf.summary.histogram('boxes_delta_x', boxes_delta[..., 0])
-        tf.summary.histogram('boxes_delta_y', boxes_delta[..., 1])
-        tf.summary.histogram('boxes_delta_w', boxes_delta[..., 2])
-        tf.summary.histogram('boxes_delta_h', boxes_delta[..., 3])
-        tf.summary.histogram('iou', iou_predict_truth)
+        tf.compat.v1.summary.histogram('boxes_delta_x', boxes_delta[..., 0])
+        tf.compat.v1.summary.histogram('boxes_delta_y', boxes_delta[..., 1])
+        tf.compat.v1.summary.histogram('boxes_delta_w', boxes_delta[..., 2])
+        tf.compat.v1.summary.histogram('boxes_delta_h', boxes_delta[..., 3])
+        tf.compat.v1.summary.histogram('iou', iou_predict_truth)
 
     return class_loss + object_loss + noobject_loss + coord_loss
