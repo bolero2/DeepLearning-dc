@@ -98,10 +98,10 @@ def batch_train(batchsize):
         value = cv2.resize(value, (image_Height, image_Width))
         value = cv2.cvtColor(value, cv2.COLOR_BGR2RGB).astype(np.float32)
         value = (value / 255.0) * 2.0 - 1.0
-        plt.imshow(value)
-        plt.show()
-        cv2.imshow("test", value)
-        cv2.waitKey(0)
+        # plt.imshow(value)
+        # plt.show()
+        # cv2.imshow("test", value)
+        # cv2.waitKey(0)
 
         size_x = float(image_Width / grid)
         size_y = float(image_Height / grid)
@@ -178,10 +178,10 @@ with tf.compat.v1.Session() as sess:
     istraining = tf.compat.v1.placeholder(tf.bool, name='istraining')
 
     result = network(X, istraining)
-    print(f" *** result={result.output}")
+    print(f" *** result={result.fc2}")
 
-    loss_layer(predicts=result.output, labels=Y)
-    loss = tf.losses.get_total_loss()
+    loss_layer(predicts=result.fc2, labels=Y)
+    loss = tf.compat.v1.losses.get_total_loss()
     print(f" *** loss = {loss}")
     train_step = tf.compat.v1.train.GradientDescentOptimizer(Learning_Rate * batchsize).minimize(loss)
 
