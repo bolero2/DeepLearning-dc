@@ -322,7 +322,6 @@ class network:
             b, h, w, c = self.output.shape
             print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
 
-
     def load_weights(self, weight_file, sess):
         print(f"Weight Loading Start! -> {weight_file}")
         saver = tf.compat.v1.train.Saver()  # Network model Save
