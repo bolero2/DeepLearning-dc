@@ -3,39 +3,44 @@ import os
 import random
 import numpy as np
 import tensorflow as tf
-from yolo1_darknet import network, loss_layer
 import xml.etree.ElementTree as xml
+from matplotlib import pyplot as plt
+
+from yolo1_darknet import network, loss_layer
+import config as cfg
 
 
-TrainDir = "C:\\dataset\\VOC2012\\JPEGImages\\"  # 300,000 images
-TrainDir_Annot = "C:\\dataset\\VOC2012\\Annotations\\"
+# TrainDir = "C:\\dataset\\VOC2012\\JPEGImages\\"  # 300,000 images
+# TrainDir_Annot = "C:\\dataset\\VOC2012\\Annotations\\"
+
+TrainDir = cfg.TrainDir
+TrainDir_Annot = cfg.TrainDir_Annot
 
 # The names of this variables(=ModelDir, ModelName) must come from the script name.
-ModelName = "4lab_detection1"
-ModelDir = "..\\1+Saver\\" + ModelName + "\\"
+ModelName = cfg.ModelName
+ModelDir = cfg.ModelDir
 
-Filenames_Eval = []
-Filenames_Train = []
+Filenames_Eval = cfg.Filenames_Eval
+Filenames_Train = cfg.Filenames_Train
 
-index_train = 0
-index_eval = 0
+index_train = cfg.index_train
+index_eval = cfg.index_eval
 
-ForEpoch = 40
+ForEpoch = cfg.ForEpoch
 
-label_full = ['person', 'bird', 'cat', 'cow', 'dog', 'horse', 'sheep', 'aeroplane', 'bicycle', 'boat',
-              'bus', 'car', 'motorbike', 'train', 'bottle', 'chair', 'diningtable', 'pottedplant', 'sofa', 'tvmonitor']
+label_full = cfg.label_full
 
-label_size = 20     # => len(label_full)
-Total_Train = 17125
+label_size = cfg.label_size
+Total_Train = cfg.Total_Train
 # Total_Eval = 4000
 
-batchsize = 4
-image_Width = 448
-image_Height = 448
-channel = 3
-Learning_Rate = 0.00001
+batchsize = cfg.batchsize
+image_Width = cfg.image_Width
+image_Height = cfg.image_Height
+channel = cfg.channel
+Learning_Rate = cfg.Learning_Rate
 
-grid = 7
+grid = cfg.grid
 
 
 def load_image():
@@ -86,14 +91,24 @@ def batch_train(batchsize):
     y_data = np.zeros((batchsize, grid, grid, 5 + label_size), dtype=np.float32)  # -> one hot encoding
     for i in range(0, batchsize):
         value = cv2.imread(Filenames_Train[index_train + i][0])
-        value = cv2.cvtColor(value, cv2.COLOR_BGR2RGB).astype(np.float32)
-        value = value / 255.0
-        value = (value / 255.0) * 2.0 - 1.0
+
         original_h = value.shape[0]     # height = row
         original_w = value.shape[1]     # width = column(=col)
-        size_x = float(original_w / grid)
-        size_y = float(original_h / grid)
 
+        value = cv2.resize(value, (image_Height, image_Width))
+        value = cv2.cvtColor(value, cv2.COLOR_BGR2RGB).astype(np.float32)
+        value = (value / 255.0) * 2.0 - 1.0
+        plt.imshow(value)
+        plt.show()
+        cv2.imshow("test", value)
+        cv2.waitKey(0)
+
+        size_x = float(image_Width / grid)
+        size_y = float(image_Height / grid)
+
+        """
+        You should put label value like this form : [1, x_center, y_center, width, height] <- object center grid
+        """
         for count in Filenames_Train[index_train + i][1]:
             xmin = count[0]
             ymin = count[1]
@@ -101,26 +116,31 @@ def batch_train(batchsize):
             ymax = count[3]
             label = count[4]
 
-            box_width = abs(xmin - xmax) / 2.0
-            box_height = abs(ymin - ymax) / 2.0
+            # Update coordinate (original -> [448, 448])
 
-            center_x = xmin + box_width
-            center_y = ymin + box_height
+            center_x = (xmin + xmax) / 2.0
+            center_y = (ymin + ymax) / 2.0
+            box_width = max(xmin, xmax) - min(xmin, xmax)
+            box_height = max(ymin, ymax) - min(ymin, ymax)
 
-            offset_x = center_x / size_x
-            offset_y = center_y / size_y
+            new_center_x = center_x * image_Width / original_w
+            new_center_y = center_y * image_Height / original_h
+            new_box_width = box_width * image_Width / original_w
+            new_box_height = box_height * image_Height / original_h
+
+            offset_x = new_center_x / size_x
+            offset_y = new_center_y / size_y
             label_value = np.zeros(shape=(5 + label_size))
             label_value[0] = 1
-            label_value[1] = center_x
-            label_value[2] = center_y
-            label_value[3] = box_width
-            label_value[4] = box_height
+            label_value[1] = new_center_x
+            label_value[2] = new_center_y
+            label_value[3] = new_box_width
+            label_value[4] = new_box_height
             label_value[5 + label] = 1
             y_data[i, int(offset_x), int(offset_y), :] = label_value
 
-        value = cv2.resize(value, (image_Height, image_Width))
         x_data[i, :, :, :] = value
-    index_train += batchsize
+    index_train = index_train + batchsize
     if index_train + batchsize >= Total_Train:
         index_train = 0
 
@@ -152,18 +172,18 @@ load_image()
 with tf.compat.v1.Session() as sess:
     sess.run(tf.compat.v1.global_variables_initializer())
 
-    X = tf.compat.v1.placeholder(tf.float32, [batchsize, image_Width, image_Height, channel], name='X')
-    Y = tf.compat.v1.placeholder(tf.float32, [batchsize, grid, grid, 5 + label_size], name='Y')
+    X = tf.compat.v1.placeholder(tf.float32, [batchsize, image_Width, image_Height, channel], name='input')
+    Y = tf.compat.v1.placeholder(tf.float32, [batchsize, grid, grid, 5 + label_size], name='label')
     # Y = tf.compat.v1.placeholder(tf.float32, [batchsize, 1, 1, label_size], name='Y')
     istraining = tf.compat.v1.placeholder(tf.bool, name='istraining')
 
     result = network(X, istraining)
-    print(f" *** result={result.fc2}")
+    print(f" *** result={result.output}")
 
-    loss_layer(predicts=result.fc2, labels=Y)
+    loss_layer(predicts=result.output, labels=Y)
     loss = tf.losses.get_total_loss()
     print(f" *** loss = {loss}")
-    train_step = tf.compat.v1.train.AdamOptimizer(Learning_Rate * batchsize).minimize(loss)
+    train_step = tf.compat.v1.train.GradientDescentOptimizer(Learning_Rate * batchsize).minimize(loss)
 
     tf.compat.v1.summary.scalar("loss", loss)
 
