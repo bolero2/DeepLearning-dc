@@ -1,19 +1,20 @@
 import tensorflow as tf
 import numpy as np
+import config as cfg
 
-image_Width = 448
-image_Height = 448
-channel = 3
-label_size = 20     # pascal VOC 2012 Dataset
-grid = 7
-batchsize = 4
-Learning_Rate = 0.00001
+image_Width = cfg.image_Width
+image_Height = cfg.image_Height
+channel = cfg.channel
+label_size = cfg.label_size     # pascal VOC 2012 Dataset
+grid = cfg.grid
+batchsize = cfg.batchsize
+Learning_Rate = cfg.Learning_Rate
 
-box_per_cell = 2        # one cell have 2 box
-boundary1 = grid * grid * label_size  # 7 * 7 * 20
-boundary2 = boundary1 + grid * grid * box_per_cell  # 7 * 7 * 20 + 7 * 7 *2
+box_per_cell = cfg.box_per_cell        # one cell have 2 box
+boundary1 = cfg.boundary1
+boundary2 = cfg.boundary2
 
-dropout_rate = 0.5
+relu_alpha = cfg.relu_alpha
 
 
 def sigmoid(x):
@@ -47,7 +48,7 @@ def block_conv(input, ksize, ch_input, output_ch, stride, istraining, name):
     kernel = tf.Variable(tf.random.truncated_normal(ksize, stddev=0.1), name=name + '_weight')
     conv = tf.nn.conv2d(input, kernel, strides, padding='SAME')
     bn = batch_norm(conv, n_out=n_out, training=istraining)
-    conv = tf.nn.leaky_relu(bn, name=name + '_leaky-RELU')
+    conv = tf.nn.leaky_relu(bn, alpha=relu_alpha, name=name + '_leaky-RELU')
     b, h, w, c = conv.shape
     print(name + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
 
@@ -62,7 +63,7 @@ def block_residual(input, output_ch1, output_ch2, stride, istraining, name):
     kernel1 = tf.Variable(tf.random.truncated_normal(ksize1, stddev=0.1), name=name + '_weight_1')
     conv1 = tf.nn.conv2d(input, kernel1, strides, padding='SAME')
     bn1 = batch_norm(conv1, n_out=ksize1[-1], training=istraining)
-    af1 = tf.nn.leaky_relu(bn1, name=name + '_leaky-RELU')
+    af1 = tf.nn.leaky_relu(bn1, alpha=relu_alpha, name=name + '_leaky-RELU')
 
     b, h, w, c = af1.shape
     print(name + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
@@ -70,7 +71,7 @@ def block_residual(input, output_ch1, output_ch2, stride, istraining, name):
     kernel2 = tf.Variable(tf.random.truncated_normal(ksize2, stddev=0.1), name=name + '_weight_2')
     conv2 = tf.nn.conv2d(af1, kernel2, strides, padding='SAME')
     bn2 = batch_norm(conv2, n_out=ksize2[-1], training=istraining)
-    af2 = tf.nn.leaky_relu(bn2, name=name + '_leaky-RELU')
+    af2 = tf.nn.leaky_relu(bn2, alpha=relu_alpha, name=name + '_leaky-RELU')
 
     b, h, w, c = af2.shape
     print(name + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
@@ -113,10 +114,11 @@ class network:
         self.imgs = imgs
         self.training = training
         self.grid = grid
-        self.dropout_rate = dropout_rate
+        self.keep_prob = cfg.keep_prob
         self.convlayers()
         # self.gap_layers()
         self.fc_layers()
+        # self.probs = tf.nn.softmax(self.fc)
         if weights is not None and sess is not None:
             self.load_weights(weights, sess)
 
@@ -295,25 +297,31 @@ class network:
             # print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
 
         with tf.name_scope('dropout') as scope:
-            self.dropout = tf.nn.dropout(self.fc1, rate=self.dropout_rate)
+            self.dropout = tf.nn.dropout(self.fc1, rate=self.keep_prob)
             b, c = self.dropout.shape
             print(scope[:-1] + " output ->", "[" + str(b) + ", " + str(c) + "]")
 
         with tf.name_scope('fc2') as scope:
             # ksize = [1, 1, 512, 512]
             # strides = [1, 1, 1, 1]
-            ksize = [int(self.dropout.shape[-1]), grid * grid * (box_per_cell * 5 + self.label_size)]
+            ksize = [int(self.fc1.shape[-1]), grid * grid * (box_per_cell * 5 + self.label_size)]
 
             kernel = tf.Variable(tf.random.truncated_normal(ksize, stddev=0.1), name='weights_fc2')
             # conv = tf.nn.conv2d(self.gap, kernel, strides, padding='SAME')
             # fc1 = tf.reshape(self.fc1, shape=[-1, self.conv15.shape[-1]])
-            fc2 = tf.matmul(self.dropout, kernel)
+            fc2 = tf.matmul(self.fc1, kernel)
             # fc3 = tf.reshape(fc2, shape=[-1, grid, grid, (2 * 5 + self.label_size)])
             self.fc2 = fc2
             b, c = self.fc2.shape
             # b, h, w, c = self.fc2.shape
             print(scope[:-1] + " output ->", "[" + str(b) + ", " + str(c) + "]")
             # print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        with tf.name_scope('output') as scope:
+            self.output = tf.reshape(self.fc2, shape=[-1, grid, grid, 5 * box_per_cell + self.label_size], name='output')
+            b, h, w, c = self.output.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
 
     def load_weights(self, weight_file, sess):
         print(f"Weight Loading Start! -> {weight_file}")
@@ -363,10 +371,10 @@ def calc_iou(boxes1, boxes2, scope='iou'):
 
 
 def loss_layer(predicts, labels, scope='loss_layer'):
-    object_scale = 1.0
-    noobject_scale = 1.0
-    class_scale = 2.0
-    coord_scale = 5.0
+    object_scale = cfg.object_scale
+    noobject_scale = cfg.noobject_scale
+    class_scale = cfg.class_scale
+    coord_scale = cfg.coord_scale
 
     with tf.variable_scope(scope):
         # print(boundary1)
