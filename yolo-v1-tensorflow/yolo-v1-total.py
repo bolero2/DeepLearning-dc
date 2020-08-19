@@ -333,12 +333,12 @@ class network:
         with tf.name_scope('fc2') as scope:
             # ksize = [1, 1, 512, 512]
             # strides = [1, 1, 1, 1]
-            ksize = [int(self.fc1.shape[-1]), grid * grid * (box_per_cell * 5 + self.label_size)]
+            ksize = [int(self.dropout.shape[-1]), grid * grid * (box_per_cell * 5 + self.label_size)]
 
             kernel = tf.Variable(tf.random.truncated_normal(ksize, stddev=0.1), name='weights_fc2')
             # conv = tf.nn.conv2d(self.gap, kernel, strides, padding='SAME')
             # fc1 = tf.reshape(self.fc1, shape=[-1, self.conv15.shape[-1]])
-            fc2 = tf.matmul(self.fc1, kernel)
+            fc2 = tf.matmul(self.dropout, kernel)
             # fc3 = tf.reshape(fc2, shape=[-1, grid, grid, (2 * 5 + self.label_size)])
             self.fc2 = fc2
             b, c = self.fc2.shape
