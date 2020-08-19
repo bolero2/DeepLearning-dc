@@ -4,6 +4,7 @@ import cv2
 import os
 import random
 import xml.etree.ElementTree as xml
+import time
 import config as cfg
 # from matplotlib import pyplot as plt
 
@@ -629,6 +630,10 @@ with tf.compat.v1.Session() as sess:
             bx, by = batch_train(batchsize)
             bx = np.reshape(bx, [batchsize, image_Width, image_Height, channel])
             cost, _ = sess.run([loss, train_step], feed_dict={X: bx, Y: by, istraining.name: True})
+
+            now = time.localtime()
+            print("%04d/%02d/%02d %02d:%02d:%02d" % (
+                now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec))
 
             print('[' + str(count) + '] ',
                   'Epoch %d    ' % (epoch + 1),
