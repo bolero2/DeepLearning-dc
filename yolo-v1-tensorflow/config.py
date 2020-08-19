@@ -5,7 +5,7 @@ channel = 3
 label_size = 20     # pascal VOC 2012 Dataset
 
 grid = 7
-batchsize = 1
+batchsize = 4
 Learning_Rate = 0.00001
 
 box_per_cell = 2        # one cell have 2 box
@@ -21,8 +21,11 @@ TrainDir_Annot = "C:\\dataset\\VOC2012\\Annotations\\"
 
 # The names of this variables(=ModelDir, ModelName) must come from the script name.
 ModelName = "4lab_detection1"
-ModelDir = "D:\\0+2020ML\\1+Saver\\" + ModelName + "\\"
+ModelDir = "C:\\1+works\\2+Python\\1+Saver\\" + ModelName + "\\"
+# ModelDir = "D:\\0+2020ML\\1+Saver\\" + ModelName + "\\"
 # ModelDir = "/content/drive/My Drive/" + ModelName + "/"
+weight_file = None
+# weight_file = "C:\\1+works\\2+Python\\1+Saver\\4lab_detection1\\4lab_detection1_Epoch_1.ckpt"
 
 Filenames_Eval = []
 Filenames_Train = []
