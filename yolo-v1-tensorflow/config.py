@@ -46,3 +46,5 @@ object_scale = 1.0
 noobject_scale = 1.0
 class_scale = 2.0
 coord_scale = 5.0
+
+keep_prob = 0.5
