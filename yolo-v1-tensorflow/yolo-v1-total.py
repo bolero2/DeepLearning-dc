@@ -616,7 +616,11 @@ with tf.compat.v1.Session() as sess:
     loss_layer(predicts=result.fc2, labels=Y)
     loss = tf.compat.v1.losses.get_total_loss()
     print(f" *** loss = {loss}")
-    train_step = tf.compat.v1.train.GradientDescentOptimizer(Learning_Rate * batchsize).minimize(loss)
+
+    global_step = tf.train.create_global_step()
+    optimizer = tf.train.AdamOptimizer(learning_rate=Learning_Rate)
+    # train_step = tf.compat.v1.train.AdamOptimizer(Learning_Rate * batchsize).minimize(loss)
+    train_step = tf.contrib.training.create_train_op(loss, optimizer, global_step=global_step)
 
     tf.compat.v1.summary.scalar("loss", loss)
 
@@ -637,7 +641,7 @@ with tf.compat.v1.Session() as sess:
             count += 1
             bx, by = batch_train(batchsize)
             bx = np.reshape(bx, [batchsize, image_Width, image_Height, channel])
-            ts, cost = sess.run([train_step, loss], feed_dict={X: bx, Y: by, istraining.name: True})
+            cost, _ = sess.run([loss, train_step], feed_dict={X: bx, Y: by, istraining.name: True})
 
             print('[' + str(count) + '] ',
                   'Epoch %d    ' % (epoch + 1),
