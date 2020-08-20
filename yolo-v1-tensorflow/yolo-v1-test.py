@@ -6,14 +6,8 @@ import tensorflow as tf
 import time
 from yolo1_darknet import network, loss_layer
 import xml.etree.ElementTree as xml
+import config as cfg
 
-
-TrainDir = "C:\\dataset\\VOC2012\\JPEGImages\\"  # 300,000 images
-TrainDir_Annot = "C:\\dataset\\VOC2012\\Annotations\\"
-
-# The names of this variables(=ModelDir, ModelName) must come from the script name.
-ModelName = "4lab_detection1"
-ModelDir = "..\\1+Saver\\" + ModelName + "\\"
 
 Filenames_Eval = []
 Filenames_Train = []
@@ -23,27 +17,23 @@ index_eval = 0
 
 ForEpoch = 40
 
-label_full = ['person', 'bird', 'cat', 'cow', 'dog', 'horse', 'sheep', 'aeroplane', 'bicycle', 'boat',
-              'bus', 'car', 'motorbike', 'train', 'bottle', 'chair', 'diningtable', 'pottedplant', 'sofa', 'tvmonitor']
+label_full = cfg.label_full
 
-label_size = 20     # => len(label_full)
-Total_Train = 17125
-# Total_Eval = 4000
+label_size = cfg.label_size
 
 batchsize = 1
-image_Width = 448
-image_Height = 448
-channel = 3
+image_Width = cfg.image_Width
+image_Height = cfg.image_Height
+channel = cfg.channel
 Learning_Rate = 0.00001
 
-grid = 7
+grid = cfg.grid
 
-boxes_per_cell = 2
-threshold = 0.2
-iou_threshold = 0.5
-box_per_cell = 2        # one cell have 2 box
-boundary1 = grid * grid * label_size  # 7 * 7 * 20
-boundary2 = boundary1 + grid * grid * box_per_cell  # 7 * 7 * 20 + 7 * 7 *2
+threshold = cfg.threshold
+iou_threshold = cfg.iou_threshold
+box_per_cell = cfg.box_per_cell        # one cell have 2 box
+boundary1 = cfg.boundary1  # 7 * 7 * 20
+boundary2 = cfg.boundary2  # 7 * 7 * 20 + 7 * 7 *2
 
 ############
 
@@ -59,20 +49,20 @@ def iou(box1, box2):
 
 def interpret_output(output):
     probs = np.zeros((grid, grid,
-                      boxes_per_cell, label_size))
+                      box_per_cell, label_size))
     class_probs = np.reshape(output[0:boundary1], (grid, grid, label_size))
     scales = np.reshape(
         output[boundary1:boundary2],
-        (grid, grid, boxes_per_cell))
+        (grid, grid, box_per_cell))
     boxes = np.reshape(
         output[boundary2:],
-        (grid, grid, boxes_per_cell, 4))
+        (grid, grid, box_per_cell, 4))
     offset = np.array(
-        [np.arange(grid)] * grid * boxes_per_cell)
+        [np.arange(grid)] * grid * box_per_cell)
     offset = np.transpose(
         np.reshape(
             offset,
-            [boxes_per_cell, grid, grid]),
+            [box_per_cell, grid, grid]),
         (1, 2, 0))
 
     boxes[:, :, :, 0] += offset
@@ -82,7 +72,7 @@ def interpret_output(output):
 
     boxes *= image_Width
 
-    for i in range(boxes_per_cell):
+    for i in range(box_per_cell):
         for j in range(label_size):
             probs[:, :, i, j] = np.multiply(
                 class_probs[:, :, j], scales[:, :, i])
