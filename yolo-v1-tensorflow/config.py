@@ -9,9 +9,7 @@ batchsize = 4
 Learning_Rate = 0.00001
 
 box_per_cell = 2        # one cell have 2 box
-
 boundary1 = grid * grid * label_size  # 7 * 7 * 20
-
 boundary2 = boundary1 + grid * grid * box_per_cell  # 7 * 7 * 20 + 7 * 7 *2
 
 TrainDir = "C:\\dataset\\VOC2012\\JPEGImages\\"  # 300,000 images
@@ -51,3 +49,6 @@ class_scale = 2.0
 coord_scale = 5.0
 
 keep_prob = 0.5
+
+threshold = 0.2
+iou_threshold = 0.5
