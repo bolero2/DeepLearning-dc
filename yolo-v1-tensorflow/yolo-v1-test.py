@@ -9,23 +9,13 @@ import xml.etree.ElementTree as xml
 import config as cfg
 
 
-Filenames_Eval = []
-Filenames_Train = []
-
-index_train = 0
-index_eval = 0
-
-ForEpoch = 40
-
 label_full = cfg.label_full
-
 label_size = cfg.label_size
 
 batchsize = 1
 image_Width = cfg.image_Width
 image_Height = cfg.image_Height
 channel = cfg.channel
-Learning_Rate = 0.00001
 
 grid = cfg.grid
 
@@ -129,7 +119,7 @@ with tf.compat.v1.Session() as sess:
     imgs = tf.math.divide(tf.cast(imgs, tf.float32), 255.0, name='input_node')
     istraining = tf.compat.v1.placeholder(tf.bool, name='istraining')
 
-    result = network(imgs, istraining, "D:\\0+2020ML\\1+Saver\\4lab_detection1\\4lab_detection1_Epoch_11.ckpt", sess)
+    result = network(imgs, istraining, "D:\\0+2020ML\\1+Saver\\4lab_detection1\\4lab_detection1_Epoch_6.ckpt", sess)
 
     output = sess.run([result.fc2], feed_dict={result.imgs: x, result.training: False})[0]
     print(f'output={output.shape}')     # (1, 1470)
