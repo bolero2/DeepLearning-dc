@@ -353,7 +353,6 @@ class network:
             b, h, w, c = self.output.shape
             print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
 
-
     def load_weights(self, weight_file, sess):
         print(f"Weight Loading Start! -> {weight_file}")
         saver = tf.compat.v1.train.Saver()  # Network model Save
@@ -533,10 +532,6 @@ def batch_train(batchsize):
         value = cv2.resize(value, (image_Height, image_Width))
         value = cv2.cvtColor(value, cv2.COLOR_BGR2RGB).astype(np.float32)
         value = (value / 255.0) * 2.0 - 1.0
-        # plt.imshow(value)
-        # plt.show()
-        # cv2.imshow("test", value)
-        # cv2.waitKey(0)
 
         size_x = float(image_Width / grid)
         size_y = float(image_Height / grid)
@@ -573,7 +568,6 @@ def batch_train(batchsize):
             label_value[4] = new_box_height
             label_value[5 + label] = 1
             y_data[i, int(offset_x), int(offset_y), :] = label_value
-
         x_data[i, :, :, :] = value
     index_train = index_train + batchsize
     if index_train + batchsize >= Total_Train:
@@ -587,10 +581,8 @@ def batch_train(batchsize):
 load_image()
 
 with tf.compat.v1.Session() as sess:
-
     X = tf.compat.v1.placeholder(tf.float32, [batchsize, image_Width, image_Height, channel], name='input')
     Y = tf.compat.v1.placeholder(tf.float32, [batchsize, grid, grid, 5 + label_size], name='label')
-    # Y = tf.compat.v1.placeholder(tf.float32, [batchsize, 1, 1, label_size], name='Y')
     istraining = tf.compat.v1.placeholder(tf.bool, name='istraining')
 
     result = network(X, istraining)
