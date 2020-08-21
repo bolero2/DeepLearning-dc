@@ -1,3 +1,9 @@
+"""
+[WARNING]
+If you want to execute this file in google colab env,
+you should restart runtime session!!!!!!
+"""
+
 import tensorflow as tf
 import numpy as np
 import cv2
@@ -13,12 +19,12 @@ weight_file = "/content/drive/My Drive/Saver/epoch6/4lab_detection1_Epoch_6.ckpt
 image_Width = 448
 image_Height = 448
 channel = 3
-label_size = 20     # pascal VOC 2012 Dataset
+label_size = 20  # pascal VOC 2012 Dataset
 grid = 7
 batchsize = 8
 Learning_Rate = 0.00001
 
-box_per_cell = 2        # one cell have 2 box
+box_per_cell = 2  # one cell have 2 box
 boundary1 = grid * grid * label_size
 boundary2 = boundary1 + grid * grid * box_per_cell  # 7 * 7 * 20 + 7 * 7 *2
 
@@ -44,7 +50,7 @@ label_full = ['person', 'bird', 'cat', 'cow', 'dog',
               'bus', 'car', 'motorbike', 'train', 'bottle',
               'chair', 'diningtable', 'pottedplant', 'sofa', 'tvmonitor']
 
-label_size = 20     # => len(label_full)
+label_size = 20  # => len(label_full)
 Total_Train = 17125
 
 relu_alpha = 0.5
@@ -55,6 +61,7 @@ class_scale = 2.0
 coord_scale = 5.0
 
 keep_prob = 0.5
+
 
 def sigmoid(x):
     y = tf.math.sigmoid(x)
@@ -70,12 +77,16 @@ def batch_norm(input, n_out, training, scope='bn'):
         ema = tf.train.ExponentialMovingAverage(decay=0.5)
 
         def mean_var_with_update():
-            ema_apply_op = ema.apply([batch_mean,batch_var])
+            ema_apply_op = ema.apply([batch_mean, batch_var])
             with tf.control_dependencies([ema_apply_op]):
                 return tf.identity(batch_mean), tf.identity(batch_var)
-        mean, var = tf.cond(training, true_fn=mean_var_with_update, false_fn=lambda :(ema.average(batch_mean), ema.average(batch_var)))
+
+        mean, var = tf.cond(training, true_fn=mean_var_with_update,
+                            false_fn=lambda: (ema.average(batch_mean), ema.average(batch_var)))
         normed = tf.nn.batch_normalization(input, mean, var, beta, gamma, 1e-3)
     return normed
+
+
 ############
 
 
@@ -122,13 +133,13 @@ def block_upsample(input, name, method="deconv"):
     assert method in ["resize", "deconv"]
 
     with tf.compat.v1.variable_scope(name):
-        if method == "resize":      # case in resize
+        if method == "resize":  # case in resize
             input_shape = tf.shape(input)
             output = tf.image.resize_nearest_neighbor(input, (input_shape[1] * 2, input_shape[2] * 2))
 
             return output
 
-        if method == "deconv":    # case in deconvolution(transpose)
+        if method == "deconv":  # case in deconvolution(transpose)
             # replace resize_nearest_neighbor with conv2d_transpose To support TensorRT optimization
             numm_filter = input.shape.as_list()[-1]
             output = tf.layers.conv2d_transpose(input, numm_filter, kernel_size=2, padding='same',
@@ -148,6 +159,7 @@ class network:
     """
     Builds Darknet-53 model.
     """
+
     def __init__(self, imgs, training, weights=None, sess=None):
         self.label_size = label_size
         self.imgs = imgs
@@ -167,7 +179,7 @@ class network:
 
         # initialization input node
         self.imgs = tf.reshape(self.imgs, shape=[-1, image_Height, image_Width, 3], name='input_node')
-########################################################################################################################
+        ########################################################################################################################
         # conv1
         with tf.name_scope('conv1') as scope:
             self.conv1 = block_conv(self.imgs, ksize=7,
@@ -327,7 +339,8 @@ class network:
 
             kernel = tf.Variable(tf.random.truncated_normal(ksize, stddev=0.1), name='weights_fc1')
             # conv = tf.nn.conv2d(self.gap, kernel, strides, padding='SAME')
-            fc1 = tf.reshape(self.conv15, shape=[-1, self.conv15.shape[1] * self.conv15.shape[2] * self.conv15.shape[3]])
+            fc1 = tf.reshape(self.conv15,
+                             shape=[-1, self.conv15.shape[1] * self.conv15.shape[2] * self.conv15.shape[3]])
             fc2 = tf.matmul(fc1, kernel)
             self.fc1 = fc2
             b, c = self.fc1.shape
@@ -357,10 +370,10 @@ class network:
             # print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
 
         with tf.name_scope('output') as scope:
-            self.output = tf.reshape(self.fc2, shape=[-1, grid, grid, 5 * box_per_cell + self.label_size], name='output')
+            self.output = tf.reshape(self.fc2, shape=[-1, grid, grid, 5 * box_per_cell + self.label_size],
+                                     name='output')
             b, h, w, c = self.output.shape
             print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
-
 
     def load_weights(self, weight_file, sess):
         print(f"Weight Loading Start! -> {weight_file}")
@@ -422,13 +435,14 @@ def loss_layer(predicts, labels, scope='loss_layer'):
         predict_scales = tf.reshape(predicts[:, boundary1:boundary2], [batchsize, grid, grid, box_per_cell])
         predict_boxes = tf.reshape(predicts[:, boundary2:], [batchsize, grid, grid, box_per_cell, 4])
 
-        response = tf.reshape(labels[..., 0], [batchsize, grid, grid, 1])       # response = confidence score
+        response = tf.reshape(labels[..., 0], [batchsize, grid, grid, 1])  # response = confidence score
         boxes = tf.reshape(labels[..., 1:5], [batchsize, grid, grid, 1, 4])
         boxes = tf.tile(boxes, [1, 1, 1, box_per_cell, 1]) / image_Width
         classes = labels[..., 5:]
         offset = np.transpose(np.reshape(np.array([np.arange(grid)] * grid * box_per_cell), (box_per_cell, grid, grid)),
                               (1, 2, 0))
-        offset = tf.reshape(tf.constant(offset, dtype=tf.float32), [1, grid, grid, box_per_cell])    # Reshape from 7*7*2 to 1*7*7*2
+        offset = tf.reshape(tf.constant(offset, dtype=tf.float32),
+                            [1, grid, grid, box_per_cell])  # Reshape from 7*7*2 to 1*7*7*2
         offset = tf.tile(offset, [batchsize, 1, 1, 1])  # Copy on the first dimension and become [batchsize, 7, 7, 2]
         offset_tran = tf.transpose(offset, (0, 2, 1, 3))  # The dimension is [batchsize, 7, 7, 2]
 
@@ -455,17 +469,21 @@ def loss_layer(predicts, labels, scope='loss_layer'):
 
         # class_loss, calculate the loss of the category
         class_delta = response * (predict_classes - classes)
-        class_loss = tf.reduce_mean(tf.reduce_sum(tf.square(class_delta), axis=[1, 2, 3]), name='class_loss') * class_scale
+        class_loss = tf.reduce_mean(tf.reduce_sum(tf.square(class_delta), axis=[1, 2, 3]),
+                                    name='class_loss') * class_scale
 
         object_delta = object_mask * (predict_scales - iou_predict_truth)
-        object_loss = tf.reduce_mean(tf.reduce_sum(tf.square(object_delta), axis=[1, 2, 3]), name='object_loss') * object_scale
+        object_loss = tf.reduce_mean(tf.reduce_sum(tf.square(object_delta), axis=[1, 2, 3]),
+                                     name='object_loss') * object_scale
 
         noobject_delta = noobject_mask * predict_scales
-        noobject_loss = tf.reduce_mean(tf.reduce_sum(tf.square(noobject_delta), axis=[1, 2, 3]), name='noobject_loss') * noobject_scale
+        noobject_loss = tf.reduce_mean(tf.reduce_sum(tf.square(noobject_delta), axis=[1, 2, 3]),
+                                       name='noobject_loss') * noobject_scale
 
         coord_mask = tf.expand_dims(object_mask, 4)
         boxes_delta = coord_mask * (predict_boxes - boxes_tran)
-        coord_loss = tf.reduce_mean(tf.reduce_sum(tf.square(boxes_delta), axis=[1, 2, 3, 4]), name='coord_loss') * coord_scale
+        coord_loss = tf.reduce_mean(tf.reduce_sum(tf.square(boxes_delta), axis=[1, 2, 3, 4]),
+                                    name='coord_loss') * coord_scale
 
         tf.compat.v1.losses.add_loss(class_loss)
         tf.compat.v1.losses.add_loss(object_loss)
@@ -536,8 +554,8 @@ def batch_train(batchsize):
                 continue
         value = cv2.imread(image_real_path)
 
-        original_h = value.shape[0]     # height = row
-        original_w = value.shape[1]     # width = column(=col)
+        original_h = value.shape[0]  # height = row
+        original_w = value.shape[1]  # width = column(=col)
 
         value = cv2.resize(value, (image_Height, image_Width))
         value = cv2.cvtColor(value, cv2.COLOR_BGR2RGB).astype(np.float32)
@@ -591,14 +609,13 @@ def batch_train(batchsize):
 load_image()
 
 with tf.compat.v1.Session() as sess:
-
     X = tf.compat.v1.placeholder(tf.float32, [batchsize, image_Width, image_Height, channel], name='input')
     Y = tf.compat.v1.placeholder(tf.float32, [batchsize, grid, grid, 5 + label_size], name='label')
     istraining = tf.compat.v1.placeholder(tf.bool, name='istraining')
 
     result = network(X, istraining)
     print(f" *** result={result.fc2}")
-    
+
     loss_layer(predicts=result.fc2, labels=Y)
     loss = tf.compat.v1.losses.get_total_loss()
     print(f" *** loss = {loss}")
@@ -628,7 +645,7 @@ with tf.compat.v1.Session() as sess:
     for epoch in range(0, ForEpoch):  # epoch 1 ~ epoch 20
         count = 0
         for i in range(int(Total_Train / batchsize)):
-        # for i in range(1):
+            # for i in range(1):
             count += 1
             bx, by = batch_train(batchsize)
             bx = np.reshape(bx, [batchsize, image_Width, image_Height, channel])
