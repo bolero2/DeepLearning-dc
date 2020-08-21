@@ -10,9 +10,7 @@ import time
 from yolo1_darknet import network, loss_layer
 import config as cfg
 
-
-# TrainDir = "C:\\dataset\\VOC2012\\JPEGImages\\"  # 300,000 images
-# TrainDir_Annot = "C:\\dataset\\VOC2012\\Annotations\\"
+weight_file = cfg.weight_file
 
 TrainDir = cfg.TrainDir
 TrainDir_Annot = cfg.TrainDir_Annot
@@ -99,10 +97,6 @@ def batch_train(batchsize):
         value = cv2.resize(value, (image_Height, image_Width))
         value = cv2.cvtColor(value, cv2.COLOR_BGR2RGB).astype(np.float32)
         value = (value / 255.0) * 2.0 - 1.0
-        # plt.imshow(value)
-        # plt.show()
-        # cv2.imshow("test", value)
-        # cv2.waitKey(0)
 
         size_x = float(image_Width / grid)
         size_y = float(image_Height / grid)
@@ -139,7 +133,6 @@ def batch_train(batchsize):
             label_value[4] = new_box_height
             label_value[5 + label] = 1
             y_data[i, int(offset_x), int(offset_y), :] = label_value
-
         x_data[i, :, :, :] = value
     index_train = index_train + batchsize
     if index_train + batchsize >= Total_Train:
@@ -148,34 +141,13 @@ def batch_train(batchsize):
     return x_data, y_data
 
 
-def batch_norm(input, n_out, training, scope='bn'):
-    with tf.compat.v1.variable_scope(scope):
-        beta = tf.Variable(tf.constant(0.0, shape=[n_out]), name='beta', trainable=True)
-        gamma = tf.Variable(tf.constant(1.0, shape=[n_out]), name='gamma', trainable=True)
-        batch_mean, batch_var = tf.nn.moments(input, [0, 1, 2], name='moments')
-        ema = tf.train.ExponentialMovingAverage(decay=0.5)
-
-        def mean_var_with_update():
-            ema_apply_op = ema.apply([batch_mean, batch_var])
-            with tf.control_dependencies([ema_apply_op]):
-                return tf.identity(batch_mean), tf.identity(batch_var)
-
-        mean, var = tf.cond(training, true_fn=mean_var_with_update,
-                            false_fn=lambda: (ema.average(batch_mean), ema.average(batch_var)))
-        normed = tf.nn.batch_normalization(input, mean, var, beta, gamma, 1e-3)
-    return normed
-
-
 ############
 
 load_image()
 
 with tf.compat.v1.Session() as sess:
-    sess.run(tf.compat.v1.global_variables_initializer())
-
     X = tf.compat.v1.placeholder(tf.float32, [batchsize, image_Width, image_Height, channel], name='input')
     Y = tf.compat.v1.placeholder(tf.float32, [batchsize, grid, grid, 5 + label_size], name='label')
-    # Y = tf.compat.v1.placeholder(tf.float32, [batchsize, 1, 1, label_size], name='Y')
     istraining = tf.compat.v1.placeholder(tf.bool, name='istraining')
 
     result = network(X, istraining)
@@ -184,10 +156,9 @@ with tf.compat.v1.Session() as sess:
     loss_layer(predicts=result.fc2, labels=Y)
     loss = tf.compat.v1.losses.get_total_loss()
     print(f" *** loss = {loss}")
-
-    global_step = tf.train.create_global_step()
     optimizer = tf.train.AdamOptimizer(learning_rate=Learning_Rate)
-    # train_step = tf.compat.v1.train.AdamOptimizer(Learning_Rate * batchsize).minimize(loss)
+    global_step = tf.train.create_global_step()
+
     train_step = tf.contrib.training.create_train_op(loss, optimizer, global_step=global_step)
 
     tf.compat.v1.summary.scalar("loss", loss)
@@ -198,6 +169,12 @@ with tf.compat.v1.Session() as sess:
     sess.run(tf.compat.v1.global_variables_initializer())
     saver = tf.compat.v1.train.Saver()  # Network model Save
     writer = tf.compat.v1.summary.FileWriter(ModelDir + "logs", sess.graph)
+
+    if weight_file is not None:
+        print(f"Weight file Loading Start! -> {weight_file}")
+        meta_saver = tf.train.import_meta_graph(weight_file + ".meta")
+        save_path = saver.restore(sess, weight_file)
+        print(f"Weight file Loading is successful")
 
     # ==========================================================================================================
     # Training!
@@ -210,7 +187,7 @@ with tf.compat.v1.Session() as sess:
             bx, by = batch_train(batchsize)
             bx = np.reshape(bx, [batchsize, image_Width, image_Height, channel])
             cost, _ = sess.run([loss, train_step], feed_dict={X: bx, Y: by, istraining.name: True})
-            
+
             now = time.localtime()
             print("%04d/%02d/%02d %02d:%02d:%02d" % (
                 now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec))
