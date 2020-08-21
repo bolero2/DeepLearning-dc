@@ -7,7 +7,8 @@ import xml.etree.ElementTree as xml
 import time
 # from matplotlib import pyplot as plt
 
-weight_file = None
+# weight_file = None
+weight_file = "/content/drive/My Drive/Saver/epoch6/4lab_detection1_Epoch_6.ckpt"
 
 image_Width = 448
 image_Height = 448
@@ -409,10 +410,10 @@ def calc_iou(boxes1, boxes2, scope='iou'):
 
 
 def loss_layer(predicts, labels, scope='loss_layer'):
-    object_scale = cfg.object_scale
-    noobject_scale = cfg.noobject_scale
-    class_scale = cfg.class_scale
-    coord_scale = cfg.coord_scale
+    global object_scale
+    global noobject_scale
+    global class_scale
+    global coord_scale
 
     with tf.compat.v1.variable_scope(scope):
         print(boundary1)
@@ -487,20 +488,34 @@ def loss_layer(predicts, labels, scope='loss_layer'):
 
 def load_image():
     global Filenames_Train
-    global Filenames_Eval
-    xmin = 0
-    ymin = 0
-    xmax = 0
-    ymax = 0
     print("###############################################")
     print("Start Image Loading ...")
     print("###############################################")
-    templist = list()
     filelist = os.listdir(TrainDir)
     print(f'Total number of Images : {len(filelist)}')
 
     for f in range(0, len(filelist)):
-        tree = xml.ElementTree(file=TrainDir_Annot + filelist[f][:-4] + '.xml')
+        Filenames_Train.append(filelist[f])
+    random.shuffle(Filenames_Train)
+    print(Filenames_Train)
+    print("Finish Image Loading !")
+    print("###############################################")
+
+
+def batch_train(batchsize):
+    global index_train
+    x_data = np.zeros([batchsize, image_Width, image_Height, channel], dtype=np.float32)
+    y_data = np.zeros((batchsize, grid, grid, 5 + label_size), dtype=np.float32)  # -> one hot encoding
+    for i in range(0, batchsize):
+        image_real_path = TrainDir + Filenames_Train[index_train + i]
+        annot_real_path = TrainDir_Annot + Filenames_Train[index_train + i][:-4] + '.xml'
+
+        xmin = 0
+        ymin = 0
+        xmax = 0
+        ymax = 0
+        templist = list()
+        tree = xml.ElementTree(file=annot_real_path)
         for elem in tree.iter(tag='object'):
             label = list(elem)[0].text
             for tag in range(0, len(list(elem))):
@@ -519,20 +534,7 @@ def load_image():
                     continue
             else:
                 continue
-        Filenames_Train.append([TrainDir + filelist[f], templist])
-        templist = list()
-    random.shuffle(Filenames_Train)
-    print(Filenames_Train)
-    print("Finish Image Loading !")
-    print("###############################################")
-
-
-def batch_train(batchsize):
-    global index_train
-    x_data = np.zeros([batchsize, image_Width, image_Height, channel], dtype=np.float32)
-    y_data = np.zeros((batchsize, grid, grid, 5 + label_size), dtype=np.float32)  # -> one hot encoding
-    for i in range(0, batchsize):
-        value = cv2.imread(Filenames_Train[index_train + i][0])
+        value = cv2.imread(image_real_path)
 
         original_h = value.shape[0]     # height = row
         original_w = value.shape[1]     # width = column(=col)
@@ -540,10 +542,6 @@ def batch_train(batchsize):
         value = cv2.resize(value, (image_Height, image_Width))
         value = cv2.cvtColor(value, cv2.COLOR_BGR2RGB).astype(np.float32)
         value = (value / 255.0) * 2.0 - 1.0
-        # plt.imshow(value)
-        # plt.show()
-        # cv2.imshow("test", value)
-        # cv2.waitKey(0)
 
         size_x = float(image_Width / grid)
         size_y = float(image_Height / grid)
@@ -551,7 +549,7 @@ def batch_train(batchsize):
         """
         You should put label value like this form : [1, x_center, y_center, width, height] <- object center grid
         """
-        for count in Filenames_Train[index_train + i][1]:
+        for count in templist:
             xmin = count[0]
             ymin = count[1]
             xmax = count[2]
@@ -580,7 +578,6 @@ def batch_train(batchsize):
             label_value[4] = new_box_height
             label_value[5 + label] = 1
             y_data[i, int(offset_x), int(offset_y), :] = label_value
-
         x_data[i, :, :, :] = value
     index_train = index_train + batchsize
     if index_train + batchsize >= Total_Train:
@@ -597,12 +594,11 @@ with tf.compat.v1.Session() as sess:
 
     X = tf.compat.v1.placeholder(tf.float32, [batchsize, image_Width, image_Height, channel], name='input')
     Y = tf.compat.v1.placeholder(tf.float32, [batchsize, grid, grid, 5 + label_size], name='label')
-    # Y = tf.compat.v1.placeholder(tf.float32, [batchsize, 1, 1, label_size], name='Y')
     istraining = tf.compat.v1.placeholder(tf.bool, name='istraining')
 
     result = network(X, istraining)
     print(f" *** result={result.fc2}")
-
+    
     loss_layer(predicts=result.fc2, labels=Y)
     loss = tf.compat.v1.losses.get_total_loss()
     print(f" *** loss = {loss}")
