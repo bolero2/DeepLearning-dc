@@ -30,9 +30,9 @@ TrainDir_Annot = "C:\\dataset\\VOC2012\\Annotations\\"
 
 # The names of this variables(=ModelDir, ModelName) must come from the script name.
 ModelName = "4lab_detection1"
-ModelDir = "C:\\1+works\\2+Python\\1+Saver\\" + ModelName + "\\"
-# ModelDir = "D:\\0+2020ML\\1+Saver\\" + ModelName + "\\"
-# ModelDir = "/content/drive/My Drive/" + ModelName + "/"
+ModelDir = "C:\\1+works\\2+Python\\1+Saver\\" + ModelName
+# ModelDir = "D:\\0+2020ML\\1+Saver\\" + ModelName
+# ModelDir = "/content/drive/My Drive/" + ModelName
 
 Total_Train = 17125
 
