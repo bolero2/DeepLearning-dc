@@ -35,7 +35,7 @@ TrainDir_Annot = "/content/drive/My Drive/voc2012/VOC2012/Annotations/"
 
 # The names of this variables(=ModelDir, ModelName) must come from the script name.
 ModelName = "4lab_detection1"
-ModelDir = "/content/drive/My Drive/" + ModelName + "/"
+ModelDir = "/content/drive/My Drive/" + ModelName
 
 Filenames_Eval = []
 Filenames_Train = []
