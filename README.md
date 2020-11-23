@@ -5,6 +5,7 @@ Classification Model
 ------------------------
 1. [ResNet-34-tf2](https://github.com/bolero2/ResNet-34-tf2)
 2. [ResNet-101-tf2](https://github.com/bolero2/ResNet-101-tf2)
+2. [ResNet-152-tf2](https://github.com/bolero2/ResNet-152-tf2)
 
 
 # MobileNet-v2-tensorflow.py
