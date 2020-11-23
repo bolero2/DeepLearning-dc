@@ -1,4 +1,4 @@
-# DeepLearning
+# Deep Learning
 Deep Learning (using Tensorflow)
 
 Classification Model
