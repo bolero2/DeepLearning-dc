@@ -1,6 +1,11 @@
 # DeepLearning
 Deep Learning (using Tensorflow)
 
+Classification Model
+------------------------
+1. ResNet-34-tf2
+2. ResNet-101-tf2
+
 
 
 # MobileNet-v2-tensorflow.py
