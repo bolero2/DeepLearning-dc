@@ -20,12 +20,14 @@ All of source codes are written by myself using python language.
 |[ResNet-152-tf2](https://github.com/bolero2/ResNet-152-tf2)||
 
 
-# MobileNet-v2-tensorflow.py
+MobileNet-v2-tensorflow.py
+---------------------
 Date : 2019. 01. 15
 
 
 
-# ShuffleNet-v1-tensorflow.py
+ShuffleNet-v1-tensorflow.py
+---------------------
 Date : 2019. 01. 22
 
 
