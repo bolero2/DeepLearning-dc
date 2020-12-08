@@ -1,0 +1,1842 @@
+<?xml version="1.0" encoding="utf-8"?><annotations>
+  <version>1.1</version>
+  <meta>
+    <task>
+      <id>524</id>
+      <project>NIA_CCTV</project>
+      <name>20200722_CH8_1830</name>
+      <size>50</size>
+      <mode>annotation</mode>
+      <overlap>0</overlap>
+      <bugtracker/>
+      <flipped>False</flipped>
+      <created>2020-10-13 10:54:34.252427+09:00</created>
+      <updated>2020-10-13 12:19:47.279808+09:00</updated>
+      <start_frame>0</start_frame>
+      <stop_frame>0</stop_frame>
+      <frame_filter>step=1</frame_filter>
+      <labels>
+        <label>
+          <name>truck</name>
+          <attributes>
+          </attributes>
+        </label>
+        <label>
+          <name>bus</name>
+          <attributes>
+          </attributes>
+        </label>
+        <label>
+          <name>car</name>
+          <attributes>
+          </attributes>
+        </label>
+      </labels>
+      <segments>
+        <segment>
+          <id>471</id>
+          <start>0</start>
+          <stop>49</stop>
+          <url>http://220.85.41.207:8080/?id=471</url>
+        </segment>
+      </segments>
+      <owner>
+        <username>jhpark</username>
+        <email/>
+      </owner>
+    </task>
+    <dumped>2020-10-14 15:26:27.485652+09:00</dumped>
+  </meta>
+  <image id="0" name="20200722_CH8_1830_001.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="829.00" ytl="1385.00" xbr="1057.00" ybr="1570.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="426.00" ytl="1553.00" xbr="693.00" ybr="1813.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="535.00" ytl="659.00" xbr="586.00" ybr="715.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="481.00" ytl="714.00" xbr="579.00" ybr="830.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="388.00" ytl="932.00" xbr="504.00" ybr="1054.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="348.00" ytl="640.00" xbr="414.00" ybr="721.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="718.00" ytl="689.00" xbr="825.00" ybr="825.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="622.00" ytl="663.00" xbr="672.00" ybr="705.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="386.00" ytl="935.00" xbr="505.00" ybr="1054.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="459.00" ytl="710.00" xbr="517.00" ybr="759.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="862.00" ytl="741.00" xbr="936.00" ybr="809.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="659.00" ytl="695.00" xbr="717.00" ybr="739.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="369.00" ytl="789.00" xbr="446.00" ybr="846.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="933.00" ytl="1143.00" xbr="1080.00" ybr="1270.00" z_order="0">
+    </box>
+  </image>
+  <image id="1" name="20200722_CH8_1830_002.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="725.00" ytl="759.00" xbr="802.00" ybr="814.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="912.00" ytl="1014.00" xbr="1069.00" ybr="1211.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="684.00" ytl="1170.00" xbr="871.00" ybr="1338.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="344.00" ytl="1015.00" xbr="590.00" ybr="1337.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="421.00" ytl="613.00" xbr="460.00" ybr="645.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="428.00" ytl="642.00" xbr="473.00" ybr="674.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="671.00" ytl="647.00" xbr="713.00" ybr="679.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="361.00" ytl="638.00" xbr="401.00" ybr="670.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="508.00" ytl="642.00" xbr="549.00" ybr="672.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="593.00" ytl="639.00" xbr="636.00" ybr="677.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1025.00" ytl="841.00" xbr="1080.00" ybr="924.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="476.00" ytl="680.00" xbr="524.00" ybr="718.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="639.00" ytl="678.00" xbr="692.00" ybr="715.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="753.00" ytl="922.00" xbr="865.00" ybr="1005.00" z_order="0">
+    </box>
+  </image>
+  <image id="2" name="20200722_CH8_1830_003.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="656.00" ytl="688.00" xbr="713.00" ybr="731.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="451.00" ytl="676.00" xbr="498.00" ybr="715.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="757.00" ytl="685.00" xbr="815.00" ybr="731.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="871.00" ytl="755.00" xbr="939.00" ybr="811.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="615.00" ytl="662.00" xbr="668.00" ybr="705.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="612.00" ytl="750.00" xbr="680.00" ybr="805.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="865.00" ytl="837.00" xbr="948.00" ybr="906.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="909.00" ytl="769.00" xbr="985.00" ybr="831.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="405.00" ytl="886.00" xbr="522.00" ybr="984.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="753.00" ytl="756.00" xbr="838.00" ybr="829.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="463.00" ytl="715.00" xbr="526.00" ybr="761.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="475.00" ytl="802.00" xbr="558.00" ybr="866.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="591.00" ytl="961.00" xbr="714.00" ybr="1061.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="436.00" ytl="648.00" xbr="476.00" ybr="682.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="402.00" ytl="1030.00" xbr="541.00" ybr="1139.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="803.00" ytl="1005.00" xbr="938.00" ybr="1110.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="679.00" ytl="648.00" xbr="722.00" ybr="682.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="703.00" ytl="665.00" xbr="758.00" ybr="705.00" z_order="0">
+    </box>
+  </image>
+  <image id="3" name="20200722_CH8_1830_004.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="768.00" ytl="784.00" xbr="847.00" ybr="843.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="555.00" ytl="618.00" xbr="595.00" ybr="650.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="443.00" ytl="664.00" xbr="491.00" ybr="702.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="357.00" ytl="667.00" xbr="405.00" ybr="712.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="688.00" ytl="654.00" xbr="740.00" ybr="692.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="597.00" ytl="661.00" xbr="642.00" ybr="695.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="441.00" ytl="710.00" xbr="507.00" ybr="764.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="747.00" ytl="683.00" xbr="806.00" ybr="729.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="660.00" ytl="709.00" xbr="717.00" ybr="753.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="550.00" ytl="866.00" xbr="647.00" ybr="941.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="614.00" ytl="1016.00" xbr="754.00" ybr="1140.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="813.00" ytl="1357.00" xbr="1028.00" ybr="1533.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="629.00" ytl="782.00" xbr="712.00" ybr="863.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="677.00" ytl="644.00" xbr="720.00" ybr="684.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="629.00" ytl="781.00" xbr="712.00" ybr="862.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="404.00" ytl="557.00" xbr="450.00" ybr="625.00" z_order="0">
+    </box>
+  </image>
+  <image id="4" name="20200722_CH8_1830_005.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="568.00" ytl="624.00" xbr="610.00" ybr="661.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="423.00" ytl="632.00" xbr="466.00" ybr="662.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="487.00" ytl="629.00" xbr="534.00" ybr="667.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="615.00" ytl="614.00" xbr="654.00" ybr="644.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="448.00" ytl="642.00" xbr="537.00" ybr="762.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="713.00" ytl="1224.00" xbr="903.00" ybr="1372.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="632.00" ytl="675.00" xbr="691.00" ybr="724.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="958.00" ytl="900.00" xbr="1070.00" ybr="996.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="365.00" ytl="667.00" xbr="417.00" ybr="710.00" z_order="0">
+    </box>
+  </image>
+  <image id="5" name="20200722_CH8_1830_006.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="347.00" ytl="620.00" xbr="383.00" ybr="650.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="581.00" ytl="955.00" xbr="702.00" ybr="1053.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="467.00" ytl="709.00" xbr="524.00" ybr="754.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="812.00" ytl="976.00" xbr="956.00" ybr="1111.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="587.00" ytl="649.00" xbr="633.00" ybr="684.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="594.00" ytl="599.00" xbr="633.00" ybr="633.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="492.00" ytl="622.00" xbr="531.00" ybr="655.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1055.00" ytl="862.00" xbr="1080.00" ybr="930.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="416.00" ytl="597.00" xbr="461.00" ybr="645.00" z_order="0">
+    </box>
+  </image>
+  <image id="6" name="20200722_CH8_1830_007.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="712.00" ytl="735.00" xbr="783.00" ybr="795.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="925.00" ytl="780.00" xbr="1008.00" ybr="849.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="572.00" ytl="630.00" xbr="615.00" ybr="662.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="422.00" ytl="611.00" xbr="460.00" ybr="642.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="447.00" ytl="670.00" xbr="510.00" ybr="728.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="486.00" ytl="718.00" xbr="575.00" ybr="838.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="373.00" ytl="829.00" xbr="457.00" ybr="898.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="826.00" ytl="728.00" xbr="896.00" ybr="784.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="706.00" ytl="879.00" xbr="809.00" ybr="968.00" z_order="0">
+    </box>
+  </image>
+  <image id="7" name="20200722_CH8_1830_008.jpg" width="1080" height="1920">
+    <box label="truck" occluded="0" xtl="419.00" ytl="608.00" xbr="457.00" ybr="650.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="355.00" ytl="615.00" xbr="390.00" ybr="645.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="373.00" ytl="780.00" xbr="459.00" ybr="898.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="517.00" ytl="807.00" xbr="606.00" ybr="883.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1029.00" ytl="977.00" xbr="1080.00" ybr="1074.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="587.00" ytl="642.00" xbr="634.00" ybr="684.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="507.00" ytl="638.00" xbr="548.00" ybr="670.00" z_order="0">
+    </box>
+  </image>
+  <image id="8" name="20200722_CH8_1830_009.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="955.00" ytl="1175.00" xbr="1080.00" ybr="1320.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="378.00" ytl="787.00" xbr="456.00" ybr="845.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="438.00" ytl="572.00" xbr="479.00" ybr="626.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="505.00" ytl="622.00" xbr="557.00" ybr="689.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="430.00" ytl="632.00" xbr="476.00" ybr="682.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="395.00" ytl="558.00" xbr="437.00" ybr="615.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="716.00" ytl="867.00" xbr="818.00" ybr="953.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="384.00" ytl="855.00" xbr="478.00" ybr="929.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="596.00" ytl="613.00" xbr="634.00" ybr="646.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="532.00" ytl="640.00" xbr="592.00" ybr="713.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="359.00" ytl="636.00" xbr="401.00" ybr="669.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="538.00" ytl="809.00" xbr="636.00" ybr="934.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="777.00" ytl="702.00" xbr="837.00" ybr="748.00" z_order="0">
+    </box>
+  </image>
+  <image id="9" name="20200722_CH8_1830_010.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="623.00" ytl="621.00" xbr="662.00" ybr="652.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="600.00" ytl="972.00" xbr="779.00" ybr="1185.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="945.00" ytl="1010.00" xbr="1079.00" ybr="1280.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="764.00" ytl="867.00" xbr="926.00" ybr="1069.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="504.00" ytl="616.00" xbr="558.00" ybr="673.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="598.00" ytl="982.00" xbr="776.00" ybr="1184.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="433.00" ytl="613.00" xbr="492.00" ybr="694.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="354.00" ytl="694.00" xbr="440.00" ybr="797.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="506.00" ytl="563.00" xbr="555.00" ybr="628.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="359.00" ytl="648.00" xbr="406.00" ybr="687.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="556.00" ytl="668.00" xbr="602.00" ybr="705.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="388.00" ytl="755.00" xbr="458.00" ybr="825.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="558.00" ytl="628.00" xbr="600.00" ybr="660.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="650.00" ytl="639.00" xbr="692.00" ybr="671.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="896.00" ytl="887.00" xbr="1006.00" ybr="968.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="372.00" ytl="835.00" xbr="464.00" ybr="904.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="560.00" ytl="696.00" xbr="619.00" ybr="748.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="884.00" ytl="763.00" xbr="962.00" ybr="821.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="370.00" ytl="959.00" xbr="490.00" ybr="1065.00" z_order="0">
+    </box>
+  </image>
+  <image id="10" name="20200722_CH8_1830_011.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="612.00" ytl="665.00" xbr="654.00" ybr="702.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="486.00" ytl="642.00" xbr="528.00" ybr="675.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="521.00" ytl="661.00" xbr="560.00" ybr="696.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="439.00" ytl="663.00" xbr="486.00" ybr="704.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="413.00" ytl="615.00" xbr="452.00" ybr="648.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="367.00" ytl="842.00" xbr="462.00" ybr="926.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="415.00" ytl="754.00" xbr="487.00" ybr="807.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="890.00" ytl="758.00" xbr="974.00" ybr="825.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="919.00" ytl="887.00" xbr="1025.00" ybr="971.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="749.00" ytl="684.00" xbr="802.00" ybr="726.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="830.00" ytl="814.00" xbr="909.00" ybr="877.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="508.00" ytl="810.00" xbr="568.00" ybr="872.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="446.00" ytl="559.00" xbr="490.00" ybr="616.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="524.00" ytl="788.00" xbr="686.00" ybr="991.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="735.00" ytl="821.00" xbr="873.00" ybr="987.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="643.00" ytl="625.00" xbr="729.00" ybr="741.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="552.00" ytl="669.00" xbr="610.00" ybr="737.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="576.00" ytl="1012.00" xbr="715.00" ybr="1130.00" z_order="0">
+    </box>
+  </image>
+  <image id="11" name="20200722_CH8_1830_012.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="1057.00" ytl="872.00" xbr="1080.00" ybr="941.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="543.00" ytl="613.00" xbr="587.00" ybr="646.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="451.00" ytl="571.00" xbr="495.00" ybr="627.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="934.00" ytl="785.00" xbr="1018.00" ybr="848.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="842.00" ytl="1014.00" xbr="990.00" ybr="1142.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="517.00" ytl="823.00" xbr="606.00" ybr="890.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="568.00" ytl="934.00" xbr="679.00" ybr="1028.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="621.00" ytl="1061.00" xbr="767.00" ybr="1181.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="791.00" ytl="786.00" xbr="879.00" ybr="862.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="481.00" ytl="759.00" xbr="551.00" ybr="810.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="836.00" ytl="913.00" xbr="944.00" ybr="1002.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="780.00" ytl="697.00" xbr="836.00" ybr="741.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="450.00" ytl="697.00" xbr="505.00" ybr="738.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="750.00" ytl="688.00" xbr="796.00" ybr="727.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="683.00" ytl="715.00" xbr="743.00" ybr="759.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="475.00" ytl="724.00" xbr="532.00" ybr="771.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="442.00" ytl="654.00" xbr="481.00" ybr="685.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="673.00" ytl="689.00" xbr="731.00" ybr="731.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="634.00" ytl="622.00" xbr="682.00" ybr="657.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="423.00" ytl="630.00" xbr="466.00" ybr="663.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="699.00" ytl="1185.00" xbr="882.00" ybr="1365.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="533.00" ytl="633.00" xbr="615.00" ybr="733.00" z_order="0">
+    </box>
+  </image>
+  <image id="12" name="20200722_CH8_1830_013.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="845.00" ytl="740.00" xbr="912.00" ybr="793.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="679.00" ytl="836.00" xbr="770.00" ybr="906.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="463.00" ytl="708.00" xbr="519.00" ybr="753.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="375.00" ytl="814.00" xbr="459.00" ybr="881.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="763.00" ytl="698.00" xbr="821.00" ybr="743.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="647.00" ytl="683.00" xbr="704.00" ybr="731.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="758.00" ytl="769.00" xbr="834.00" ybr="828.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="677.00" ytl="647.00" xbr="720.00" ybr="681.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1030.00" ytl="975.00" xbr="1080.00" ybr="1084.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="432.00" ytl="648.00" xbr="477.00" ybr="680.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="377.00" ytl="891.00" xbr="482.00" ybr="979.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="639.00" ytl="628.00" xbr="682.00" ybr="660.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1026.00" ytl="838.00" xbr="1080.00" ybr="909.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="495.00" ytl="609.00" xbr="540.00" ybr="663.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="517.00" ytl="626.00" xbr="584.00" ybr="708.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="460.00" ytl="559.00" xbr="505.00" ybr="613.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="549.00" ytl="653.00" xbr="631.00" ybr="757.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="561.00" ytl="922.00" xbr="678.00" ybr="1012.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="378.00" ytl="951.00" xbr="529.00" ybr="1127.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="816.00" ytl="1514.00" xbr="1077.00" ybr="1731.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="342.00" ytl="751.00" xbr="412.00" ybr="808.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="792.00" ytl="796.00" xbr="880.00" ybr="865.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="947.00" ytl="799.00" xbr="1029.00" ybr="861.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="650.00" ytl="1082.00" xbr="784.00" ybr="1201.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="881.00" ytl="855.00" xbr="979.00" ybr="925.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="507.00" ytl="849.00" xbr="608.00" ybr="935.00" z_order="0">
+    </box>
+  </image>
+  <image id="13" name="20200722_CH8_1830_014.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="370.00" ytl="729.00" xbr="437.00" ybr="779.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="710.00" ytl="834.00" xbr="819.00" ybr="975.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="615.00" ytl="613.00" xbr="696.00" ybr="718.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="643.00" ytl="1026.00" xbr="784.00" ybr="1151.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="493.00" ytl="765.00" xbr="565.00" ybr="829.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="773.00" ytl="710.00" xbr="840.00" ybr="763.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="737.00" ytl="763.00" xbr="810.00" ybr="824.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="669.00" ytl="701.00" xbr="735.00" ybr="758.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="528.00" ytl="674.00" xbr="575.00" ybr="709.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="436.00" ytl="656.00" xbr="479.00" ybr="689.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="586.00" ytl="638.00" xbr="627.00" ybr="671.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="556.00" ytl="625.00" xbr="595.00" ybr="658.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="676.00" ytl="656.00" xbr="721.00" ybr="693.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="420.00" ytl="628.00" xbr="457.00" ybr="658.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="936.00" ytl="1003.00" xbr="1079.00" ybr="1360.00" z_order="0">
+    </box>
+  </image>
+  <image id="14" name="20200722_CH8_1830_015.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="585.00" ytl="640.00" xbr="625.00" ybr="670.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="399.00" ytl="789.00" xbr="481.00" ybr="854.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="880.00" ytl="765.00" xbr="947.00" ybr="819.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1019.00" ytl="945.00" xbr="1080.00" ybr="1055.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="544.00" ytl="715.00" xbr="604.00" ybr="759.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="401.00" ytl="694.00" xbr="455.00" ybr="734.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="619.00" ytl="733.00" xbr="692.00" ybr="809.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="919.00" ytl="772.00" xbr="1007.00" ybr="850.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="676.00" ytl="651.00" xbr="725.00" ybr="687.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="744.00" ytl="750.00" xbr="813.00" ybr="802.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="382.00" ytl="833.00" xbr="466.00" ybr="901.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="542.00" ytl="673.00" xbr="595.00" ybr="719.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="356.00" ytl="661.00" xbr="403.00" ybr="703.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="433.00" ytl="650.00" xbr="481.00" ybr="691.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="363.00" ytl="535.00" xbr="408.00" ybr="589.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="351.00" ytl="606.00" xbr="387.00" ybr="636.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="540.00" ytl="598.00" xbr="579.00" ybr="630.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="492.00" ytl="625.00" xbr="533.00" ybr="658.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="419.00" ytl="745.00" xbr="489.00" ybr="806.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="628.00" ytl="627.00" xbr="672.00" ybr="660.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="696.00" ytl="1205.00" xbr="868.00" ybr="1344.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="548.00" ytl="880.00" xbr="655.00" ybr="962.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="795.00" ytl="799.00" xbr="877.00" ybr="860.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="639.00" ytl="818.00" xbr="724.00" ybr="884.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="744.00" ytl="689.00" xbr="801.00" ybr="734.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="889.00" ytl="856.00" xbr="993.00" ybr="948.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="365.00" ytl="728.00" xbr="427.00" ybr="777.00" z_order="0">
+    </box>
+  </image>
+  <image id="15" name="20200722_CH8_1830_016.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="665.00" ytl="641.00" xbr="706.00" ybr="673.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="563.00" ytl="668.00" xbr="655.00" ybr="776.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="473.00" ytl="576.00" xbr="528.00" ybr="651.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="783.00" ytl="942.00" xbr="915.00" ybr="1067.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="392.00" ytl="1160.00" xbr="583.00" ybr="1359.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="719.00" ytl="1170.00" xbr="916.00" ybr="1369.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="689.00" ytl="658.00" xbr="734.00" ybr="690.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1055.00" ytl="996.00" xbr="1080.00" ybr="1076.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="436.00" ytl="654.00" xbr="478.00" ybr="687.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="514.00" ytl="642.00" xbr="555.00" ybr="674.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="368.00" ytl="719.00" xbr="429.00" ybr="771.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="713.00" ytl="671.00" xbr="763.00" ybr="707.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="357.00" ytl="663.00" xbr="401.00" ybr="697.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="757.00" ytl="692.00" xbr="814.00" ybr="737.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="657.00" ytl="697.00" xbr="716.00" ybr="744.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="460.00" ytl="705.00" xbr="516.00" ybr="748.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="363.00" ytl="760.00" xbr="440.00" ybr="825.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="766.00" ytl="750.00" xbr="850.00" ybr="825.00" z_order="0">
+    </box>
+  </image>
+  <image id="16" name="20200722_CH8_1830_017.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="679.00" ytl="717.00" xbr="735.00" ybr="769.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="546.00" ytl="615.00" xbr="584.00" ybr="646.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="631.00" ytl="624.00" xbr="674.00" ybr="658.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="505.00" ytl="647.00" xbr="547.00" ybr="679.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="692.00" ytl="654.00" xbr="740.00" ybr="689.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="456.00" ytl="697.00" xbr="511.00" ybr="742.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="382.00" ytl="841.00" xbr="476.00" ybr="912.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="505.00" ytl="791.00" xbr="583.00" ybr="855.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="781.00" ytl="784.00" xbr="860.00" ybr="844.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="404.00" ytl="882.00" xbr="507.00" ybr="974.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="653.00" ytl="1084.00" xbr="804.00" ybr="1210.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="372.00" ytl="1118.00" xbr="528.00" ybr="1246.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="377.00" ytl="543.00" xbr="419.00" ybr="602.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="604.00" ytl="679.00" xbr="719.00" ybr="844.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="464.00" ytl="578.00" xbr="517.00" ybr="644.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="353.00" ytl="608.00" xbr="388.00" ybr="638.00" z_order="0">
+    </box>
+  </image>
+  <image id="17" name="20200722_CH8_1830_018.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="1046.00" ytl="838.00" xbr="1078.00" ybr="938.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="754.00" ytl="683.00" xbr="815.00" ybr="736.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="491.00" ytl="623.00" xbr="534.00" ybr="655.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="596.00" ytl="604.00" xbr="640.00" ybr="635.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="894.00" ytl="807.00" xbr="984.00" ybr="881.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="637.00" ytl="1068.00" xbr="783.00" ybr="1184.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="359.00" ytl="611.00" xbr="394.00" ybr="651.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="932.00" ytl="1767.00" xbr="1080.00" ybr="1920.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="660.00" ytl="641.00" xbr="707.00" ybr="680.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="697.00" ytl="659.00" xbr="746.00" ybr="695.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="805.00" ytl="714.00" xbr="866.00" ybr="760.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="841.00" ytl="740.00" xbr="924.00" ybr="813.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="528.00" ytl="662.00" xbr="579.00" ybr="703.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="714.00" ytl="742.00" xbr="783.00" ybr="792.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="703.00" ytl="872.00" xbr="807.00" ybr="950.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="426.00" ytl="603.00" xbr="494.00" ybr="697.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="600.00" ytl="721.00" xbr="713.00" ybr="846.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="375.00" ytl="772.00" xbr="449.00" ybr="839.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="590.00" ytl="715.00" xbr="648.00" ybr="761.00" z_order="0">
+    </box>
+  </image>
+  <image id="18" name="20200722_CH8_1830_019.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="546.00" ytl="682.00" xbr="598.00" ybr="722.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="378.00" ytl="831.00" xbr="468.00" ybr="920.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="600.00" ytl="607.00" xbr="640.00" ybr="638.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="349.00" ytl="628.00" xbr="384.00" ybr="657.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="716.00" ytl="866.00" xbr="812.00" ybr="943.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="598.00" ytl="652.00" xbr="649.00" ybr="694.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="563.00" ytl="908.00" xbr="646.00" ybr="979.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="654.00" ytl="631.00" xbr="700.00" ybr="667.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="517.00" ytl="657.00" xbr="561.00" ybr="691.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="422.00" ytl="640.00" xbr="467.00" ybr="673.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="796.00" ytl="721.00" xbr="861.00" ybr="770.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="448.00" ytl="701.00" xbr="505.00" ybr="748.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="847.00" ytl="748.00" xbr="914.00" ybr="800.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="887.00" ytl="755.00" xbr="963.00" ybr="821.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="767.00" ytl="778.00" xbr="849.00" ybr="840.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="696.00" ytl="650.00" xbr="747.00" ybr="692.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="350.00" ytl="681.00" xbr="397.00" ybr="722.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="512.00" ytl="868.00" xbr="614.00" ybr="939.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="700.00" ytl="728.00" xbr="768.00" ybr="778.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="748.00" ytl="833.00" xbr="845.00" ybr="902.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="488.00" ytl="973.00" xbr="621.00" ybr="1088.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="491.00" ytl="761.00" xbr="573.00" ybr="836.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="636.00" ytl="783.00" xbr="722.00" ybr="855.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="919.00" ytl="778.00" xbr="1003.00" ybr="844.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="380.00" ytl="822.00" xbr="469.00" ybr="917.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="594.00" ytl="896.00" xbr="846.00" ybr="1231.00" z_order="0">
+    </box>
+  </image>
+  <image id="19" name="20200722_CH8_1830_020.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="789.00" ytl="1381.00" xbr="1017.00" ybr="1567.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="567.00" ytl="919.00" xbr="693.00" ybr="1027.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="358.00" ytl="893.00" xbr="460.00" ybr="976.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="386.00" ytl="547.00" xbr="427.00" ybr="596.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="516.00" ytl="641.00" xbr="560.00" ybr="686.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="349.00" ytl="627.00" xbr="385.00" ybr="657.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="657.00" ytl="633.00" xbr="702.00" ybr="671.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="869.00" ytl="750.00" xbr="933.00" ybr="804.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="433.00" ytl="655.00" xbr="476.00" ybr="690.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="591.00" ytl="648.00" xbr="639.00" ybr="684.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="705.00" ytl="720.00" xbr="771.00" ybr="775.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="719.00" ytl="749.00" xbr="792.00" ybr="800.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="497.00" ytl="773.00" xbr="568.00" ybr="830.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="798.00" ytl="806.00" xbr="878.00" ybr="870.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="886.00" ytl="766.00" xbr="969.00" ybr="832.00" z_order="0">
+    </box>
+  </image>
+  <image id="20" name="20200722_CH8_1830_021.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="617.00" ytl="661.00" xbr="667.00" ybr="697.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="905.00" ytl="776.00" xbr="976.00" ybr="834.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="652.00" ytl="699.00" xbr="710.00" ybr="740.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="872.00" ytl="1023.00" xbr="1021.00" ybr="1166.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="481.00" ytl="592.00" xbr="537.00" ybr="663.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="416.00" ytl="584.00" xbr="466.00" ybr="644.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="437.00" ytl="645.00" xbr="479.00" ybr="678.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="545.00" ytl="640.00" xbr="589.00" ybr="672.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="917.00" ytl="901.00" xbr="1030.00" ybr="984.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="710.00" ytl="658.00" xbr="759.00" ybr="697.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="356.00" ytl="664.00" xbr="402.00" ybr="701.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="957.00" ytl="807.00" xbr="1044.00" ybr="873.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="681.00" ytl="1164.00" xbr="847.00" ybr="1301.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="391.00" ytl="973.00" xbr="514.00" ybr="1083.00" z_order="0">
+    </box>
+  </image>
+  <image id="21" name="20200722_CH8_1830_022.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="451.00" ytl="673.00" xbr="511.00" ybr="716.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="363.00" ytl="624.00" xbr="399.00" ybr="653.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="666.00" ytl="698.00" xbr="725.00" ybr="743.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="691.00" ytl="666.00" xbr="742.00" ybr="700.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="548.00" ytl="679.00" xbr="607.00" ybr="724.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="366.00" ytl="685.00" xbr="415.00" ybr="726.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="952.00" ytl="1111.00" xbr="1080.00" ybr="1235.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="795.00" ytl="702.00" xbr="866.00" ybr="763.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="430.00" ytl="1540.00" xbr="686.00" ybr="1766.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="672.00" ytl="1087.00" xbr="825.00" ybr="1208.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="467.00" ytl="693.00" xbr="573.00" ybr="830.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="631.00" ytl="724.00" xbr="781.00" ybr="919.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="529.00" ytl="578.00" xbr="581.00" ybr="642.00" z_order="0">
+    </box>
+  </image>
+  <image id="22" name="20200722_CH8_1830_023.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="790.00" ytl="1338.00" xbr="1025.00" ybr="1570.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="555.00" ytl="619.00" xbr="596.00" ybr="652.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="848.00" ytl="746.00" xbr="916.00" ybr="795.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="658.00" ytl="694.00" xbr="721.00" ybr="743.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="370.00" ytl="540.00" xbr="415.00" ybr="592.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1022.00" ytl="847.00" xbr="1080.00" ybr="922.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="512.00" ytl="659.00" xbr="559.00" ybr="694.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="357.00" ytl="668.00" xbr="401.00" ybr="706.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="451.00" ytl="670.00" xbr="497.00" ybr="707.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="410.00" ytl="1011.00" xbr="542.00" ybr="1118.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="500.00" ytl="776.00" xbr="575.00" ybr="834.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="767.00" ytl="722.00" xbr="899.00" ybr="872.00" z_order="0">
+    </box>
+  </image>
+  <image id="23" name="20200722_CH8_1830_024.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="555.00" ytl="618.00" xbr="595.00" ybr="652.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="479.00" ytl="724.00" xbr="539.00" ybr="770.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="659.00" ytl="698.00" xbr="717.00" ybr="744.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="358.00" ytl="1429.00" xbr="590.00" ybr="1660.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="361.00" ytl="624.00" xbr="401.00" ybr="656.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="625.00" ytl="623.00" xbr="662.00" ybr="653.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="475.00" ytl="582.00" xbr="527.00" ybr="650.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="874.00" ytl="844.00" xbr="981.00" ybr="936.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="376.00" ytl="759.00" xbr="444.00" ybr="815.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="623.00" ytl="766.00" xbr="703.00" ybr="833.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="862.00" ytl="1502.00" xbr="1080.00" ybr="1711.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="421.00" ytl="623.00" xbr="456.00" ybr="656.00" z_order="0">
+    </box>
+  </image>
+  <image id="24" name="20200722_CH8_1830_025.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="354.00" ytl="642.00" xbr="394.00" ybr="676.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="424.00" ytl="641.00" xbr="465.00" ybr="673.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="352.00" ytl="685.00" xbr="403.00" ybr="726.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="593.00" ytl="968.00" xbr="710.00" ybr="1064.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="384.00" ytl="818.00" xbr="468.00" ybr="893.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="891.00" ytl="843.00" xbr="997.00" ybr="935.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="774.00" ytl="705.00" xbr="837.00" ybr="751.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="700.00" ytl="743.00" xbr="768.00" ybr="790.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="530.00" ytl="664.00" xbr="574.00" ybr="699.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="583.00" ytl="673.00" xbr="691.00" ybr="830.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="397.00" ytl="566.00" xbr="446.00" ybr="628.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="490.00" ytl="786.00" xbr="572.00" ybr="854.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="787.00" ytl="810.00" xbr="876.00" ybr="876.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="478.00" ytl="728.00" xbr="535.00" ybr="775.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="678.00" ytl="716.00" xbr="740.00" ybr="759.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="452.00" ytl="678.00" xbr="504.00" ybr="722.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="505.00" ytl="644.00" xbr="547.00" ybr="674.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="465.00" ytl="606.00" xbr="505.00" ybr="637.00" z_order="0">
+    </box>
+  </image>
+  <image id="25" name="20200722_CH8_1830_026.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="378.00" ytl="898.00" xbr="484.00" ybr="995.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="490.00" ytl="590.00" xbr="547.00" ybr="666.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="453.00" ytl="656.00" xbr="545.00" ybr="784.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="633.00" ytl="646.00" xbr="700.00" ybr="729.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="829.00" ytl="1420.00" xbr="1073.00" ybr="1680.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="455.00" ytl="558.00" xbr="496.00" ybr="610.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="427.00" ytl="627.00" xbr="466.00" ybr="661.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="356.00" ytl="658.00" xbr="400.00" ybr="693.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="537.00" ytl="679.00" xbr="589.00" ybr="725.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="598.00" ytl="752.00" xbr="668.00" ybr="808.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="704.00" ytl="666.00" xbr="755.00" ybr="704.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="666.00" ytl="710.00" xbr="724.00" ybr="752.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="789.00" ytl="705.00" xbr="857.00" ybr="759.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="612.00" ytl="789.00" xbr="695.00" ybr="850.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="807.00" ytl="806.00" xbr="893.00" ybr="878.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="515.00" ytl="812.00" xbr="607.00" ybr="894.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="376.00" ytl="771.00" xbr="447.00" ybr="828.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="437.00" ytl="1610.00" xbr="728.00" ybr="1895.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="581.00" ytl="940.00" xbr="698.00" ybr="1030.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="618.00" ytl="1039.00" xbr="743.00" ybr="1153.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="921.00" ytl="1112.00" xbr="1072.00" ybr="1231.00" z_order="0">
+    </box>
+  </image>
+  <image id="26" name="20200722_CH8_1830_027.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="709.00" ytl="724.00" xbr="785.00" ybr="792.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="574.00" ytl="898.00" xbr="678.00" ybr="980.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="523.00" ytl="835.00" xbr="617.00" ybr="915.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="360.00" ytl="846.00" xbr="448.00" ybr="920.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="486.00" ytl="751.00" xbr="557.00" ybr="804.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="431.00" ytl="1307.00" xbr="634.00" ybr="1475.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="420.00" ytl="632.00" xbr="473.00" ybr="688.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="500.00" ytl="593.00" xbr="567.00" ybr="685.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="563.00" ytl="664.00" xbr="654.00" ybr="770.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="807.00" ytl="867.00" xbr="1026.00" ybr="1126.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="579.00" ytl="629.00" xbr="623.00" ybr="670.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="612.00" ytl="609.00" xbr="655.00" ybr="643.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="832.00" ytl="727.00" xbr="896.00" ybr="785.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="369.00" ytl="712.00" xbr="427.00" ybr="758.00" z_order="0">
+    </box>
+  </image>
+  <image id="27" name="20200722_CH8_1830_028.jpg" width="1080" height="1920">
+    <box label="truck" occluded="0" xtl="628.00" ytl="1025.00" xbr="823.00" ybr="1251.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="749.00" ytl="799.00" xbr="969.00" ybr="1074.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="366.00" ytl="651.00" xbr="406.00" ybr="682.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="440.00" ytl="657.00" xbr="485.00" ybr="694.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="716.00" ytl="671.00" xbr="770.00" ybr="711.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="635.00" ytl="679.00" xbr="690.00" ybr="721.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="665.00" ytl="702.00" xbr="718.00" ybr="746.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="528.00" ytl="660.00" xbr="575.00" ybr="700.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="372.00" ytl="710.00" xbr="428.00" ybr="754.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="685.00" ytl="858.00" xbr="782.00" ybr="935.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="708.00" ytl="729.00" xbr="774.00" ybr="780.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="972.00" ytl="795.00" xbr="1060.00" ybr="865.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="661.00" ytl="644.00" xbr="706.00" ybr="679.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="567.00" ytl="597.00" xbr="628.00" ybr="671.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="399.00" ytl="974.00" xbr="526.00" ybr="1084.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="502.00" ytl="630.00" xbr="539.00" ybr="661.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="571.00" ytl="694.00" xbr="630.00" ybr="760.00" z_order="0">
+    </box>
+  </image>
+  <image id="28" name="20200722_CH8_1830_029.jpg" width="1080" height="1920">
+    <box label="truck" occluded="0" xtl="421.00" ytl="620.00" xbr="470.00" ybr="671.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="736.00" ytl="854.00" xbr="924.00" ybr="1087.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="971.00" ytl="1113.00" xbr="1080.00" ybr="1283.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="588.00" ytl="666.00" xbr="639.00" ybr="701.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="583.00" ytl="642.00" xbr="623.00" ybr="671.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="358.00" ytl="628.00" xbr="395.00" ybr="660.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="660.00" ytl="634.00" xbr="702.00" ybr="669.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="865.00" ytl="762.00" xbr="935.00" ybr="817.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="763.00" ytl="1298.00" xbr="972.00" ybr="1475.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="613.00" ytl="1023.00" xbr="755.00" ybr="1134.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="415.00" ytl="1083.00" xbr="564.00" ybr="1202.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="381.00" ytl="855.00" xbr="482.00" ybr="945.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="382.00" ytl="970.00" xbr="510.00" ybr="1072.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="651.00" ytl="694.00" xbr="708.00" ybr="737.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="587.00" ytl="745.00" xbr="658.00" ybr="805.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="377.00" ytl="766.00" xbr="450.00" ybr="824.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="609.00" ytl="791.00" xbr="691.00" ybr="861.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="453.00" ytl="685.00" xbr="506.00" ybr="728.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="379.00" ytl="721.00" xbr="442.00" ybr="772.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="703.00" ytl="845.00" xbr="782.00" ybr="915.00" z_order="0">
+    </box>
+  </image>
+  <image id="29" name="20200722_CH8_1830_030.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="370.00" ytl="856.00" xbr="469.00" ybr="950.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="436.00" ytl="657.00" xbr="483.00" ybr="691.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="634.00" ytl="770.00" xbr="717.00" ybr="845.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="346.00" ytl="662.00" xbr="389.00" ybr="698.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="815.00" ytl="725.00" xbr="886.00" ybr="782.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="591.00" ytl="648.00" xbr="630.00" ybr="680.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="449.00" ytl="679.00" xbr="499.00" ybr="715.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="543.00" ytl="844.00" xbr="664.00" ybr="965.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="785.00" ytl="757.00" xbr="867.00" ybr="843.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="494.00" ytl="629.00" xbr="535.00" ybr="669.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="775.00" ytl="1381.00" xbr="1015.00" ybr="1610.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="390.00" ytl="944.00" xbr="514.00" ybr="1054.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="953.00" ytl="806.00" xbr="1053.00" ybr="885.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="883.00" ytl="759.00" xbr="948.00" ybr="814.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="356.00" ytl="732.00" xbr="423.00" ybr="791.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="650.00" ytl="824.00" xbr="747.00" ybr="902.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="537.00" ytl="675.00" xbr="589.00" ybr="718.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="731.00" ytl="749.00" xbr="805.00" ybr="809.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="704.00" ytl="718.00" xbr="768.00" ybr="764.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="465.00" ytl="1780.00" xbr="768.00" ybr="1920.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="381.00" ytl="703.00" xbr="427.00" ybr="742.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1052.00" ytl="1003.00" xbr="1080.00" ybr="1099.00" z_order="0">
+    </box>
+  </image>
+  <image id="30" name="20200722_CH8_1830_031.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="438.00" ytl="661.00" xbr="488.00" ybr="700.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="778.00" ytl="1369.00" xbr="995.00" ybr="1548.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="739.00" ytl="773.00" xbr="823.00" ybr="831.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="689.00" ytl="840.00" xbr="789.00" ybr="923.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="357.00" ytl="705.00" xbr="418.00" ybr="756.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="470.00" ytl="720.00" xbr="539.00" ybr="777.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="976.00" ytl="834.00" xbr="1071.00" ybr="890.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="852.00" ytl="744.00" xbr="918.00" ybr="795.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="644.00" ytl="692.00" xbr="702.00" ybr="736.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="532.00" ytl="675.00" xbr="580.00" ybr="710.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="571.00" ytl="1805.00" xbr="810.00" ybr="1920.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="694.00" ytl="659.00" xbr="738.00" ybr="692.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="652.00" ytl="1132.00" xbr="801.00" ybr="1288.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="631.00" ytl="674.00" xbr="678.00" ybr="715.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="514.00" ytl="657.00" xbr="558.00" ybr="689.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="600.00" ytl="655.00" xbr="642.00" ybr="691.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="776.00" ytl="928.00" xbr="901.00" ybr="1051.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="667.00" ytl="643.00" xbr="708.00" ybr="681.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="572.00" ytl="633.00" xbr="614.00" ybr="668.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="356.00" ytl="619.00" xbr="393.00" ybr="648.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="403.00" ytl="554.00" xbr="443.00" ybr="602.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="853.00" ytl="816.00" xbr="948.00" ybr="910.00" z_order="0">
+    </box>
+  </image>
+  <image id="31" name="20200722_CH8_1830_032.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="364.00" ytl="809.00" xbr="454.00" ybr="883.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="762.00" ytl="1379.00" xbr="1011.00" ybr="1593.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="363.00" ytl="652.00" xbr="409.00" ybr="701.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="559.00" ytl="624.00" xbr="601.00" ybr="655.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="678.00" ytl="645.00" xbr="723.00" ybr="681.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="672.00" ytl="701.00" xbr="728.00" ybr="746.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1031.00" ytl="977.00" xbr="1080.00" ybr="1071.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1010.00" ytl="838.00" xbr="1080.00" ybr="908.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="617.00" ytl="658.00" xbr="669.00" ybr="700.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="538.00" ytl="672.00" xbr="589.00" ybr="714.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="744.00" ytl="684.00" xbr="802.00" ybr="730.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="573.00" ytl="768.00" xbr="644.00" ybr="826.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="709.00" ytl="731.00" xbr="767.00" ybr="777.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="778.00" ytl="778.00" xbr="848.00" ybr="836.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="515.00" ytl="798.00" xbr="599.00" ybr="861.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="821.00" ytl="812.00" xbr="919.00" ybr="892.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="403.00" ytl="571.00" xbr="452.00" ybr="625.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="479.00" ytl="598.00" xbr="544.00" ybr="672.00" z_order="0">
+    </box>
+  </image>
+  <image id="32" name="20200722_CH8_1830_033.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="1022.00" ytl="1182.00" xbr="1077.00" ybr="1353.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="903.00" ytl="879.00" xbr="1006.00" ybr="960.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="856.00" ytl="763.00" xbr="933.00" ybr="818.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="430.00" ytl="770.00" xbr="514.00" ybr="849.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="535.00" ytl="675.00" xbr="584.00" ybr="715.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="647.00" ytl="692.00" xbr="707.00" ybr="743.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="768.00" ytl="694.00" xbr="827.00" ybr="735.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="585.00" ytl="660.00" xbr="631.00" ybr="697.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="350.00" ytl="690.00" xbr="399.00" ybr="730.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="684.00" ytl="652.00" xbr="733.00" ybr="688.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="710.00" ytl="732.00" xbr="781.00" ybr="788.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="624.00" ytl="780.00" xbr="690.00" ybr="837.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1037.00" ytl="857.00" xbr="1080.00" ybr="928.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="739.00" ytl="676.00" xbr="791.00" ybr="718.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="359.00" ytl="647.00" xbr="406.00" ybr="681.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="556.00" ytl="624.00" xbr="595.00" ybr="654.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="411.00" ytl="674.00" xbr="453.00" ybr="708.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="474.00" ytl="592.00" xbr="517.00" ybr="644.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="645.00" ytl="765.00" xbr="801.00" ybr="941.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="435.00" ytl="650.00" xbr="521.00" ybr="752.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="400.00" ytl="975.00" xbr="538.00" ybr="1150.00" z_order="0">
+    </box>
+  </image>
+  <image id="33" name="20200722_CH8_1830_034.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="523.00" ytl="810.00" xbr="596.00" ybr="876.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="690.00" ytl="728.00" xbr="756.00" ybr="775.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="665.00" ytl="1056.00" xbr="816.00" ybr="1186.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="386.00" ytl="839.00" xbr="483.00" ybr="912.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="686.00" ytl="1158.00" xbr="1080.00" ybr="1779.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="761.00" ytl="789.00" xbr="838.00" ybr="846.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="655.00" ytl="637.00" xbr="695.00" ybr="669.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="549.00" ytl="686.00" xbr="600.00" ybr="726.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="647.00" ytl="691.00" xbr="700.00" ybr="730.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="512.00" ytl="649.00" xbr="554.00" ybr="683.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="615.00" ytl="745.00" xbr="707.00" ybr="839.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="362.00" ytl="676.00" xbr="402.00" ybr="714.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="583.00" ytl="642.00" xbr="625.00" ybr="674.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="427.00" ytl="658.00" xbr="472.00" ybr="692.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="902.00" ytl="885.00" xbr="1008.00" ybr="966.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="393.00" ytl="1187.00" xbr="568.00" ybr="1332.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="962.00" ytl="815.00" xbr="1052.00" ybr="879.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="374.00" ytl="976.00" xbr="497.00" ybr="1079.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="333.00" ytl="1425.00" xbr="558.00" ybr="1624.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="733.00" ytl="673.00" xbr="783.00" ybr="716.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="685.00" ytl="1169.00" xbr="1075.00" ybr="1751.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="526.00" ytl="663.00" xbr="571.00" ybr="701.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="521.00" ytl="659.00" xbr="564.00" ybr="693.00" z_order="0">
+    </box>
+  </image>
+  <image id="34" name="20200722_CH8_1830_035.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="729.00" ytl="1328.00" xbr="934.00" ybr="1501.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="630.00" ytl="624.00" xbr="673.00" ybr="655.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="670.00" ytl="647.00" xbr="713.00" ybr="679.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="709.00" ytl="666.00" xbr="761.00" ybr="703.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="668.00" ytl="701.00" xbr="724.00" ybr="746.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="436.00" ytl="689.00" xbr="488.00" ybr="729.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1018.00" ytl="1213.00" xbr="1080.00" ybr="1349.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="508.00" ytl="825.00" xbr="597.00" ybr="905.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="466.00" ytl="707.00" xbr="527.00" ybr="754.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="388.00" ytl="1086.00" xbr="509.00" ybr="1236.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="430.00" ytl="552.00" xbr="472.00" ybr="606.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="529.00" ytl="583.00" xbr="591.00" ybr="658.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="874.00" ytl="1045.00" xbr="1037.00" ybr="1186.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="363.00" ytl="822.00" xbr="460.00" ybr="905.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="768.00" ytl="787.00" xbr="849.00" ybr="844.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="986.00" ytl="823.00" xbr="1073.00" ybr="888.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="481.00" ytl="752.00" xbr="556.00" ybr="813.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="824.00" ytl="834.00" xbr="914.00" ybr="903.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="704.00" ytl="724.00" xbr="775.00" ybr="777.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="575.00" ytl="723.00" xbr="641.00" ybr="770.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="804.00" ytl="721.00" xbr="870.00" ybr="770.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="472.00" ytl="609.00" xbr="513.00" ybr="644.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="360.00" ytl="623.00" xbr="396.00" ybr="652.00" z_order="0">
+    </box>
+  </image>
+  <image id="35" name="20200722_CH8_1830_036.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="714.00" ytl="690.00" xbr="768.00" ybr="730.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="635.00" ytl="683.00" xbr="688.00" ybr="722.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="567.00" ytl="884.00" xbr="668.00" ybr="965.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="355.00" ytl="789.00" xbr="429.00" ybr="846.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="500.00" ytl="782.00" xbr="579.00" ybr="839.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="403.00" ytl="1062.00" xbr="548.00" ybr="1182.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="856.00" ytl="744.00" xbr="1057.00" ybr="979.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="511.00" ytl="612.00" xbr="583.00" ybr="703.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="356.00" ytl="653.00" xbr="397.00" ybr="690.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="440.00" ytl="648.00" xbr="481.00" ybr="679.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="639.00" ytl="631.00" xbr="680.00" ybr="663.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="554.00" ytl="620.00" xbr="600.00" ybr="660.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="426.00" ytl="617.00" xbr="462.00" ybr="651.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="513.00" ytl="565.00" xbr="558.00" ybr="624.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="767.00" ytl="914.00" xbr="885.00" ybr="1032.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="619.00" ytl="791.00" xbr="691.00" ybr="851.00" z_order="0">
+    </box>
+  </image>
+  <image id="36" name="20200722_CH8_1830_037.jpg" width="1080" height="1920">
+    <box label="truck" occluded="0" xtl="875.00" ytl="931.00" xbr="1080.00" ybr="1253.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="764.00" ytl="701.00" xbr="821.00" ybr="744.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="359.00" ytl="662.00" xbr="402.00" ybr="699.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="560.00" ytl="940.00" xbr="681.00" ybr="1036.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="743.00" ytl="680.00" xbr="797.00" ybr="720.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="563.00" ytl="620.00" xbr="601.00" ybr="650.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="361.00" ytl="763.00" xbr="432.00" ybr="818.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="370.00" ytl="1100.00" xbr="520.00" ybr="1222.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="367.00" ytl="901.00" xbr="473.00" ybr="982.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="682.00" ytl="1150.00" xbr="851.00" ybr="1288.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="529.00" ytl="851.00" xbr="625.00" ybr="923.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="481.00" ytl="780.00" xbr="555.00" ybr="837.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="894.00" ytl="767.00" xbr="972.00" ybr="828.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="739.00" ytl="759.00" xbr="824.00" ybr="834.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="807.00" ytl="720.00" xbr="880.00" ybr="776.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="564.00" ytl="962.00" xbr="684.00" ybr="1065.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="614.00" ytl="780.00" xbr="693.00" ybr="840.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="591.00" ytl="687.00" xbr="644.00" ybr="728.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="560.00" ytl="914.00" xbr="678.00" ybr="999.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="392.00" ytl="560.00" xbr="429.00" ybr="605.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="957.00" ytl="872.00" xbr="1072.00" ybr="1014.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="418.00" ytl="602.00" xbr="471.00" ybr="666.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="659.00" ytl="643.00" xbr="752.00" ybr="756.00" z_order="0">
+    </box>
+  </image>
+  <image id="37" name="20200722_CH8_1830_038.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="462.00" ytl="717.00" xbr="525.00" ybr="763.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="899.00" ytl="769.00" xbr="981.00" ybr="832.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="511.00" ytl="613.00" xbr="566.00" ybr="683.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="604.00" ytl="964.00" xbr="805.00" ybr="1162.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="402.00" ytl="1125.00" xbr="559.00" ybr="1252.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="349.00" ytl="556.00" xbr="395.00" ybr="616.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="431.00" ytl="622.00" xbr="481.00" ybr="682.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="604.00" ytl="612.00" xbr="640.00" ybr="643.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="560.00" ytl="625.00" xbr="598.00" ybr="656.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="644.00" ytl="628.00" xbr="688.00" ybr="664.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="621.00" ytl="667.00" xbr="670.00" ybr="708.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="713.00" ytl="729.00" xbr="782.00" ybr="788.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1021.00" ytl="830.00" xbr="1080.00" ybr="920.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="641.00" ytl="785.00" xbr="716.00" ybr="855.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="771.00" ytl="694.00" xbr="829.00" ybr="736.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="391.00" ytl="903.00" xbr="502.00" ybr="979.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="368.00" ytl="973.00" xbr="496.00" ybr="1073.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="402.00" ytl="777.00" xbr="477.00" ybr="834.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="922.00" ytl="870.00" xbr="1025.00" ybr="959.00" z_order="0">
+    </box>
+  </image>
+  <image id="38" name="20200722_CH8_1830_039.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="376.00" ytl="775.00" xbr="450.00" ybr="840.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="854.00" ytl="833.00" xbr="945.00" ybr="902.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="762.00" ytl="757.00" xbr="843.00" ybr="832.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="674.00" ytl="708.00" xbr="732.00" ybr="753.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="696.00" ytl="658.00" xbr="747.00" ybr="699.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="443.00" ytl="660.00" xbr="511.00" ybr="730.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="481.00" ytl="697.00" xbr="546.00" ybr="791.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="545.00" ytl="590.00" xbr="586.00" ybr="648.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="496.00" ytl="746.00" xbr="595.00" ybr="867.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="401.00" ytl="570.00" xbr="448.00" ybr="627.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="374.00" ytl="673.00" xbr="452.00" ybr="773.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="523.00" ytl="812.00" xbr="648.00" ybr="966.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="695.00" ytl="877.00" xbr="862.00" ybr="1074.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="586.00" ytl="737.00" xbr="649.00" ybr="789.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1011.00" ytl="830.00" xbr="1080.00" ybr="900.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="361.00" ytl="743.00" xbr="431.00" ybr="799.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="635.00" ytl="673.00" xbr="685.00" ybr="711.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="600.00" ytl="654.00" xbr="645.00" ybr="687.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1044.00" ytl="875.00" xbr="1080.00" ybr="932.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="561.00" ytl="625.00" xbr="603.00" ybr="657.00" z_order="0">
+    </box>
+  </image>
+  <image id="39" name="20200722_CH8_1830_040.jpg" width="1080" height="1920">
+    <box label="truck" occluded="0" xtl="413.00" ytl="599.00" xbr="464.00" ybr="657.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="519.00" ytl="576.00" xbr="563.00" ybr="632.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="357.00" ytl="673.00" xbr="408.00" ybr="716.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="355.00" ytl="638.00" xbr="405.00" ybr="683.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="736.00" ytl="706.00" xbr="835.00" ybr="825.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="604.00" ytl="650.00" xbr="659.00" ybr="695.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="449.00" ytl="634.00" xbr="537.00" ybr="757.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="836.00" ytl="1102.00" xbr="1017.00" ybr="1278.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="694.00" ytl="655.00" xbr="739.00" ybr="691.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="543.00" ytl="679.00" xbr="594.00" ybr="718.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="657.00" ytl="698.00" xbr="714.00" ybr="741.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="865.00" ytl="742.00" xbr="938.00" ybr="803.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="841.00" ytl="831.00" xbr="935.00" ybr="904.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="974.00" ytl="817.00" xbr="1063.00" ybr="885.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="738.00" ytl="1220.00" xbr="1011.00" ybr="1541.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="589.00" ytl="733.00" xbr="658.00" ybr="790.00" z_order="0">
+    </box>
+  </image>
+  <image id="40" name="20200722_CH8_1830_041.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="513.00" ytl="650.00" xbr="560.00" ybr="684.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="453.00" ytl="675.00" xbr="506.00" ybr="722.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="622.00" ytl="674.00" xbr="670.00" ybr="708.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="702.00" ytl="673.00" xbr="807.00" ybr="806.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="470.00" ytl="706.00" xbr="568.00" ybr="831.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="373.00" ytl="724.00" xbr="437.00" ybr="800.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="378.00" ytl="942.00" xbr="538.00" ybr="1137.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="870.00" ytl="753.00" xbr="943.00" ybr="809.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="892.00" ytl="887.00" xbr="1000.00" ybr="967.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="637.00" ytl="1168.00" xbr="805.00" ybr="1314.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="369.00" ytl="684.00" xbr="422.00" ybr="729.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="635.00" ytl="626.00" xbr="677.00" ybr="660.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="574.00" ytl="702.00" xbr="636.00" ybr="759.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="997.00" ytl="1179.00" xbr="1080.00" ybr="1315.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="405.00" ytl="1428.00" xbr="682.00" ybr="1726.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="626.00" ytl="776.00" xbr="696.00" ybr="833.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="594.00" ytl="925.00" xbr="705.00" ybr="1012.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="422.00" ytl="626.00" xbr="461.00" ybr="656.00" z_order="0">
+    </box>
+  </image>
+  <image id="41" name="20200722_CH8_1830_042.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="664.00" ytl="693.00" xbr="726.00" ybr="751.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="571.00" ytl="680.00" xbr="651.00" ybr="779.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="432.00" ytl="1542.00" xbr="704.00" ybr="1802.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="638.00" ytl="795.00" xbr="724.00" ybr="869.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="851.00" ytl="839.00" xbr="944.00" ybr="910.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="575.00" ytl="950.00" xbr="693.00" ybr="1041.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="918.00" ytl="784.00" xbr="1004.00" ybr="852.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="812.00" ytl="726.00" xbr="879.00" ybr="776.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="793.00" ytl="1319.00" xbr="1037.00" ybr="1566.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="966.00" ytl="1161.00" xbr="1080.00" ybr="1304.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="474.00" ytl="674.00" xbr="521.00" ybr="708.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="356.00" ytl="656.00" xbr="399.00" ybr="692.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="708.00" ytl="668.00" xbr="747.00" ybr="699.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="622.00" ytl="665.00" xbr="673.00" ybr="702.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="590.00" ytl="600.00" xbr="629.00" ybr="632.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="427.00" ytl="638.00" xbr="464.00" ybr="668.00" z_order="0">
+    </box>
+  </image>
+  <image id="42" name="20200722_CH8_1830_043.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="537.00" ytl="848.00" xbr="628.00" ybr="920.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="988.00" ytl="828.00" xbr="1076.00" ybr="897.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="503.00" ytl="785.00" xbr="576.00" ybr="846.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="718.00" ytl="672.00" xbr="777.00" ybr="717.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="777.00" ytl="778.00" xbr="855.00" ybr="838.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="568.00" ytl="700.00" xbr="627.00" ybr="749.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="369.00" ytl="707.00" xbr="425.00" ybr="752.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="462.00" ytl="700.00" xbr="518.00" ybr="744.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="655.00" ytl="697.00" xbr="713.00" ybr="739.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1000.00" ytl="1231.00" xbr="1080.00" ybr="1380.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="681.00" ytl="649.00" xbr="726.00" ybr="683.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="442.00" ytl="631.00" xbr="482.00" ybr="661.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="353.00" ytl="640.00" xbr="393.00" ybr="673.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="576.00" ytl="930.00" xbr="683.00" ybr="1034.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="769.00" ytl="933.00" xbr="886.00" ybr="1022.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="879.00" ytl="754.00" xbr="956.00" ybr="817.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="358.00" ytl="836.00" xbr="445.00" ybr="908.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="633.00" ytl="1150.00" xbr="804.00" ybr="1307.00" z_order="0">
+    </box>
+  </image>
+  <image id="43" name="20200722_CH8_1830_044.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="382.00" ytl="899.00" xbr="486.00" ybr="975.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="549.00" ytl="886.00" xbr="655.00" ybr="967.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="872.00" ytl="758.00" xbr="948.00" ybr="817.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="736.00" ytl="891.00" xbr="837.00" ybr="969.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="383.00" ytl="974.00" xbr="507.00" ybr="1071.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="499.00" ytl="797.00" xbr="582.00" ybr="860.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="479.00" ytl="732.00" xbr="546.00" ybr="780.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="367.00" ytl="765.00" xbr="433.00" ybr="818.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="692.00" ytl="715.00" xbr="756.00" ybr="767.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="810.00" ytl="717.00" xbr="880.00" ybr="775.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="576.00" ytl="719.00" xbr="640.00" ybr="769.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="359.00" ytl="684.00" xbr="410.00" ybr="724.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="682.00" ytl="659.00" xbr="729.00" ybr="693.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="601.00" ytl="703.00" xbr="654.00" ybr="748.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="650.00" ytl="634.00" xbr="693.00" ybr="665.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="363.00" ytl="736.00" xbr="420.00" ybr="782.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="731.00" ytl="675.00" xbr="784.00" ybr="714.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="731.00" ytl="678.00" xbr="791.00" ybr="728.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="737.00" ytl="692.00" xbr="794.00" ybr="732.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="589.00" ytl="631.00" xbr="629.00" ybr="664.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="744.00" ytl="758.00" xbr="814.00" ybr="821.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="548.00" ytl="620.00" xbr="591.00" ybr="657.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="455.00" ytl="625.00" xbr="495.00" ybr="658.00" z_order="0">
+    </box>
+  </image>
+  <image id="44" name="20200722_CH8_1830_045.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="938.00" ytl="792.00" xbr="1021.00" ybr="851.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1022.00" ytl="959.00" xbr="1080.00" ybr="1055.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="639.00" ytl="623.00" xbr="681.00" ybr="655.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="588.00" ytl="599.00" xbr="624.00" ybr="630.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="424.00" ytl="644.00" xbr="466.00" ybr="675.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="542.00" ytl="645.00" xbr="627.00" ybr="741.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="521.00" ytl="806.00" xbr="609.00" ybr="879.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="551.00" ytl="897.00" xbr="671.00" ybr="996.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="870.00" ytl="850.00" xbr="971.00" ybr="924.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="379.00" ytl="817.00" xbr="468.00" ybr="900.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="810.00" ytl="996.00" xbr="949.00" ybr="1112.00" z_order="0">
+    </box>
+  </image>
+  <image id="45" name="20200722_CH8_1830_046.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="527.00" ytl="797.00" xbr="609.00" ybr="865.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="402.00" ytl="564.00" xbr="453.00" ybr="631.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="502.00" ytl="600.00" xbr="569.00" ybr="683.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="907.00" ytl="873.00" xbr="1014.00" ybr="963.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="650.00" ytl="1110.00" xbr="809.00" ybr="1230.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="362.00" ytl="694.00" xbr="411.00" ybr="734.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="756.00" ytl="765.00" xbr="826.00" ybr="830.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="581.00" ytl="717.00" xbr="641.00" ybr="769.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="358.00" ytl="658.00" xbr="400.00" ybr="691.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="560.00" ytl="624.00" xbr="602.00" ybr="656.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="430.00" ytl="641.00" xbr="466.00" ybr="672.00" z_order="0">
+    </box>
+  </image>
+  <image id="46" name="20200722_CH8_1830_047.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="604.00" ytl="653.00" xbr="651.00" ybr="690.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="679.00" ytl="642.00" xbr="723.00" ybr="678.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="740.00" ytl="680.00" xbr="801.00" ybr="730.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="630.00" ytl="1073.00" xbr="764.00" ybr="1192.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="386.00" ytl="817.00" xbr="472.00" ybr="886.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="433.00" ytl="1220.00" xbr="598.00" ybr="1363.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="676.00" ytl="715.00" xbr="737.00" ybr="760.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="347.00" ytl="623.00" xbr="409.00" ybr="702.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="785.00" ytl="832.00" xbr="1038.00" ybr="1137.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="823.00" ytl="724.00" xbr="889.00" ybr="777.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="952.00" ytl="800.00" xbr="1040.00" ybr="866.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="449.00" ytl="635.00" xbr="529.00" ybr="751.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="650.00" ytl="676.00" xbr="706.00" ybr="719.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="558.00" ytl="705.00" xbr="615.00" ybr="744.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="527.00" ytl="657.00" xbr="574.00" ybr="692.00" z_order="0">
+    </box>
+  </image>
+  <image id="47" name="20200722_CH8_1830_048.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="853.00" ytl="751.00" xbr="924.00" ybr="803.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="421.00" ytl="592.00" xbr="462.00" ybr="660.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="773.00" ytl="1195.00" xbr="1077.00" ybr="1846.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="622.00" ytl="783.00" xbr="700.00" ybr="846.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="839.00" ytl="835.00" xbr="929.00" ybr="905.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="585.00" ytl="644.00" xbr="632.00" ybr="683.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="457.00" ytl="703.00" xbr="515.00" ybr="747.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1036.00" ytl="855.00" xbr="1080.00" ybr="930.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="439.00" ytl="671.00" xbr="490.00" ybr="711.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="631.00" ytl="623.00" xbr="674.00" ybr="653.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="350.00" ytl="606.00" xbr="385.00" ybr="637.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="539.00" ytl="612.00" xbr="577.00" ybr="642.00" z_order="0">
+    </box>
+    <box label="bus" occluded="0" xtl="362.00" ytl="981.00" xbr="593.00" ybr="1293.00" z_order="0">
+    </box>
+  </image>
+  <image id="48" name="20200722_CH8_1830_049.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="366.00" ytl="745.00" xbr="434.00" ybr="805.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="713.00" ytl="673.00" xbr="764.00" ybr="711.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="357.00" ytl="672.00" xbr="407.00" ybr="713.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="610.00" ytl="668.00" xbr="659.00" ybr="703.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="389.00" ytl="723.00" xbr="449.00" ybr="773.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="680.00" ytl="651.00" xbr="718.00" ybr="683.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="450.00" ytl="668.00" xbr="501.00" ybr="713.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="669.00" ytl="994.00" xbr="838.00" ybr="1233.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="514.00" ytl="624.00" xbr="579.00" ybr="692.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="494.00" ytl="561.00" xbr="537.00" ybr="615.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="826.00" ytl="819.00" xbr="915.00" ybr="889.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="793.00" ytl="1427.00" xbr="1046.00" ybr="1663.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="485.00" ytl="757.00" xbr="555.00" ybr="811.00" z_order="0">
+    </box>
+  </image>
+  <image id="49" name="20200722_CH8_1830_050.jpg" width="1080" height="1920">
+    <box label="car" occluded="0" xtl="806.00" ytl="708.00" xbr="870.00" ybr="763.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="719.00" ytl="707.00" xbr="779.00" ybr="753.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="349.00" ytl="596.00" xbr="384.00" ybr="628.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="477.00" ytl="729.00" xbr="543.00" ybr="785.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="917.00" ytl="783.00" xbr="1005.00" ybr="850.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1054.00" ytl="853.00" xbr="1080.00" ybr="925.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="1047.00" ytl="988.00" xbr="1080.00" ybr="1088.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="554.00" ytl="612.00" xbr="594.00" ybr="647.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="884.00" ytl="864.00" xbr="986.00" ybr="942.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="713.00" ytl="1164.00" xbr="890.00" ybr="1320.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="852.00" ytl="746.00" xbr="921.00" ybr="799.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="620.00" ytl="618.00" xbr="701.00" ybr="729.00" z_order="0">
+    </box>
+    <box label="truck" occluded="0" xtl="795.00" ytl="877.00" xbr="1035.00" ybr="1138.00" z_order="0">
+    </box>
+    <box label="car" occluded="0" xtl="498.00" ytl="633.00" xbr="540.00" ybr="664.00" z_order="0">
+    </box>
+  </image>
+</annotations>

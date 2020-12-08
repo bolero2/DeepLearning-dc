@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Rows>
+ <Row><RID>00000001</RID> 
+ <DATE_OF_BIRTH>1968</DATE_OF_BIRTH> 
+ <SEX>F</SEX> 
+ <AGE_DIAGNOSIS> 28.0</AGE_DIAGNOSIS> 
+ <AGE_OPERATION> 42.0</AGE_OPERATION> 
+ <AGE_CURRENT> 51.0</AGE_CURRENT>   
+ <HEIGHT> 162.1</HEIGHT> 
+ <WEIGHT> 46.1</WEIGHT> 
+ <BMI> 17.5</BMI> 
+ <BSA> 1.44</BSA> 
+ <DIAGNOSIS_NAME>C163.444.00</DIAGNOSIS_NAME> 
+ <DIAGNOSIS_DATE>1997-07-10</DIAGNOSIS_DATE> 
+ <DIAGNOSIS_DATE_1>1997-07-10</DIAGNOSIS_DATE_1> 
+ <DIAGNOSIS_DATE_2>2010-07-21</DIAGNOSIS_DATE_2> 
+ <DATE_PREOP_GASTROSCOPY>2011-06-14</DATE_PREOP_GASTROSCOPY> 
+ <RESULT_PREOP_GASTROSCOPY>[FINDING]
+[Subtotal Gastrectomy]
+
+Premedication (algiron 5mg) 주사 후 10% Lidocaine spray로 인두마취를 하고 위내시경을 시행함.
+
+
+1) Billroth II operated stomach
+2) A &amp; E loop : patent
+3) No evidence of intraluminal cancer recurrence
+4) mild erythematous anastomotic margin
+     easy touch bleeding site  있어 surveillance Bx(G1)
+5) marginal reflux gastritis : mild
+6) reflux esophagitis : none
+7) food stasis (-)
+8) other specific finding : discoloration at  body, GC side --&gt; Bx(G2)
+    ** EJ junction tone : normalGrossly free.</RESULT_PREOP_GASTROSCOPY> <NUMBER_OF_TUMRS> 1.0</NUMBER_OF_TUMRS>        <POORLY_DIFF_BIOPSY> 1.0</POORLY_DIFF_BIOPSY> <SIGNET_RING_BIOPSY> 1.0</SIGNET_RING_BIOPSY>  <ULCER_GASTROSCOPY> 0.0</ULCER_GASTROSCOPY> <CT_DATE>2011-06-24</CT_DATE> <CT_RESULT>[FINDING]
+s&#47;p subtotal gastrectomy, BII
+
+1. T staging : Tx
+   Site : Nonvisualized
+   Size : Nonvisualized
+   Local invasion: not definite
+   Direct invasion to adjacent organ: not definite
+
+2. N staging : N 
+   Regional lymph nodes with short diameter greater than 8 mm: 0
+
+3. M staging : M 
+    distant metastasis: : not definite
+    peritoneal carcinomatosis: : not definite
+
+4. Left gastric artery, splenic artery variation: : not definite
+Right hepatic artery from SMA
+
+5. Other findings: Uterine myoma.</CT_RESULT> <CT_TSTAGE1>0</CT_TSTAGE1>  <CT_NSTAGE1>99</CT_NSTAGE1>  <CT_MSTAGE1>99</CT_MSTAGE1>  <PETCT_DATE>2011-06-25</PETCT_DATE> <PETCT_RESULT>[FINDING]
+PROCEDURE: 
+검사 직전에 측정한 환자의 혈당치는 107 mg&#47;dl, 신장 164 cm, 체중 46 kg이었고, F-18 FDG 14 mCi를 Rt. hand에 정맥주사하고 1시간 후에 orbitomeatal line에서 proximal thigh까지의 torso 영상을 얻음.
+
+CLINICAL INFORMATION:
+1. Stomach cancer.
+2. Op: (1) B-II STG (adenocarcinoma, PD and signet ring cell type, LN 0&#47;37), &apos;93&#47;7; (2) Bx, gastric body (adenocarcinoma, PD, signet ring cell type), &apos;11&#47;6&#47;14.
+3. Restaging.
+
+FINDINGS:
+Remnant stomach에 diffuse FDG uptake이 있으나, 뚜렷하게 증가된 focal FDG uptake은 보이지 않음.
+
+Lt. parotid area의 superficial portion에 focal FDG uptake이 있음(SUVmax 2.7).
+Both upper internal jugular chains, Rt. submandibular area에 mild nodular FDG uptakes이 있음.
+Lt. hilum, both peribronchial areas에도 mild nodular FDG uptakes이 있음.
+
+Left breast의 lower mid portion에 focal low density lesion이 있고, PET images에서 perceptible uptake은 없음.
+
+Uterus에 increased activity를 보이는 bulging contour가 있음(SUVmax 2.7).
+
+Lt. shoulder joint 주위에 focal FDG uptake이 관찰됨.
+
+Right lung, LLL에 a few small nodules가 보임.
+
+다른 특이소견 없음.
+[CONCLUSION]
+1. Biopsy proven recurrent cancer cannot be differentiated from physiologic activity of stomach.
+2. Possibly, reactive LN in left parotid area.
+   DDx. Salivary gland tumor.
+3. Reactive LNs in both upper internal jugular chains, Rt. submandibular area, Lt. pulmonary hilum and both peribronchial areas.
+4. Possibly, benign tumor in left breast.
+5. Uterine myomas.
+6. Periarthritis in Lt. shoulder.
+7. A few small nodules of indeterminate clinical significance in right lung and LLL.
+[RECOMMENDATION]
+Neck &amp; breast US, if clinically needed.</PETCT_RESULT> <OPERATION_DATE>2011-06-29</OPERATION_DATE> <OP_APPROACH> 1.0</OP_APPROACH> <OP_RADICALITY> 0.0</OP_RADICALITY> <OP_RESECTION_EXTENT> 0.0</OP_RESECTION_EXTENT> <OP_LYMPHNODE_DISSECTION> 99.0</OP_LYMPHNODE_DISSECTION> <OP_COMBINED_RESECTION> 99.0</OP_COMBINED_RESECTION> <OP_ANASTOMOSIS> 99.0</OP_ANASTOMOSIS> <ST_STAGE> 99.0</ST_STAGE> <SN_STAGE> 99.0</SN_STAGE> <SM_STAGE> 99.0</SM_STAGE> <s-H> 99.0</s-H> <s-P> 99.0</s-P> <ASCITES>No</ASCITES> <CYTOLOGY>No</CYTOLOGY> <OPERATION_TIME> 175.0</OPERATION_TIME> <BLOOD_LOSS>400</BLOOD_LOSS> <PATHOLOGY_REPORT_DATE>2011-06-29</PATHOLOGY_REPORT_DATE> <PATHOLOGY_NUMBER_OF_TUMOR> 1.0</PATHOLOGY_NUMBER_OF_TUMOR>      <RESECTION_MARGIN_PROXIMAL> 7.5</RESECTION_MARGIN_PROXIMAL> <RESECTION_MARGIN_DISTAL> 18.0</RESECTION_MARGIN_DISTAL> <PATHOLOGY_DEPTH_OF_INVASION> 11.0</PATHOLOGY_DEPTH_OF_INVASION>  <PT_STAGE> 99.0</PT_STAGE> <PN_STAGE> 1.0</PN_STAGE> <PM_STAGE> 0.0</PM_STAGE> <METASTATIC_LYMPHNODE> 00000000000000000000000000000000000013</METASTATIC_LYMPHNODE> <RETRIEVED_LYMPHNODE> 00000000000000000000000000000000000000</RETRIEVED_LYMPHNODE>           <LYMPHNODE_4SB_METASTASIS> 00000000000000000000000000000000000000</LYMPHNODE_4SB_METASTASIS> <LYMPHNODE_4SB_RETRIEVED> 00000000000000000000000000000000000010</LYMPHNODE_4SB_RETRIEVED>                                         <PATHOLOGY_DIFFERENTIATION>7</PATHOLOGY_DIFFERENTIATION>  <LYMPHATIC_INVASION> 99.0</LYMPHATIC_INVASION> <VASCULAR_INVASION> 99.0</VASCULAR_INVASION> <NEURAL_INVASION> 99.0</NEURAL_INVASION>     <LAST_VISIT_DATE>2020-06-08</LAST_VISIT_DATE> <OVERALL_SURVIVAL_LAST_VISIT> 3267.0</OVERALL_SURVIVAL_LAST_VISIT> </Row>
+ <Row><RID>00000002</RID> <DATE_OF_BIRTH>1951</DATE_OF_BIRTH> <SEX>M</SEX> <AGE_DIAGNOSIS> 46.0</AGE_DIAGNOSIS> <AGE_OPERATION> 67.0</AGE_OPERATION> <AGE_CURRENT> 69.0</AGE_CURRENT>  <ASA> 2.0</ASA> <HEIGHT> 160.0</HEIGHT> <WEIGHT> 56.0</WEIGHT> <BMI> 21.8</BMI> <BSA> 1.57</BSA> <DIAGNOSIS_NAME>C16.444.00</DIAGNOSIS_NAME> <DIAGNOSIS_DATE>1997-07-10</DIAGNOSIS_DATE> <DIAGNOSIS_DATE_1>1997-07-10</DIAGNOSIS_DATE_1> <DIAGNOSIS_DATE_2>2005-09-01</DIAGNOSIS_DATE_2> <DATE_PREOP_GASTROSCOPY>2018-12-11</DATE_PREOP_GASTROSCOPY> <RESULT_PREOP_GASTROSCOPY>[FINDING]
+
+전처치로 Cimetropium Bromide 5mg, 주입후 에 검사 시행 
+
+# EGD
+
+1) Billroth II operated stomach (1995-09-19)
+2) A &amp; E loop : patent
+3) Evidence of intraluminal cancer recurrence - Y
+4) Food stasis - G0, no residual food 
+5) Reflux gastritis - Extent - G2 : up to body                             
+                            Redness - G3 : with erosion or ulcer      
+                            Bile - B1 : bile  refluxed 
+
+6) reflux esophagitis  : minimal change
+7) other specific finding : 
+   - gastrojejunostomy anastomosis site, PW, 5cm sized  huge shallow ulcer lesion 
+       -&gt; Bx. (G1 x5) 
+    - 이전 내시경 검사시 보였던 ulcer, nodular lesion 모두 연결된 것으로 보임. 
+    
+
+생검용 포셉 사용함: Yes
+스네어 (&gt;5mm 병변) 사용함: No  
+
+- no immediate complication
+- 검사 종료 후 통증 사정: 통증(무)
+- 내시경소견과 조직검사시 부위는 PACS참조</RESULT_PREOP_GASTROSCOPY> <NUMBER_OF_TUMRS> 1.0</NUMBER_OF_TUMRS>  <LOCATION_VERTICAL_GASTROSCOPY> 1.0</LOCATION_VERTICAL_GASTROSCOPY> <LOCATION_HORIZONTAL_GASTROSCOPY> 99.0</LOCATION_HORIZONTAL_GASTROSCOPY>       <POORLY_COHESIVE_BIOPSY> 1.0</POORLY_COHESIVE_BIOPSY> <ULCER_GASTROSCOPY> 0.0</ULCER_GASTROSCOPY> <CT_DATE>2018-11-30</CT_DATE> <CT_RESULT>[FINDING]
+1.       T staging: T( 1) 
+
+-                       Site: enhancing wall thickening near the G-J anastomotic site
+
+2.       N staging: N(0)
+
+-                       단경이 8mm 이상인 regional LN 수; 없음. 
+                     
+3.       M staging: M( 0)
+
+-                       distant metastasis (-)
+-                       peritoneal carcinomatosis (-)
+
+4.       Lt gastric artery, splenic artery variation 여부 확인;
+                       None
+5.       Other findings
+                       Few tiny hepatic low densities at the S7 and S8, suggesting small hepatic cysts. 
+                        Mild CBD dilatation suggesting due to STG.
+[CONCLUSION]
+Stomach Ca. near the G-J anastomotic site of prev. STG, suggesting T1 or T2 N0. 
+Few tiny hepatic low densities at the S7 and S8, suggesting small hepatic cysts.</CT_RESULT> <CT_TSTAGE1>10</CT_TSTAGE1>  <CT_NSTAGE1>00</CT_NSTAGE1>  <CT_MSTAGE1>0</CT_MSTAGE1>    <OPERATION_DATE>2019-01-03</OPERATION_DATE> <OP_APPROACH> 0.0</OP_APPROACH> <OP_RADICALITY> 0.0</OP_RADICALITY> <OP_RESECTION_EXTENT> 0.0</OP_RESECTION_EXTENT> <OP_LYMPHNODE_DISSECTION> 2.0</OP_LYMPHNODE_DISSECTION> <OP_COMBINED_RESECTION> 99.0</OP_COMBINED_RESECTION> <OP_ANASTOMOSIS> 2.0</OP_ANASTOMOSIS> <ST_STAGE> 2.0</ST_STAGE> <SN_STAGE> 1.0</SN_STAGE> <SM_STAGE> 1.0</SM_STAGE> <s-H> 99.0</s-H> <s-P> 99.0</s-P> <ASCITES>No</ASCITES> <CYTOLOGY>No</CYTOLOGY> <OPERATION_TIME> 250.0</OPERATION_TIME> <BLOOD_LOSS>100</BLOOD_LOSS> <PATHOLOGY_REPORT_DATE>2019-01-03</PATHOLOGY_REPORT_DATE> <PATHOLOGY_NUMBER_OF_TUMOR> 1.0</PATHOLOGY_NUMBER_OF_TUMOR> <TUMOR_SIZE_LONG_DIAMETER> 6.0</TUMOR_SIZE_LONG_DIAMETER> <TUMOR_SIZE_MIN_DIAMETER> 0.8</TUMOR_SIZE_MIN_DIAMETER> <PATHOLOGY_LOCATION_VERTICAL> 1.0</PATHOLOGY_LOCATION_VERTICAL> <PATHOLOGY_LOCATION_HORIZONTAL> 99.0</PATHOLOGY_LOCATION_HORIZONTAL> <GROSS_TYPE_PATHOLOGY> 8.0</GROSS_TYPE_PATHOLOGY> <RESECTION_MARGIN_PROXIMAL> 1.5</RESECTION_MARGIN_PROXIMAL> <RESECTION_MARGIN_DISTAL> 2.6</RESECTION_MARGIN_DISTAL> <PATHOLOGY_DEPTH_OF_INVASION> 9.0</PATHOLOGY_DEPTH_OF_INVASION>  <PT_STAGE> 7.0</PT_STAGE> <PN_STAGE> 2.0</PN_STAGE> <PM_STAGE> 0.0</PM_STAGE> <METASTATIC_LYMPHNODE> 00000000000000000000000000000000000007</METASTATIC_LYMPHNODE> <RETRIEVED_LYMPHNODE> 00000000000000000000000000000000000001</RETRIEVED_LYMPHNODE> <LYMPHNODE_1_METASTASIS> 00000000000000000000000000000000000001</LYMPHNODE_1_METASTASIS> <LYMPHNODE_1_RETRIEVED> 00000000000000000000000000000000000005</LYMPHNODE_1_RETRIEVED> <LYMPHNODE_2_METASTASIS> 00000000000000000000000000000000000000</LYMPHNODE_2_METASTASIS> <LYMPHNODE_2_RETRIEVED> 00000000000000000000000000000000000001</LYMPHNODE_2_RETRIEVED>     <LYMPHNODE_4SA_METASTASIS> 00000000000000000000000000000000000000</LYMPHNODE_4SA_METASTASIS> <LYMPHNODE_4SA_RETRIEVED> 00000000000000000000000000000000000000</LYMPHNODE_4SA_RETRIEVED>                   <LYMPHNODE_10_METASTASIS> 00000000000000000000000000000000000000</LYMPHNODE_10_METASTASIS> <LYMPHNODE_10_RETRIEVED> 00000000000000000000000000000000000001</LYMPHNODE_10_RETRIEVED>                       <PATHOLOGY_DIFFERENTIATION>6</PATHOLOGY_DIFFERENTIATION> <LAUREN_CLASSIFICATION> 1.0</LAUREN_CLASSIFICATION> <LYMPHATIC_INVASION> 0.0</LYMPHATIC_INVASION> <VASCULAR_INVASION> 0.0</VASCULAR_INVASION> <NEURAL_INVASION> 1.0</NEURAL_INVASION>     <LAST_VISIT_DATE>2020-08-24</LAST_VISIT_DATE> <OVERALL_SURVIVAL_LAST_VISIT> 599.0</OVERALL_SURVIVAL_LAST_VISIT> </Row>
+</Rows>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Rows>
+ <Row><RID>00000001</RID> <date_of_birth>1951</date_of_birth> <sex>F</sex> <age_diagnosis> 59.0</age_diagnosis> <age_operration> 60.0</age_operration> <age_currently> 61.0</age_currently>   <height> 150.2</height> <weight> 53.55</weight> <BMI> 23.8</BMI> <BSA> 1.49</BSA> <diagnosis_name>C189.000.03</diagnosis_name> <diagnosis_date>20101013</diagnosis_date> <diagnosis_date_1>20101013</diagnosis_date_1> <diagnosis_date_2>20101016</diagnosis_date_2> <date_preop_colonoscopy>20120502</date_preop_colonoscopy> <number_of_tumors>1</number_of_tumors> <tumor_size> 8.8</tumor_size> <tumor_location> 3.0</tumor_location>  <biopsy_results>7</biopsy_results> <occlusion>0</occlusion> <CT_date>20120502</CT_date>    <PETCT_date>20120510</PETCT_date> <PETCT_Result>[FINDING]
+PROCEDURE:
+검사 직전에 측정한 환자의 혈당치는 97 mg&#47;dl, 신장 150 cm, 체중 62 kg 이었고, F-18 FDG 13.2 mCi를 Lt. forearm 에 정맥 주사하고 1 시간 후에 orbito-meatal line에서 proximal thigh까지의 torso 영상을 얻었음.
+
+CLINICAL INFORMATION:
+1. Colon cancer.
+2. Bx: Hepatic flexure mass (adenocarcinoma, MD to PD), 10&#47;10&#47;09. 
+3. CTx: (1) Palliative mFOLFOX #10, 10&#47;10&#47;14~11&#47;04&#47;19; (2) LV&#47;5FU #10, 11&#47;05&#47;10~11&#47;12&#47;10; (3) mFOLFOX #6, 11&#47;12&#47;30~12&#47;04&#47;28.
+4. Restaging.
+
+FINDINGS:
+2010년 10월 11일 시행한 PET&#47;CT와 비교 판독하였음. (SUVmean of the liver: 1.6 --&gt;2.3).
+Hepatic flexure of colon의 intense FDG uptake은 intensity가 약간 증가함 (SUVmax: 11.4 -&gt; 17.4, T&#47;L ratio: 7.1 -&gt; 7.6, 6.2 % 증가). 
+
+Aortocaval area의 focal FDG uptakes는 수가 증가함 (2.6-&gt;3.3, T&#47;L ratio: 1.6-&gt;1.4).
+Lt. supracalvicular area에 보이던 conglomerated FDG uptakes는 extent는 감소하였으나 intensity는 큰 변화 없음 (6.1-&gt;7.4, T&#47;L ratio: 2.9-&gt;3.1).
+Periportal area의 focal FDG uptake은 뚜렷하지 않음.
+Pericolic, portocaval, retrocaval, paraaortic space, mesentery에 보이던 other focal FDG uptakes는 전반적으로 extent와 intensity가 감소함. 
+
+Rt. internal jugular chain에 보이던 focal FDG uptake은 소실됨. 
+
+Rt. pleura와 LUL의 metastatic nodule은 변화 없음. 
+
+그 외 특이 소견 없음.
+[CONCLUSION]
+1. Intensely FDG-avid malignant tumor in hepatic flexure of colon - essentially stable. 
+2. Metastatic lymphadenopathies in 
+      (1) Aortocaval area - increased number.
+      (2) Lt. supraclavicular area - decreased extent but stable metabolic response. 
+      (3) Periportal area, pericolic, portocaval, retrocaval, paraaortic space, mesentery - essentially regressed. 
+3. Metastatic nodules in Rt. pleura and LUL - unchanged.
+4. Reactive LN in Rt. internal jugular chain - resolved.</PETCT_Result> <CEA>13.33</CEA> <CA19-9>27.50</CA19-9> <pT_stage>20120511</pT_stage> <operation_date> 2.0</operation_date> <op_approach> 2.0</op_approach> <op_radicality>1</op_radicality>  <op_vessel_ligation> 5.0</op_vessel_ligation>   <sN_stage> 9.0</sN_stage> <sM_stage> 1.0</sM_stage> <ascites> 0.0</ascites> <cytology> 195.0</cytology> <operation_time>200</operation_time> <blood_loss>20120511</blood_loss> <pathology_report_date>1</pathology_report_date> <pathology_number_of_tumor> 8.8</pathology_number_of_tumor> <tumor_size_long_diameter> 5.5</tumor_size_long_diameter> <tumor_size_short_diameter> 3.0</tumor_size_short_diameter>    <resection_margin_circular> 30.0</resection_margin_circular>  <submucosa_invasion_depth> 30.0</submucosa_invasion_depth> <pN_stage> 21.0</pN_stage> <pM_stage>0</pM_stage> <metastatic_lymphnode>38</metastatic_lymphnode> <retrieved_lymphnode>4</retrieved_lymphnode>  <lymphatic_invasion> 1.0</lymphatic_invasion>  <neural_invasion> 0.0</neural_invasion> </Row>
+ <Row><RID>00000002</RID> <date_of_birth>1936</date_of_birth> <sex>F</sex> <age_diagnosis> 82.0</age_diagnosis> <age_operration> 83.0</age_operration> <age_currently> 84.0</age_currently>   <height> 153.0</height> <weight> 58.0</weight> <BMI> 24.7</BMI> <BSA> 1.57</BSA> <diagnosis_name>C20.000.02</diagnosis_name> <diagnosis_date>20180808</diagnosis_date> <diagnosis_date_1>20180808</diagnosis_date_1> <diagnosis_date_2>20180808</diagnosis_date_2> <date_preop_colonoscopy>20180802</date_preop_colonoscopy>     <biopsy_results>7</biopsy_results> <occlusion>0</occlusion> <CT_date>20181207</CT_date>      <CEA>2.51</CEA> <CA19-9>5.05</CA19-9> <pT_stage>20190610</pT_stage> <operation_date> 4.0</operation_date> <op_approach> 4.0</op_approach> <op_radicality>99</op_radicality>  <op_vessel_ligation> 11.0</op_vessel_ligation>   <sN_stage> 9.0</sN_stage> <sM_stage> 0.0</sM_stage> <ascites> 0.0</ascites>                      </Row>
+</Rows>
