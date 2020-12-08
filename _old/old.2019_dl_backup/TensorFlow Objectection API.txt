@@ -1,0 +1,37 @@
+TensorFlow Object-Detection API
+
+전체 과정
+https://github.com/tail95/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10
+
+
+1. 텐서플로우 모델 다운로드
+https://github.com/tensorflow/models
+models/research/object detection
+protobuf파일 컴파일 -> py  및 기타 설정
+
+2. 학습시킬 모델 가중치/config 파일 다운로드
+https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md
+
+3. 데이터 수집 및 annotation
+LabelImg 툴
+https://www.dropbox.com/s/tq7zfrcwl44vxan/windows_v1.6.0.zip?dl=1
+-> image에 따른 xml파일(bounding box 정보)
+
+4. 학습 데이터 변환 (2진화된 record파일로 변환)
+image파일과 xml파일 전체를 하나의 단일 파일로 구성
+
+5. labelmap.pbtxt 파일 생성 / pipeline.config파일 수정
+
+6. training
+
+7. inference
+  - PC inference: export_inference_graph.py 파일 
+  - Mobile inference: export_tflite_ssd_graph.py 파일 이용 후 리눅스에서 bazel 빌드툴 활용
+
+8. tflite detection demo 파일 수정
+https://github.com/tensorflow/examples/tree/master/lite/examples/object_detection/android
+기본 예제에서 수정 
+ private static final boolean TF_OD_API_IS_QUANTIZED = true;
+ private static final String TF_OD_API_MODEL_FILE = "detect.tflite"; <변환한 tflite파일명>
+ private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/labels_list.txt"; 
+<asset에 클래스 명>
