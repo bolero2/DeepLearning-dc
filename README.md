@@ -12,7 +12,7 @@ Papers
 
 Classification Model (*Updated 2020. 12. 08*)
 ------------------------
-All are written by myself.
+All of source codes are written by myself using python language.
 |TensorFlow2|PyTorch|
 |:-----------:|:-----------:|
 |[ResNet-34-tf2](https://github.com/bolero2/ResNet-34-tf2)|[ResNet-34-torch](https://github.com/bolero2/ResNet-34-torch)|
