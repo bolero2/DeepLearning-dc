@@ -47,7 +47,7 @@ else:
     pass
 
 dir_num = len(os.listdir(ModelDir))
-ModelName = "trained_" + str(dir_num) + "_resnet152-tf2"
+ModelName = "trained_" + str(dir_num) + "_resnet34-tf2"
 
 ckpt_name_training = ModelDir + "/" + ModelName + "/" + ModelName + "_epoch_{epoch:04d}.ckpt"
 save_ckpt_interval = 2
