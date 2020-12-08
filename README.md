@@ -1,7 +1,7 @@
 # Deep Learning
 Author : Dae-Cheol, Noh
 
-Classification Model (Updated 2020. 12. 08)
+Classification Model (*Updated 2020. 12. 08*)
 ------------------------
 |TensorFlow2|PyTorch|
 |:-----------:|:-----------:|
