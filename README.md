@@ -1,11 +1,13 @@
 # Deep Learning
-Deep Learning (using Tensorflow)
+Author : Dae-Cheol, Noh
 
-Classification Model
+Classification Model (Updated 2020. 12. 08)
 ------------------------
-1. [ResNet-34-tf2](https://github.com/bolero2/ResNet-34-tf2)
-2. [ResNet-101-tf2](https://github.com/bolero2/ResNet-101-tf2)
-2. [ResNet-152-tf2](https://github.com/bolero2/ResNet-152-tf2)
+|TensorFlow2|PyTorch|
+|:-----------:|:-----------:|
+|[ResNet-34-tf2](https://github.com/bolero2/ResNet-34-tf2)|[ResNet-34-torch](https://github.com/bolero2/ResNet-34-torch)|
+|[ResNet-101-tf2](https://github.com/bolero2/ResNet-101-tf2)||
+|[ResNet-152-tf2](https://github.com/bolero2/ResNet-152-tf2)||
 
 
 # MobileNet-v2-tensorflow.py
