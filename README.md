@@ -29,7 +29,8 @@ Date : 2019. 01. 22
 
 
 
-# Image_Augmentation.py
+Image_Augmentation.py
+---------------------
 Date : 2019. 02. 25
 
 --- Types of dataset ---
@@ -47,12 +48,14 @@ Date : 2019. 02. 25
 
 
 
-# 3D_VGG16.py
+3D_VGG16.py
+---------------------
 Date : 2019. 04. 16
 
 
 
-# 3D_NUMBER_Demo_1.py
+3D_NUMBER_Demo_1
+---------------------
 Date : 2019. 04. 16
 
 Version : version. 1
