@@ -21,7 +21,7 @@ All of source codes are written by myself using python language.
 |[ResNet-152-tf2](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-152-tf2)||
 
 
-## old version
+## _old version
 ### MobileNet-v2-tensorflow.py
 Date : 2019. 01. 15
 
