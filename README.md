@@ -1,4 +1,4 @@
-# Deep Learning
+# DC Deep Learning(dcdl)
 ***Author** : Dae-Cheol, Noh*
 
 ***License** : MIT License ([Link](https://github.com/bolero2/DeepLearning-dc/blob/master/LICENSE))*
