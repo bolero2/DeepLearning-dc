@@ -1,7 +1,7 @@
 # Deep Learning
-***Author** : Dae-Cheol, Noh
+***Author** : Dae-Cheol, Noh*
 
-***License** : MIT License ([Link](https://github.com/bolero2/DeepLearning-dc/blob/master/LICENSE))
+***License** : MIT License ([Link](https://github.com/bolero2/DeepLearning-dc/blob/master/LICENSE))*
 
 ## Papers
 Folder link is [Here](https://github.com/bolero2/DeepLearning-dc/tree/master/papers)
