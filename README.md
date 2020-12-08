@@ -15,25 +15,24 @@ Classification Model (*Updated 2020. 12. 08*)
 All of source codes are written by myself using python language.
 |TensorFlow2|PyTorch|
 |:-----------:|:-----------:|
-|[ResNet-34-tf2](https://github.com/bolero2/ResNet-34-tf2)|[ResNet-34-torch](https://github.com/bolero2/ResNet-34-torch)|
-|[ResNet-101-tf2](https://github.com/bolero2/ResNet-101-tf2)||
-|[ResNet-152-tf2](https://github.com/bolero2/ResNet-152-tf2)||
+|[ResNet-34-tf2](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-34-tf2)|[ResNet-34-torch](https://github.com/bolero2/DeepLearning-dc/tree/master/torch/ResNet-34-torch)|
+|[ResNet-101-tf2](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-101-tf2)||
+|[ResNet-152-tf2](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-152-tf2)||
 
 
+old version
+------------
 MobileNet-v2-tensorflow.py
----------------------
 Date : 2019. 01. 15
 
 
 
 ShuffleNet-v1-tensorflow.py
----------------------
 Date : 2019. 01. 22
 
 
 
 Image_Augmentation.py
----------------------
 Date : 2019. 02. 25
 
 --- Types of dataset ---
@@ -52,13 +51,11 @@ Date : 2019. 02. 25
 
 
 3D_VGG16.py
----------------------
 Date : 2019. 04. 16
 
 
 
 3D_NUMBER_Demo_1
----------------------
 Date : 2019. 04. 16
 
 Version : version. 1
