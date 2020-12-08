@@ -1,3 +1,0 @@
-https://arxiv.org/ftp/arxiv/papers/1003/1003.5893.pdf
-
-https://github.com/tesseract-ocr/tesseract/wiki/Training-Tesseract
