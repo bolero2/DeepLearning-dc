@@ -4,8 +4,13 @@ import os
 ########################################
 # Hyper-Parameter for default setting #
 ########################################
-TrainDir = "C:/dataset/OpenedDataset/cifar10/train/"
-EvalDir = "C:/dataset/OpenedDataset/cifar10/eval/"
+# Windows 10 Version
+# TrainDir = "C:/dataset/OpenedDataset/cifar10/train/"
+# EvalDir = "C:/dataset/OpenedDataset/cifar10/eval/"
+
+# Linux Version
+TrainDir = "/home/clt_dc/dataset/classification/cifar100/train/"
+EvalDir = "/home/clt_dc/dataset/classification/cifar100/test/"
 TestImage = "./test.jpg"
 
 total_train = 50000
@@ -23,7 +28,7 @@ dropout_rate = 0.5
 ########################################
 # Hyper-Parameter for training #
 ########################################
-num_epochs = 20
+num_epochs = 50
 batch_size = 16
 verbose = 1
 lr = 0.00001
@@ -42,9 +47,12 @@ else:
     pass
 
 dir_num = len(os.listdir(ModelDir))
-ModelName = "trained_" + str(dir_num) + "_resnet101-tf2"
+ModelName = "trained_" + str(dir_num) + "_resnet152-tf2"
 
 ckpt_name_training = ModelDir + "/" + ModelName + "/" + ModelName + "_epoch_{epoch:04d}.ckpt"
-
-trained_weight = ModelDir + "/" + ModelName + "/" + ModelName + "_epoch_0020.ckpt"
 save_ckpt_interval = 2
+
+########################################
+# checkpoint name to load for test
+########################################
+ckpt_name_testing = ModelDir + "/" + ModelName + "/" + ModelName + "_epoch_0020.ckpt"
