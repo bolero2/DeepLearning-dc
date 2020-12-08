@@ -12,6 +12,7 @@ Papers
 
 Classification Model (*Updated 2020. 12. 08*)
 ------------------------
+All are written by myself.
 |TensorFlow2|PyTorch|
 |:-----------:|:-----------:|
 |[ResNet-34-tf2](https://github.com/bolero2/ResNet-34-tf2)|[ResNet-34-torch](https://github.com/bolero2/ResNet-34-torch)|
