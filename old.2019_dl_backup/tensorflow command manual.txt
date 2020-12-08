@@ -1,0 +1,34 @@
+1. 텐서보드 사용법
+tensorboard --logdir=./logs/
+
+2. freeze_graph.py 사용법
+준비물 ->
+1) bazel 빌더 
+2) MINGW64 bash shell terminal
+
+freeze_graph.py 경로
+tensorflow-master > tensorflow > python > tools 이동
+
+해당 경로에 ckpt.data, ckpt.meta, ckpt.index, pb, checkpoint 파일 이렇게 5개 있어야함.
+ex) mynet.ckpt.data-00000-OF-00001, mynet.ckpt.index, mynet.ckpt.meta, mynet.pb, checkpoint
+$ freeze_graph --input_graph=mynet.pb \
+? --input_checkpoint=mynet.ckpt \
+? --input_binary=true \
+? --output_graph=frozen_graph.pb \
+? --output_node_names=fc3/output_node
+
+\ 는 bash shell에서만 먹힘.
+
+
+텐서플로우 설치?
+아나콘다 말고 python으로 깔자.
+tensorflow.org 들어가서 
+CUDA @.0버전, cuDNN, python 설치(버전에 맞게끔 나와있음)
+
+python 환경변수 등록해주고
+pip install --upgrade pip (pip 업그레이드)
+pip install opencv-python (opencv 다운로드)
+pip install numpy (numpy 다운로드)
+pip install matplotlib (matplotlib 다운로드)
+pip install tensorflow=1.13.1 (tf 1.13.1버전 다운로드)
+pip install tensorflow-gpu=1.13.1 (tf-gpu 1.13.1버전 다운로드)

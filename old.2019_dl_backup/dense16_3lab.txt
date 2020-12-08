@@ -1,0 +1,869 @@
+import cv2
+import os
+import random
+import numpy as np
+import tensorflow as tf
+import time
+
+TrainDir = "D:\\2Lab_DATA\\NEW_2D_DATA2\\Train\\"  # 61,600 images
+EvalDir = "D:\\2Lab_DATA\\NEW_2D_DATA2\\Test\\"  # 6,000 images
+
+# The names of this variables(=ModelDir, ModelName) must come from the script name.
+ModelName = "3lab_dense121_atrous_3label"
+ModelDir = "D:\\Saver\\" + ModelName + "\\"
+
+Filenames_Eval = []
+Filenames_Train = []
+index_train = 0
+index_eval = 0
+
+ForEpoch = 40
+
+label_size = 3
+Total_Train = 41600
+Total_Eval = 4000
+
+image_Width = 224
+image_Height = 224
+batchsize = 16
+channel = 3
+
+Learning_Rate = 0.00001
+
+transition_rate = 0.5
+growth_rate = 32
+
+first_rate = growth_rate * 2  # 64
+second_rate = int((first_rate + growth_rate * 4) * transition_rate)  # 96
+third_rate = int((second_rate + growth_rate * 4) * transition_rate)  # 112
+fourth_rate = int((third_rate + growth_rate * 4) * transition_rate)  # 120
+
+"""
+first_rate = 64
+second_rate = 96
+third_rate = 112
+fourth_rate = 120
+"""
+
+Weights = {
+    'wc1': tf.Variable(tf.truncated_normal([7, 7, channel, first_rate], stddev=0.1)),
+
+    'wc2': tf.Variable(tf.truncated_normal([1, 1, first_rate, growth_rate * 4], stddev=0.1)),
+    'wc3': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wc4': tf.Variable(tf.truncated_normal([1, 1, growth_rate * 1 + first_rate, growth_rate * 4], stddev=0.1)),
+    'wc5': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wc6': tf.Variable(tf.truncated_normal([1, 1, growth_rate * 2 + first_rate, growth_rate * 4], stddev=0.1)),
+    'wc7': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wc8': tf.Variable(tf.truncated_normal([1, 1, growth_rate * 3 + first_rate, growth_rate * 4], stddev=0.1)),
+    'wc9': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wc10': tf.Variable(tf.truncated_normal([1, 1, second_rate * 2, second_rate], stddev=0.1)),
+
+    'wc11': tf.Variable(tf.truncated_normal([1, 1, second_rate, growth_rate * 4], stddev=0.1)),
+    'wc12': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wc13': tf.Variable(tf.truncated_normal([1, 1, growth_rate * 1 + second_rate, growth_rate * 4], stddev=0.1)),
+    'wc14': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wc15': tf.Variable(tf.truncated_normal([1, 1, growth_rate * 2 + second_rate, growth_rate * 4], stddev=0.1)),
+    'wc16': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wc17': tf.Variable(tf.truncated_normal([1, 1, growth_rate * 3 + second_rate, growth_rate * 4], stddev=0.1)),
+    'wc18': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wc19': tf.Variable(tf.truncated_normal([1, 1, third_rate * 2, third_rate], stddev=0.1)),
+
+    'wc20': tf.Variable(tf.truncated_normal([1, 1, third_rate, growth_rate * 4], stddev=0.1)),
+    'wc21': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wc22': tf.Variable(tf.truncated_normal([1, 1, growth_rate * 1 + third_rate, growth_rate * 4], stddev=0.1)),
+    'wc23': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wc24': tf.Variable(tf.truncated_normal([1, 1, growth_rate * 2 + third_rate, growth_rate * 4], stddev=0.1)),
+    'wc25': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wc26': tf.Variable(tf.truncated_normal([1, 1, growth_rate * 3 + third_rate, growth_rate * 4], stddev=0.1)),
+    'wc27': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wc28': tf.Variable(tf.truncated_normal([1, 1, fourth_rate * 2, fourth_rate], stddev=0.1)),
+
+    'wc29': tf.Variable(tf.truncated_normal([1, 1, fourth_rate, growth_rate * 4], stddev=0.1)),
+    'wc30': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wc31': tf.Variable(tf.truncated_normal([1, 1, growth_rate * 1 + fourth_rate, growth_rate * 4], stddev=0.1)),
+    'wc32': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wc33': tf.Variable(tf.truncated_normal([1, 1, growth_rate * 2 + fourth_rate, growth_rate * 4], stddev=0.1)),
+    'wc34': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wc35': tf.Variable(tf.truncated_normal([1, 1, growth_rate * 3 + fourth_rate, growth_rate * 4], stddev=0.1)),
+    'wc36': tf.Variable(tf.truncated_normal([3, 3, growth_rate * 4, growth_rate], stddev=0.1)),
+
+    'wfc1': tf.Variable(tf.truncated_normal([1 * 1 * growth_rate, 1000], stddev=0.1)),
+    'wfc2': tf.Variable(tf.truncated_normal([1000, label_size], stddev=0.1)),
+}
+
+
+def load_image():
+    global Filenames_Train
+    global Filenames_Eval
+    print("###############################################")
+    print("Start Image Loading ...")
+    print("###############################################")
+    templist = []
+    for i in range(0, label_size):
+        filelist = os.listdir(TrainDir + str(i))
+        for j in range(0, len(filelist)):
+            templist.append([TrainDir + str(i) + '/' + filelist[j], i])
+    Filenames_Train = templist
+    random.shuffle(Filenames_Train)
+    templist = []
+
+    for i in range(0, label_size):
+        filelist = os.listdir(EvalDir + str(i))
+        for j in range(0, len(filelist)):
+            templist.append([EvalDir + str(i) + '/' + filelist[j], i])
+    Filenames_Eval = templist
+    random.shuffle(Filenames_Eval)
+    print("Finish Image Loading !")
+    print("###############################################")
+
+
+def batch_train(batchsize):
+    global index_train
+    x_data = np.zeros([batchsize, image_Width, image_Height, channel], dtype=np.float32)
+    y_data = np.zeros((batchsize, label_size), dtype=np.float32)  # one hot encoding을 위해 0으로 채워진 리스트를 만듭니다
+    # y_data = np.zeros((batchsize, 1, 1, label_size), dtype=np.float32)  # one hot encoding을 위해 0으로 채워진 리스트를 만듭니다
+    for i in range(0, batchsize):
+        rand = random.randrange(0, 2)
+        value = cv2.imread(Filenames_Train[index_train + i][0])
+        value = value / np.max(value)
+        value = value * (random.randint(5, 12) / 10)
+        if rand == 1:
+            value = cv2.flip(value, 1)
+        value = cv2.resize(value, (image_Height, image_Width))
+        x_data[i] = value
+        y_data[i][Filenames_Train[index_train + i][1]] = 1
+        # y_data[i, :, :, Filenames_Train[index_train + i][1]] = 1
+    index_train += batchsize
+    if index_train + batchsize >= Total_Train:
+        index_train = 0
+    return x_data, y_data
+
+
+def batch_eval(batchsize):
+    global index_eval
+    x_data = np.zeros([batchsize, image_Width, image_Height, channel], dtype=np.float32)
+    y_data = np.zeros((batchsize, label_size), dtype=np.float32)  # one hot encoding을 위해 0으로 채워진 리스트를 만듭니다
+    # y_data = np.zeros((batchsize, 1, 1, label_size), dtype=np.float32)  # one hot encoding을 위해 0으로 채워진 리스트를 만듭니다
+    for i in range(0, batchsize):
+        rand = random.randrange(0, 2)
+        value = cv2.imread(Filenames_Eval[index_eval + i][0])
+        value = value / np.max(value)
+        value = value * (random.randint(5, 12) / 10)
+        if rand == 1:
+            value = cv2.flip(value, 1)
+        value = cv2.resize(value, (image_Height, image_Width))
+        x_data[i] = value
+        y_data[i][Filenames_Eval[index_eval + i][1]] = 1
+        # y_data[i, :, :, Filenames_Eval[index_eval + i][1]] = 1
+    index_eval += batchsize
+    if index_eval + batchsize >= Total_Eval:
+        index_eval = 0
+    return x_data, y_data
+
+
+def batch_norm(input, n_out, training, scope='bn'):
+    with tf.variable_scope(scope):
+        beta = tf.Variable(tf.constant(0.0, shape=[n_out]), name='beta', trainable=True)
+        gamma = tf.Variable(tf.constant(1.0, shape=[n_out]), name='gamma', trainable=True)
+        batch_mean, batch_var = tf.nn.moments(input, [0, 1, 2], name='moments')
+        ema = tf.train.ExponentialMovingAverage(decay=0.5)
+
+        def mean_var_with_update():
+            ema_apply_op = ema.apply([batch_mean, batch_var])
+            with tf.control_dependencies([ema_apply_op]):
+                return tf.identity(batch_mean), tf.identity(batch_var)
+
+        mean, var = tf.cond(training, true_fn=mean_var_with_update,
+                            false_fn=lambda: (ema.average(batch_mean), ema.average(batch_var)))
+        normed = tf.nn.batch_normalization(input, mean, var, beta, gamma, 1e-3)
+    return normed
+
+
+############
+
+
+class densenet121:
+    def __init__(self, imgs, training, weights=None, sess=None):
+        self.label_size = 3
+        self.imgs = imgs
+        self.training = training
+        self.convlayers()
+        self.gap_layers()
+        self.fc_layers()
+        self.probs = tf.nn.softmax(self.fc3)
+        if weights is not None and sess is not None:
+            self.load_weights(weights, sess)
+
+    def convlayers(self):
+        self.parameters = []
+        self.layers = {}
+
+        # initialization input node
+        self.imgs = tf.reshape(self.imgs, shape=[-1, image_Height, image_Width, 3], name='input_node')
+
+        # conv1
+        with tf.name_scope('conv1') as scope:
+            self.conv1 = tf.nn.relu6(
+                batch_norm(tf.nn.conv2d(self.imgs, Weights['wc1'], strides=[1, 2, 2, 1], padding='SAME'), n_out=first_rate,
+                           training=istraining))
+            self.layers[scope[:-1]] = self.conv1
+            self.parameters += [Weights['wc1']]
+            b, h, w, c = self.conv1.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # pool1
+        with tf.name_scope('pool1') as scope:
+            self.pool1 = tf.nn.max_pool(self.conv1, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.pool1
+            b, h, w, c = self.pool1.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        ###################################
+        #          Dense Block 1          #
+        ###################################
+
+        # conv2
+        with tf.name_scope('conv2') as scope:
+            self.conv2 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.pool1, n_out=first_rate, training=istraining)), Weights['wc2'],
+                                      strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv2
+            self.parameters += [Weights['wc2']]
+            b, h, w, c = self.conv2.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv3
+        with tf.name_scope('conv3') as scope:
+            self.conv3 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.conv2, n_out=growth_rate * 4, training=istraining)), Weights['wc3'],
+                                      strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv3
+            self.parameters += [Weights['wc3']]
+            b, h, w, c = self.conv3.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # concat1
+        with tf.name_scope('concat1') as scope:
+            self.concat1 = tf.concat(values=[self.pool1, self.conv3], axis=-1)
+            self.layers[scope[:-1]] = self.concat1
+            b, h, w, c = self.concat1.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv4
+        with tf.name_scope('conv4') as scope:
+            self.conv4 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.concat1, n_out=growth_rate * 1 + first_rate, training=istraining)),
+                                      Weights['wc4'], strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv4
+            self.parameters += [Weights['wc4']]
+            b, h, w, c = self.conv4.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv5
+        with tf.name_scope('conv5') as scope:
+            self.conv5 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.conv4, n_out=growth_rate * 4, training=istraining)), Weights['wc5'],
+                                      strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv5
+            self.parameters += [Weights['wc5']]
+            b, h, w, c = self.conv5.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # concat2
+        with tf.name_scope('concat2') as scope:
+            self.concat2 = tf.concat(values=[self.pool1, self.conv3, self.conv5], axis=-1)
+            self.layers[scope[:-1]] = self.concat2
+            b, h, w, c = self.concat2.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv6
+        with tf.name_scope('conv6') as scope:
+            self.conv6 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.concat2, n_out=growth_rate * 2 + first_rate, training=istraining)),
+                                      Weights['wc6'], strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv6
+            self.parameters += [Weights['wc6']]
+            b, h, w, c = self.conv6.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv7
+        with tf.name_scope('conv7') as scope:
+            self.conv7 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.conv6, n_out=growth_rate * 4, training=istraining)), Weights['wc7'],
+                                      strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv7
+            self.parameters += [Weights['wc7']]
+            b, h, w, c = self.conv7.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # concat3
+        with tf.name_scope('concat3') as scope:
+            self.concat3 = tf.concat(values=[self.pool1, self.conv3, self.conv5, self.conv7], axis=-1)
+            self.layers[scope[:-1]] = self.concat3
+            b, h, w, c = self.concat3.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv8
+        with tf.name_scope('conv8') as scope:
+            self.conv8 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.concat3, n_out=growth_rate * 3 + first_rate, training=istraining)),
+                                      Weights['wc8'], strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv8
+            self.parameters += [Weights['wc8']]
+            b, h, w, c = self.conv8.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv9
+        with tf.name_scope('conv9') as scope:
+            self.conv9 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.conv8, n_out=growth_rate * 4, training=istraining)), Weights['wc9'],
+                                      strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv9
+            self.parameters += [Weights['wc9']]
+            b, h, w, c = self.conv9.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # transition1
+        with tf.name_scope('transition1') as scope:
+            self.transition1 = tf.concat(values=[self.pool1, self.conv3, self.conv5, self.conv7, self.conv9], axis=-1)
+            self.layers[scope[:-1]] = self.transition1
+            b, h, w, c = self.transition1.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv10
+        with tf.name_scope('conv10') as scope:
+            self.conv10 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.transition1, n_out=second_rate * 2, training=istraining)), Weights['wc10'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv10
+            self.parameters += [Weights['wc10']]
+            b, h, w, c = self.conv10.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # avg1
+        with tf.name_scope('avg1') as scope:
+            self.avg1 = tf.nn.avg_pool(self.conv10, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.avg1
+            b, h, w, c = self.avg1.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        ###################################
+        #          Dense Block 2          #
+        ###################################
+
+        # conv11
+        with tf.name_scope('conv11') as scope:
+            self.conv11 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.avg1, n_out=second_rate, training=istraining)), Weights['wc11'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv11
+            self.parameters += [Weights['wc11']]
+            b, h, w, c = self.conv11.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv12
+        with tf.name_scope('conv12') as scope:
+            self.conv12 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.conv11, n_out=growth_rate * 4, training=istraining)), Weights['wc12'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv12
+            self.parameters += [Weights['wc12']]
+            b, h, w, c = self.conv12.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # concat4
+        with tf.name_scope('concat4') as scope:
+            self.concat4 = tf.concat(values=[self.avg1, self.conv12], axis=-1)
+            self.layers[scope[:-1]] = self.concat4
+            b, h, w, c = self.concat4.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv13
+        with tf.name_scope('conv13') as scope:
+            self.conv13 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.concat4, n_out=growth_rate * 1 + second_rate, training=istraining)), Weights['wc13'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv13
+            self.parameters += [Weights['wc13']]
+            b, h, w, c = self.conv13.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv14
+        with tf.name_scope('conv14') as scope:
+            self.conv14 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.conv13, n_out=growth_rate * 4, training=istraining)), Weights['wc14'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv14
+            self.parameters += [Weights['wc14']]
+            b, h, w, c = self.conv14.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # concat5
+        with tf.name_scope('concat5') as scope:
+            self.concat5 = tf.concat(values=[self.avg1, self.conv12, self.conv14], axis=-1)
+            self.layers[scope[:-1]] = self.concat5
+            b, h, w, c = self.concat5.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv15
+        with tf.name_scope('conv15') as scope:
+            self.conv15 = tf.nn.conv2d(
+                tf.nn.relu6(batch_norm(self.concat5, n_out=growth_rate * 2 + second_rate, training=istraining)),
+                Weights['wc15'], strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv15
+            self.parameters += [Weights['wc15']]
+            b, h, w, c = self.conv15.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv16
+        with tf.name_scope('conv16') as scope:
+            self.conv16 = tf.nn.conv2d(
+                tf.nn.relu6(batch_norm(self.conv15, n_out=growth_rate * 4, training=istraining)),
+                Weights['wc16'], strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv16
+            self.parameters += [Weights['wc16']]
+            b, h, w, c = self.conv16.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # concat6
+        with tf.name_scope('concat6') as scope:
+            self.concat6 = tf.concat(values=[self.avg1, self.conv12, self.conv14, self.conv16], axis=-1)
+            self.layers[scope[:-1]] = self.concat6
+            b, h, w, c = self.concat6.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv17
+        with tf.name_scope('conv17') as scope:
+            self.conv17 = tf.nn.conv2d(
+                tf.nn.relu6(batch_norm(self.concat6, n_out=growth_rate * 3 + second_rate, training=istraining)),
+                Weights['wc17'], strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv17
+            self.parameters += [Weights['wc17']]
+            b, h, w, c = self.conv17.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv18
+        with tf.name_scope('conv18') as scope:
+            self.conv18 = tf.nn.conv2d(
+                tf.nn.relu6(batch_norm(self.conv17, n_out=growth_rate * 4, training=istraining)),
+                Weights['wc18'], strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv18
+            self.parameters += [Weights['wc18']]
+            b, h, w, c = self.conv18.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # transition2
+        with tf.name_scope('transition2') as scope:
+            self.transition2 = tf.concat(values=[self.pool1, self.conv3, self.conv5, self.conv7, self.conv9], axis=-1)
+            self.layers[scope[:-1]] = self.transition2
+            b, h, w, c = self.transition2.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv19
+        with tf.name_scope('conv19') as scope:
+            self.conv19 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.transition2, n_out=third_rate * 2, training=istraining)), Weights['wc19'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv19
+            self.parameters += [Weights['wc19']]
+            b, h, w, c = self.conv19.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # avg2
+        with tf.name_scope('avg2') as scope:
+            self.avg2 = tf.nn.avg_pool(self.conv19, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.avg2
+            b, h, w, c = self.avg2.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        ###################################
+        #          Dense Block 3          #
+        ###################################
+
+        # conv20
+        with tf.name_scope('conv20') as scope:
+            self.conv20 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.avg2, n_out=third_rate, training=istraining)), Weights['wc20'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv20
+            self.parameters += [Weights['wc20']]
+            b, h, w, c = self.conv20.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv21
+        with tf.name_scope('conv21') as scope:
+            self.conv21 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.conv20, n_out=growth_rate * 4, training=istraining)), Weights['wc21'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv21
+            self.parameters += [Weights['wc21']]
+            b, h, w, c = self.conv21.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # concat7
+        with tf.name_scope('concat7') as scope:
+            self.concat7 = tf.concat(values=[self.avg2, self.conv21], axis=-1)
+            self.layers[scope[:-1]] = self.concat7
+            b, h, w, c = self.concat7.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv22
+        with tf.name_scope('conv22') as scope:
+            self.conv22 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.concat7, n_out=growth_rate * 1 + third_rate, training=istraining)), Weights['wc22'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv22
+            self.parameters += [Weights['wc22']]
+            b, h, w, c = self.conv22.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv23
+        with tf.name_scope('conv23') as scope:
+            self.conv23 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.conv22, n_out=growth_rate * 4, training=istraining)), Weights['wc23'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv23
+            self.parameters += [Weights['wc23']]
+            b, h, w, c = self.conv23.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # concat8
+        with tf.name_scope('concat8') as scope:
+            self.concat8 = tf.concat(values=[self.avg2, self.conv21, self.conv23], axis=-1)
+            self.layers[scope[:-1]] = self.concat8
+            b, h, w, c = self.concat8.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv24
+        with tf.name_scope('conv24') as scope:
+            self.conv24 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.concat8, n_out=growth_rate * 2 + third_rate, training=istraining)), Weights['wc24'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv24
+            self.parameters += [Weights['wc24']]
+            b, h, w, c = self.conv24.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv25
+        with tf.name_scope('conv25') as scope:
+            self.conv25 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.conv24, n_out=growth_rate * 4, training=istraining)), Weights['wc25'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv25
+            self.parameters += [Weights['wc25']]
+            b, h, w, c = self.conv25.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # concat9
+        with tf.name_scope('concat9') as scope:
+            self.concat9 = tf.concat(values=[self.avg2, self.conv21, self.conv23, self.conv25], axis=-1)
+            self.layers[scope[:-1]] = self.concat9
+            b, h, w, c = self.concat9.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv26
+        with tf.name_scope('conv26') as scope:
+            self.conv26 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.concat9, n_out=growth_rate * 3 + third_rate, training=istraining)), Weights['wc26'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv26
+            self.parameters += [Weights['wc26']]
+            b, h, w, c = self.conv26.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv27
+        with tf.name_scope('conv27') as scope:
+            self.conv27 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.conv26, n_out=growth_rate * 4, training=istraining)),Weights['wc27'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv27
+            self.parameters += [Weights['wc27']]
+            b, h, w, c = self.conv27.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # transition3
+        with tf.name_scope('transition3') as scope:
+            self.transition3 = tf.concat(values=[self.avg2, self.conv21, self.conv23, self.conv25, self.conv27], axis=-1)
+            self.layers[scope[:-1]] = self.transition3
+            b, h, w, c = self.transition3.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv28
+        with tf.name_scope('conv28') as scope:
+            self.conv28 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.transition3, n_out=fourth_rate * 2, training=istraining)), Weights['wc28'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv28
+            self.parameters += [Weights['wc28']]
+            b, h, w, c = self.conv28.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # avg3
+        with tf.name_scope('avg3') as scope:
+            self.avg3 = tf.nn.avg_pool(self.conv28, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.avg3
+            b, h, w, c = self.avg3.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        ###################################
+        #          Dense Block 4          # 수정해야함 아래쪽
+        ###################################
+
+        # conv29
+        with tf.name_scope('conv29') as scope:
+            self.conv29 = tf.nn.conv2d(tf.nn.relu6(batch_norm(self.avg3, n_out=fourth_rate, training=istraining)),
+                                       Weights['wc29'],
+                                       strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv29
+            self.parameters += [Weights['wc29']]
+            b, h, w, c = self.conv29.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv30
+        with tf.name_scope('conv30') as scope:
+            self.conv30 = tf.nn.conv2d(
+                tf.nn.relu6(batch_norm(self.conv29, n_out=growth_rate * 4, training=istraining)), Weights['wc30'],
+                strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv30
+            self.parameters += [Weights['wc30']]
+            b, h, w, c = self.conv30.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # concat10
+        with tf.name_scope('concat10') as scope:
+            self.concat10 = tf.concat(values=[self.avg3, self.conv30], axis=-1)
+            self.layers[scope[:-1]] = self.concat10
+            b, h, w, c = self.concat10.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv31
+        with tf.name_scope('conv31') as scope:
+            self.conv31 = tf.nn.conv2d(
+                tf.nn.relu6(batch_norm(self.concat10, n_out=growth_rate * 1 + fourth_rate, training=istraining)),
+                Weights['wc31'],
+                strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv31
+            self.parameters += [Weights['wc31']]
+            b, h, w, c = self.conv31.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv32
+        with tf.name_scope('conv32') as scope:
+            self.conv32 = tf.nn.conv2d(
+                tf.nn.relu6(batch_norm(self.conv31, n_out=growth_rate * 4, training=istraining)), Weights['wc32'],
+                strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv32
+            self.parameters += [Weights['wc32']]
+            b, h, w, c = self.conv32.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # concat11
+        with tf.name_scope('concat11') as scope:
+            self.concat11 = tf.concat(values=[self.avg3, self.conv30, self.conv32], axis=-1)
+            self.layers[scope[:-1]] = self.concat11
+            b, h, w, c = self.concat11.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv33
+        with tf.name_scope('conv33') as scope:
+            self.conv33 = tf.nn.conv2d(
+                tf.nn.relu6(batch_norm(self.concat11, n_out=growth_rate * 2 + fourth_rate, training=istraining)),
+                Weights['wc33'],
+                strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv33
+            self.parameters += [Weights['wc33']]
+            b, h, w, c = self.conv33.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv34
+        with tf.name_scope('conv34') as scope:
+            self.conv34 = tf.nn.conv2d(
+                tf.nn.relu6(batch_norm(self.conv33, n_out=growth_rate * 4, training=istraining)), Weights['wc34'],
+                strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv34
+            self.parameters += [Weights['wc34']]
+            b, h, w, c = self.conv34.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # concat12
+        with tf.name_scope('concat12') as scope:
+            self.concat12 = tf.concat(values=[self.avg3, self.conv30, self.conv32, self.conv34], axis=-1)
+            self.layers[scope[:-1]] = self.concat12
+            b, h, w, c = self.concat12.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv35
+        with tf.name_scope('conv35') as scope:
+            self.conv35 = tf.nn.conv2d(
+                tf.nn.relu6(batch_norm(self.concat12, n_out=growth_rate * 3 + fourth_rate, training=istraining)),
+                Weights['wc35'],
+                strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv35
+            self.parameters += [Weights['wc35']]
+            b, h, w, c = self.conv35.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # conv36
+        with tf.name_scope('conv36') as scope:
+            self.conv36 = tf.nn.conv2d(
+                tf.nn.relu6(batch_norm(self.conv35, n_out=growth_rate * 4, training=istraining)), Weights['wc36'],
+                strides=[1, 1, 1, 1], padding='SAME')
+            self.layers[scope[:-1]] = self.conv36
+            self.parameters += [Weights['wc36']]
+            b, h, w, c = self.conv36.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+    def gap_layers(self):
+        with tf.name_scope('gap') as scope:
+            gap1 = tf.nn.avg_pool(self.conv13, ksize=[1, 28, 28, 1], strides=[1, 28, 28, 1], padding='VALID',
+                                  name=scope)
+            self.gap = gap1
+            self.layers[scope[:-1]] = self.gap
+            b, h, w, c = self.gap.shape
+            print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+    def fc_layers(self):
+        # fc1
+        with tf.name_scope('fc1') as scope:
+            # ksize = [1, 1, 512, 512]
+            # strides = [1, 1, 1, 1]
+            ksize = [512, 512]
+
+            kernel = tf.Variable(tf.truncated_normal(ksize, stddev=0.1), name='weights_fc1')
+            # conv = tf.nn.conv2d(self.gap, kernel, strides, padding='SAME')
+            fc1 = tf.reshape(self.gap, shape=[-1, 512])
+            fc2 = tf.matmul(fc1, kernel)
+            self.fc1 = fc2
+            self.layers[scope[:-1]] = self.fc1
+            self.parameters += [kernel]
+            b, c = self.fc1.shape
+            # b, h, w, c = self.fc1.shape
+            print(scope[:-1] + " output ->", "[" + str(b) + ", " + str(c) + "]")
+            # print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # fc2
+        with tf.name_scope('fc2') as scope:
+            # ksize = [1, 1, 512, 512]
+            # strides = [1, 1, 1, 1]
+            ksize = [512, 512]
+
+            kernel = tf.Variable(tf.truncated_normal(ksize, stddev=0.1), name='weights_fc2')
+            # conv = tf.nn.conv2d(self.fc1, kernel, strides, padding='SAME')
+            fc1 = tf.matmul(self.fc1, kernel)
+            self.fc2 = fc1
+            self.layers[scope[:-1]] = self.fc2
+            self.parameters += [kernel]
+            b, c = self.fc2.shape
+            # b, h, w, c = self.fc2.shape
+            print(scope[:-1] + " output ->", "[" + str(b) + ", " + str(c) + "]")
+            # print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+        # fc3
+        with tf.name_scope('fc3') as scope:
+            # ksize = [1, 1, 512, label_size]
+            # strides = [1, 1, 1, 1]
+            ksize = [512, self.label_size]
+
+            kernel = tf.Variable(tf.truncated_normal(ksize, stddev=0.1), name='weights_fc3')
+            # conv = tf.nn.conv2d(self.fc2, kernel, strides, padding='SAME')
+            fc1 = tf.matmul(self.fc2, kernel)
+            self.fc3 = fc1
+            self.layers[scope[:-1]] = self.fc3
+            self.parameters += [kernel]
+            b, c = self.fc3.shape
+            # b, h, w, c = self.fc3.shape
+            print(scope[:-1] + " output ->", "[" + str(b) + ", " + str(c) + "]")
+            # print(scope[:-1] + " output ->", "[" + str(h) + ", " + str(w) + ", " + str(c) + "]")
+
+    def load_weights(self, weight_file, sess):
+        saver = tf.train.Saver()  # Network model Save
+        meta_saver = tf.train.import_meta_graph(weight_file + ".meta")
+        save_path = saver.restore(sess, weight_file)
+        # weights = np.load(weight_file)
+        # keys = sorted(weights.keys())
+        # for i, k in enumerate(keys):
+        #     print(i, k, np.shape(weights[k]))
+        #     sess.run(self.parameters[i].assign(weights[k]))
+
+
+load_image()
+
+X = tf.placeholder(tf.float32, [batchsize, image_Width, image_Height, channel], name='X')
+Y = tf.placeholder(tf.float32, [batchsize, label_size], name='Y')
+# Y = tf.placeholder(tf.float32, [batchsize, 1, 1, label_size], name='Y')
+istraining = tf.placeholder(tf.bool, name='istraining')
+
+result = densenet121(X, istraining)
+
+cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=result.fc3, labels=Y))
+train_step = tf.train.AdamOptimizer(Learning_Rate * batchsize).minimize(cross_entropy)
+
+print(" *** Softmax(X):", tf.nn.softmax(result.fc3))
+print(" *** Softmax(Y):", tf.nn.softmax(Y))
+
+ay = tf.argmax(tf.nn.softmax(result.fc3), 1)
+ly = tf.argmax(tf.nn.softmax(Y), 1)
+
+print(" *** Argmax(X):", ay)
+print(" *** Argmax(Y):", ly)
+
+# correct_prediction = tf.equal(tf.nn.softmax(result.fc3), Y)
+correct_prediction = tf.equal(tf.argmax(tf.nn.softmax(result.fc3), 1), tf.argmax(Y, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+accuracy_sum = 0
+
+tf.summary.scalar("loss", cross_entropy)
+tf.summary.scalar("accuracy", accuracy)
+merge_summary_op = tf.summary.merge_all()
+total_time = 0
+
+merged = tf.summary.merge_all()
+
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+    accuracy_list = []
+
+    saver = tf.train.Saver()  # Network model Save
+    # save_path = saver.restore(sess, "D:\\Saver\\2lab_atrous_segmentation_3label\\2lab_atrous_segmentation_3label_Epoch_4.ckpt")
+
+    writer = tf.summary.FileWriter(ModelDir + "logs", sess.graph)
+
+    # ==========================================================================================================
+    # Training!
+    # ==========================================================================================================
+    for epoch in range(0, ForEpoch):  # epoch 1 ~ epoch 20
+        count = 0
+        for i in range(int(Total_Train / batchsize)):
+            # for i in range(1):
+            count += 1
+            bx, by = batch_train(batchsize)
+            bx = np.reshape(bx, [batchsize, image_Width, image_Height, channel])
+            ts, cost, train_accuracy = sess.run([train_step, cross_entropy, accuracy],
+                                                feed_dict={X: bx, Y: by, istraining.name: True})
+
+            print('[' + str(count) + '] ',
+                  'Epoch %d    ' % (epoch + 1),
+                  'Training accuracy %g     ' % train_accuracy,
+                  'loss %g        ' % cost)
+        save_path2 = saver.save(sess, ModelDir + "\\" + ModelName + "_Epoch_" + str(epoch + 1) + ".ckpt")
+        tf.io.write_graph(sess.graph_def, ModelDir, "trained_" + ModelName + ".pb", as_text=False)
+        count = 0
+
+        # save_path = saver.restore(sess, "D:\\Saver\\2lab_atrous_segmentation_3label\\2lab_atrous_segmentation_3label_Epoch_" + str(epoch + 1) + ".ckpt")
+
+        for j in range(int(Total_Eval / batchsize)):
+            count += 1
+            Start = time.time()  # For Time Checking!
+            ex, ey = batch_eval(batchsize)
+            ex = np.reshape(ex, [batchsize, image_Width, image_Height, channel])
+            l, y, acc, summary = sess.run([ly, ay, accuracy, merged], feed_dict={X: ex, Y: ey, istraining.name: False})
+            writer.add_summary(summary)
+
+            End = time.time() - Start
+            print('[' + str(count) + '] ', "epoch ", (epoch + 1), "     mini accuracy : ", acc,
+                  "     mini time(sec) : ", End)
+            total_time = total_time + End
+            accuracy_sum = accuracy_sum + acc
+
+        print('Epoch %d' % (epoch + 1), 'test : %f' % (accuracy_sum / (Total_Eval / batchsize) * 100))
+        accuracy_list.append(accuracy_sum / (Total_Eval / batchsize) * 100)
+        accuracy_sum = 0
+        for i in range(0, epoch):
+            print('Epoch %d' % (i + 1), 'test : %f' % accuracy_list[i])
+
+    for i in range(0, ForEpoch):
+        print('*** Total Accuracy List ***\nEpoch %d' % (i + 1), 'test : %f' % accuracy_list[i])
+
+    print("### Finish Training! ###")
