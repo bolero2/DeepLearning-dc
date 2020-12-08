@@ -2,7 +2,6 @@
 ResNet-34 network + TensorFlow r2.3
 
 ## 1. How-to-use this source code
------------------------------
 1. Modify config.py file
 2. Run train.py file for Model Training
 3. Run evaluate.py file for Model Evaluation
