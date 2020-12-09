@@ -1,5 +1,7 @@
 import tensorflow as tf
-import config as cfg
+import sys
+sys.path.append("..")
+import utils.config as cfg
 
 
 def block_residual(input_data, filters, kernel_size, stride=1, training=True):

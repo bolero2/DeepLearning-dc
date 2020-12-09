@@ -1,7 +1,7 @@
 import tensorflow as tf
+import matplotlib.pyplot as plt
 from utils.dataloader import read_path, load_image
 import utils.config as cfg
-import matplotlib.pyplot as plt
 
 
 def train(validation=True, load_weight=False):

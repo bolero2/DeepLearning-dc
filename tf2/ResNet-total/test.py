@@ -1,8 +1,9 @@
 import tensorflow as tf
-from utils.dataloader import read_path, load_image
-import utils.config as cfg
 import cv2
 import numpy as np
+
+from utils.dataloader import read_path, load_image
+import utils.config as cfg
 
 
 def test():

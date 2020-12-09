@@ -2,7 +2,7 @@ import os
 import random
 import numpy as np
 import cv2
-import config as cfg
+import utils.config as cfg
 
 
 def read_path():
