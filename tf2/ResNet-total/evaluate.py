@@ -1,6 +1,6 @@
 import tensorflow as tf
-from dataloader import read_path, load_image
-import config as cfg
+from utils.dataloader import read_path, load_image
+import utils.config as cfg
 
 
 def evaluate():
@@ -8,13 +8,13 @@ def evaluate():
     eval_images, eval_labels = load_image(filenames_eval, type='eval')
     
     if cfg._model == "resnet34":
-        from models/resnet34 import resnet_34
+        from models.resnet34 import resnet_34
         model = resnet_34(training=False)
     elif cfg._model == "resnet101":
-        from models/resnet101 import resnet_101
+        from models.resnet101 import resnet_101
         model = resnet_101(training=False)
     elif cfg._model == "resnet152":
-        from models/resnet152 import resnet_152
+        from models.resnet152 import resnet_152
         model = resnet_152(training=False)
 
     weight_file = cfg.trained_weight

@@ -1,19 +1,18 @@
 import tensorflow as tf
-from dataloader import read_path, load_image
-from model import resnet_101
-import config as cfg
+from utils.dataloader import read_path, load_image
+import utils.config as cfg
 import matplotlib.pyplot as plt
 
 
 def train(validation=True, load_weight=False):
     if cfg._model == "resnet34":
-        from models/resnet34 import resnet_34
+        from models.resnet34 import resnet_34
         model = resnet_34(training=True)
     elif cfg._model == "resnet101":
-        from models/resnet101 import resnet_101
+        from models.resnet101 import resnet_101
         model = resnet_101(training=True)
     elif cfg._model == "resnet152":
-        from models/resnet152 import resnet_152
+        from models.resnet152 import resnet_152
         model = resnet_152(training=True)
     model.summary()
 
@@ -60,5 +59,5 @@ def train(validation=True, load_weight=False):
 
 
 if __name__ == "__main__":
-    train(validation=True, load_weight=False)
+    train(validation=cfg.train_with_validation, load_weight=False)
     exit(0)

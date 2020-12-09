@@ -10,7 +10,7 @@ Supported models
 2. resnet101
 3. resnet152
 """
-_model = "resnet101"
+_model = "resnet34"
 
 ########################################
 # Hyper-Parameter for default setting #
@@ -20,8 +20,8 @@ _model = "resnet101"
 # EvalDir = "C:/dataset/OpenedDataset/cifar10/eval/"
 
 # Linux Version
-TrainDir = "/home/clt_dc/dataset/classification/cifar100/train/"
-EvalDir = "/home/clt_dc/dataset/classification/cifar100/test/"
+TrainDir = "C:/dataset/OpenedDataset/cifar10/train/"
+EvalDir = "C:/dataset/OpenedDataset/cifar10/eval/"
 TestImage = "./test.jpg"
 
 total_train = 50000
@@ -39,8 +39,9 @@ dropout_rate = 0.5
 ########################################
 # Hyper-Parameter for training #
 ########################################
-num_epochs = 50
+num_epochs = 20
 batch_size = 16
+train_with_validation = True
 verbose = 1
 lr = 0.00001
 optimizer = 'Adam'
