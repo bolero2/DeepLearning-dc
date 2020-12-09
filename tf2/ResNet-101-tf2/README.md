@@ -1,4 +1,4 @@
-# ResNet-101-tf2
+# ResNet-34-tf2
 ResNet-101 network + TensorFlow r2.3
 
 ## 1. How-to-use this source code

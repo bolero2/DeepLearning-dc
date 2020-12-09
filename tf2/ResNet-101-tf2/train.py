@@ -52,5 +52,5 @@ def train(validation=True, load_weight=False):
 
 
 if __name__ == "__main__":
-    train(validation=True, load_weight=False)
+    train(validation=train_with_validation, load_weight=False)
     exit(0)

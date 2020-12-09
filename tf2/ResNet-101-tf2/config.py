@@ -30,6 +30,7 @@ dropout_rate = 0.5
 ########################################
 num_epochs = 50
 batch_size = 16
+train_with_validation = True
 verbose = 1
 lr = 0.00001
 optimizer = 'Adam'
