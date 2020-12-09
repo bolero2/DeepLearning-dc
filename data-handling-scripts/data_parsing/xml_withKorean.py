@@ -11,12 +11,14 @@ new_path = "C:/Users/bolero/Downloads/xmlparsingtemp/"
 files = list()
 os.chdir(data_path)
 for file in glob.glob("*.xml"):
-    if file == "gastric_sample.xml":
+    # if file == "gastric_sample.xml":
+    if file == "00003297.xml":
         files.append(file)
 
 for file in files:
     # with Korean
-    f = open(data_path + file, 'r', encoding='euc-kr')
+    # f = open(data_path + file, 'r', encoding='euc-kr')
+    f = open(data_path + file, 'r', encoding='utf-8')
     text = f.read()
     f.close()
     full_path = data_path + file

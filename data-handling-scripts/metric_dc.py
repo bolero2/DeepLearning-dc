@@ -179,7 +179,7 @@ def make_csv(image_path, gt_path, dt_path, gt_coord, gt_coord_type, dt_coord, dt
     # Reading Detection(Inference) file(.txt)
     for detect_index in detect_file_list:
         real_name = detect_index[:-4]
-        img = cv2.imread(image_path + real_name + ".png")
+        img = cv2.imread(image_path + real_name + ".jpg")
         row, col, ch = img.shape
 
         ###########################################
@@ -347,18 +347,18 @@ if __name__ == "__main__":
     ###########################################
     # List of experiments
     ###########################################
-    for e in range(1, 13):
+    for e in range(1, 31):
         for i in range(3, 6):
             iou_threshold = round(float(i / 10), 1)
-            image_path = "C:/Users/bolero/Desktop/metric_dc/deeplesion_valid/images/"
-            gt_path = "C:/Users/bolero/Desktop/metric_dc/deeplesion_valid/labels/"
-            dt_path = f"D:/Files/works/1+AICenter/result/detectoRS/inference_result_deeplesion/epoch{e}/"
+            image_path = "C:/Users/bolero/Desktop/metric_dc/idc_c16_lesion/val_images/"
+            gt_path = "C:/Users/bolero/Desktop/metric_dc/idc_c16_lesion/val_labels/"
+            dt_path = f"C:/Users/bolero/Desktop/metric_dc/idc_c16_lesion/results_mmdet_idc_lesion/epoch{e}/"
             # dt_path = f"C:/Users/bolero/Desktop/metric_dc/result_detectors_epoch{e}_conf0.001_label_abs_xyrb/"
             gt_coord = 'xyrb'
             gt_coord_type = 'abs'
             dt_coord = 'xyrb'
             dt_coord_type = 'abs'
-            csv_save_path = "C:/Users/bolero/Desktop/metric_dc/metric_detectoRS_deeplesion/"
+            csv_save_path = "C:/Users/bolero/Desktop/metric_dc/idc_c16_lesion/metric_mmdet_idc_lesion/"
             sorting_index = 1
 
             # sorting index

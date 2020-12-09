@@ -16,9 +16,9 @@ def _draw_bbox(image, xyrb, type, confidence=None):
     xyrb = list(map(int, xyrb))
     color = (0, 0, 0)
     if type == 1:
-        color = (255, 0, 0)
-    elif type == 2:
         color = (0, 0, 255)
+    elif type == 2:
+        color = (255, 0, 0)
 
     if confidence is not None:
         image = cv2.rectangle(image, pt1=(xyrb[0], xyrb[1]), pt2=(xyrb[2], xyrb[3]), color=color, thickness=3)
@@ -107,7 +107,7 @@ def draw_bbox(image_path, num_type,
                     path1_line[-2] = path1_line[-2] + path1_line[-1]
                     del path1_line[-1]
             path1_coordinate.append(list(map(float, path1_line[1:])))
-            print(path1_coordinate)
+        print(f"{image_name} | coord: {path1_coordinate}")
 
         if valid_param is not None:
             try:
@@ -218,24 +218,25 @@ def draw_bbox(image_path, num_type,
                     img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=2, confidence=confidence)
                 else:
                     img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=2, confidence=None)
-        cv2.imshow("image", img)
+        cv2.imshow(image_name, img)
         cv2.waitKey(0)
         if is_save:
             print(f"Save image >>> ./bbox_result_{image_name}.jpg")
             cv2.imwrite(f"./bbox_result_{image_name}.jpg", img)
         else:
             pass
+        cv2.destroyWindow(image_name)
 
 
 if __name__ == "__main__":
     # image_path = "C:/Users/bolero/Desktop/metric_dc/deeplesion_valid/images/"
-    image_path = "C:/Users/bolero/Desktop/clt11/images/"
+    image_path = "C:/Users/bolero/Desktop/metric_dc/idc_c16_lesion/val_images/"
     num_type = 1
 
-    path1 = "C:/Users/bolero/Desktop/clt11/epoch12/"
+    path1 = "C:/Users/bolero/Desktop/metric_dc/idc_c16_lesion/val_labels/"
     path1_coord = 'xyrb'
     path1_coord_type = 'abs'
-    path1_is_confidence = True
+    path1_is_confidence = False
 
     path2 = None
     path2_coord = None
