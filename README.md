@@ -13,13 +13,14 @@ Folder link is [Here](https://github.com/bolero2/DeepLearning-dc/tree/master/_pa
 |2019. 12|Atrous Convolution과 Grad-CAM을 통한 손 끝 탐지|[Link](https://github.com/bolero2/DeepLearning-dc/blob/master/_papers/%5B2019.12%5D%20Atrous%20Convolution%EA%B3%BC%20Grad-CAM%EC%9D%84%20%ED%86%B5%ED%95%9C%20%EC%86%90%20%EB%81%9D%20%ED%83%90%EC%A7%80.pdf)|
 |2020. 06|실시간 손끝 탐지를 위한 VGGNet 기반 객체 탐지 네트워크|[Link](https://github.com/bolero2/DeepLearning-dc/blob/master/_papers/%5B2020.06%5D%20%EC%8B%A4%EC%8B%9C%EA%B0%84%20%EC%86%90%EB%81%9D%20%ED%83%90%EC%A7%80%EB%A5%BC%20%EC%9C%84%ED%95%9C%20VGGNet%20%EA%B8%B0%EB%B0%98%20%EA%B0%9D%EC%B2%B4%20%ED%83%90%EC%A7%80%20%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC.pdf)|
 
-## Classification Model (*Updated 2020. 12. 08*)
-All of source codes are written by myself using python language.
+## Classification Model (*Updated 2020. 12. 09*)
+**All of source codes are written by myself using python language.**
 |TensorFlow2|PyTorch|
 |:-----------:|:-----------:|
 |[ResNet-34-tf2](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-34-tf2)|[ResNet-34-torch](https://github.com/bolero2/DeepLearning-dc/tree/master/torch/ResNet-34-torch)|
 |[ResNet-101-tf2](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-101-tf2)||
 |[ResNet-152-tf2](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-152-tf2)||
+|[ResNet-total(34/101/152)](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-total)||
 
 
 ## _old version
