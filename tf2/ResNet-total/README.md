@@ -15,17 +15,17 @@ There are 3 networks.
 
 ## Directory Architecture
 .
-├── README.md
-├── evaluate.py
-├── models
-│   ├── resnet101.py
-│   ├── resnet152.py
-│   └── resnet34.py
-├── test.py
-├── train.py
-├── tree.txt
-└── utils
-    ├── config.py
-    └── dataloader.py
+├── README.md  
+├── evaluate.py  
+├── models  
+│   ├── resnet101.py  
+│   ├── resnet152.py  
+│   └── resnet34.py  
+├── test.py  
+├── train.py  
+├── tree.txt  
+└── utils  
+    ├── config.py  
+    └── dataloader.py  
 
 2 directories, 10 files
