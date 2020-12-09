@@ -25,7 +25,7 @@ There are 3 networks.
 ├── train.py  
 ├── tree.txt  
 └── utils  
-    ├── config.py  
-    └── dataloader.py  
+│    ├── config.py  
+│    └── dataloader.py  
 
 2 directories, 10 files
