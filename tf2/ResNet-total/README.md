@@ -14,18 +14,5 @@ There are 3 networks.
 |ResNet-152|[Link](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-152-tf2)|
 
 ## Directory Architecture
-.
-├── README.md  
-├── evaluate.py  
-├── models  
-│   ├── resnet101.py  
-│   ├── resnet152.py  
-│   └── resnet34.py  
-├── test.py  
-├── train.py  
-├── tree.txt  
-└── utils  
-│    ├── config.py  
-│    └── dataloader.py  
+![tree](https://user-images.githubusercontent.com/41134624/101570955-c72b5a80-3a1a-11eb-8c6c-2b9716af2fec.JPG)
 
-2 directories, 10 files
