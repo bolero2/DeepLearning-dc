@@ -162,6 +162,8 @@ def convert_coord(coord, name='none', original_image=None, converted_image=None)
             loss = (height / 2) - center_y
             height = height - loss
             center_y = center_y + loss / 2
+        if center_x + (width / 2) > 0.99:
+            width
         return [coord[0], center_x, center_y, width, height]
 
 

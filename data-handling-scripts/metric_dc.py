@@ -70,7 +70,7 @@ def iou(box1, box2):
     return iou
 
 
-def extract_file_name(image_path, gt_path, detect_path):
+def extract_file_name(image_path, gt_path, dt_path):
     image_file_list = list()
     gt_file_list = list()
     detect_file_list = list()
@@ -83,7 +83,7 @@ def extract_file_name(image_path, gt_path, detect_path):
     for gt_label in glob.glob('*.txt'):
         gt_file_list.append(gt_label)
 
-    os.chdir(detect_path)
+    os.chdir(dt_path)
     for detect_label in glob.glob('*.txt'):
         detect_file_list.append(detect_label)
 
@@ -151,6 +151,7 @@ def make_csv(image_path, gt_path, dt_path, gt_coord, gt_coord_type, dt_coord, dt
     ap_recall_list = list()
 
     image_file_list, gt_file_list, detect_file_list = extract_file_name(image_path, gt_path, dt_path)
+    print(detect_file_list)
 
     ###########################################
     # get Total Object count
@@ -277,7 +278,7 @@ def make_csv(image_path, gt_path, dt_path, gt_coord, gt_coord_type, dt_coord, dt
     plt.xlabel('Recall')
     plt.ylabel('Precision')
     plt.title(f'Precision x Recall Curve\nmAP: {str(ap * 100)[:5]}%')
-    plt.ylim([float(str(graph_precision_list[-1])[0:3]) - 0.0225, 1.0225])
+    plt.ylim([float(str(graph_precision_list[-1])[0]) - 0.0225, 1.0225])
     plt.xlim([-0.05, 1.05])
     plt.grid(True)
     plt.legend(loc='lower left')
@@ -310,74 +311,74 @@ if __name__ == "__main__":
     ###########################################
     # Single experiment
     ###########################################
-    # image_path = "C:/Users/bolero/Desktop/metric_dc/gt_images/"
-    # gt_path = "C:/Users/bolero/Desktop/metric_dc/gt_label_abs_xyrb/"
-    # # dt_path = f"D:\\Files\\works\\1+AICenter\\result\\detectoRS\\inference_xyrb_abs\\epoch{e}\\"
-    # dt_path = "C:/Users/bolero/Desktop/metric_dc/result_detectors_epoch4_conf0.001_label_abs_xyrb/"
-    # gt_coord = 'xyrb'
-    # gt_coord_type = 'abs'
-    # dt_coord = 'xyrb'
-    # dt_coord_type = 'abs'
-    # csv_save_path = "C:\\Users\\bolero\\Desktop\\metric_dc\\"
-    # sorting_index = 1
-    #
-    # # sorting index
-    # # 0 = list not sorted
-    # # 1 = confidence score
-    # # 2 = IoU
-    # iou_threshold = 0.3
-    # csv_save_name = f'epoch4_iou0.3'
-    # prc_save_name = f'epoch4_iou0.3'
-    #
-    # # csv_save_name = f"csv_epoch{e}_IoU{iou_threshold}"
-    # # prc_save_name = f"prc_epoch{e}_IoU{iou_threshold}"
-    #
-    # make_csv(image_path=image_path,
-    #          gt_path=gt_path,
-    #          dt_path=dt_path,
-    #          gt_coord=gt_coord,
-    #          gt_coord_type=gt_coord_type,
-    #          dt_coord=dt_coord,
-    #          dt_coord_type=dt_coord_type,
-    #          iou_threshold=iou_threshold,
-    #          csv_save_path=csv_save_path,
-    #          csv_save_name=csv_save_name,
-    #          sorting_index=sorting_index)
+    image_path = "C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/yolov5/test_images_c18_cancer/"
+    gt_path = "C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/yolov5/test_labels_c18_cancer/"
+    # dt_path = f"D:\\Files\\works\\1+AICenter\\result\\detectoRS\\inference_xyrb_abs\\epoch{e}\\"
+    dt_path = "C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/yolov5/results_idc_yolov5_cancer/output_conf0.001/"
+    gt_coord = 'xyrb'
+    gt_coord_type = 'abs'
+    dt_coord = 'ccwh'
+    dt_coord_type = 'relat'
+    csv_save_path = "C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/yolov5/metric_idc_yolov5_cancer/"
+    sorting_index = 1
+
+    # sorting index
+    # 0 = list not sorted
+    # 1 = confidence score
+    # 2 = IoU
+    iou_threshold = 0.3
+    csv_save_name = f'best_conf0.001_IoU{iou_threshold}'
+    prc_save_name = f'best_conf0.001_IoU{iou_threshold}'
+
+    # csv_save_name = f"csv_epoch{e}_IoU{iou_threshold}"
+    # prc_save_name = f"prc_epoch{e}_IoU{iou_threshold}"
+
+    make_csv(image_path=image_path,
+             gt_path=gt_path,
+             dt_path=dt_path,
+             gt_coord=gt_coord,
+             gt_coord_type=gt_coord_type,
+             dt_coord=dt_coord,
+             dt_coord_type=dt_coord_type,
+             iou_threshold=iou_threshold,
+             csv_save_path=csv_save_path,
+             csv_save_name=csv_save_name,
+             sorting_index=sorting_index)
 
     ###########################################
     # List of experiments
     ###########################################
-    for e in range(1, 31):
-        for i in range(3, 6):
-            iou_threshold = round(float(i / 10), 1)
-            image_path = "C:/Users/bolero/Desktop/metric_dc/idc_c16_lesion/val_images/"
-            gt_path = "C:/Users/bolero/Desktop/metric_dc/idc_c16_lesion/val_labels/"
-            dt_path = f"C:/Users/bolero/Desktop/metric_dc/idc_c16_lesion/results_mmdet_idc_lesion/epoch{e}/"
-            # dt_path = f"C:/Users/bolero/Desktop/metric_dc/result_detectors_epoch{e}_conf0.001_label_abs_xyrb/"
-            gt_coord = 'xyrb'
-            gt_coord_type = 'abs'
-            dt_coord = 'xyrb'
-            dt_coord_type = 'abs'
-            csv_save_path = "C:/Users/bolero/Desktop/metric_dc/idc_c16_lesion/metric_mmdet_idc_lesion/"
-            sorting_index = 1
-
-            # sorting index
-            # 0 = list not sorted
-            # 1 = confidence score
-            # 2 = IoU
-
-            csv_save_name = f"csv_epoch{e}_IoU{iou_threshold}"
-            prc_save_name = f"prc_epoch{e}_IoU{iou_threshold}"
-
-            make_csv(image_path=image_path,
-                     gt_path=gt_path,
-                     dt_path=dt_path,
-                     gt_coord=gt_coord,
-                     gt_coord_type=gt_coord_type,
-                     dt_coord=dt_coord,
-                     dt_coord_type=dt_coord_type,
-                     iou_threshold=iou_threshold,
-                     csv_save_path=csv_save_path,
-                     csv_save_name=csv_save_name,
-                     sorting_index=sorting_index)
+    # for e in range(1, 31):
+    #     for i in range(3, 6):
+    #         iou_threshold = round(float(i / 10), 1)
+    #         image_path = "C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/detectoRS/test_cancer_images/"
+    #         gt_path = "C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/detectoRS/test_cancer_labels/"
+    #         dt_path = f"C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/detectoRS/results_idc_c18_cancer/epoch{e}/"
+    #         # dt_path = f"C:/Users/bolero/Desktop/metric_dc/result_detectors_epoch{e}_conf0.001_label_abs_xyrb/"
+    #         gt_coord = 'xyrb'
+    #         gt_coord_type = 'abs'
+    #         dt_coord = 'xyrb'
+    #         dt_coord_type = 'abs'
+    #         csv_save_path = "C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/detectoRS/metric_idc_c18_cancer/"
+    #         sorting_index = 1
+    #
+    #         # sorting index
+    #         # 0 = list not sorted
+    #         # 1 = confidence score
+    #         # 2 = IoU
+    #
+    #         csv_save_name = f"csv_epoch{e}_IoU{iou_threshold}"
+    #         prc_save_name = f"prc_epoch{e}_IoU{iou_threshold}"
+    #
+    #         make_csv(image_path=image_path,
+    #                  gt_path=gt_path,
+    #                  dt_path=dt_path,
+    #                  gt_coord=gt_coord,
+    #                  gt_coord_type=gt_coord_type,
+    #                  dt_coord=dt_coord,
+    #                  dt_coord_type=dt_coord_type,
+    #                  iou_threshold=iou_threshold,
+    #                  csv_save_path=csv_save_path,
+    #                  csv_save_name=csv_save_name,
+    #                  sorting_index=sorting_index)
     exit(0)

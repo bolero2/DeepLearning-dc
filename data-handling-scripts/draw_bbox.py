@@ -230,13 +230,13 @@ def draw_bbox(image_path, num_type,
 
 if __name__ == "__main__":
     # image_path = "C:/Users/bolero/Desktop/metric_dc/deeplesion_valid/images/"
-    image_path = "C:/Users/bolero/Desktop/metric_dc/idc_c16_lesion/val_images/"
+    image_path = "C:/Users/bolero/Desktop/metric_dc/idc_c16_cancer/detectoRS/test_images_c16_normal/"
     num_type = 1
 
-    path1 = "C:/Users/bolero/Desktop/metric_dc/idc_c16_lesion/val_labels/"
+    path1 = "C:/Users/bolero/Desktop/metric_dc/idc_c16_cancer/detectoRS/results_idc_c16_mmdet_normal/epoch1/"
     path1_coord = 'xyrb'
     path1_coord_type = 'abs'
-    path1_is_confidence = False
+    path1_is_confidence = True
 
     path2 = None
     path2_coord = None
