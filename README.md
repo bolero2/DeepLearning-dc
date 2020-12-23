@@ -21,6 +21,7 @@ Folder link is [Here](https://github.com/bolero2/DeepLearning-dc/tree/master/_pa
 |[ResNet-101-tf2](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-101-tf2)||
 |[ResNet-152-tf2](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-152-tf2)||
 |[ResNet-total(34/101/152)](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-total)||
+|[EfficientNet-tf2-keras](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/EfficientNet-tf2-keras)||
 
 
 ## _old version
