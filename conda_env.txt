@@ -1,0 +1,7 @@
+tensorflow==2.3.0
+Keras
+scikit-learn
+matplotlib
+pandas
+numpy
+opencv-python==4.1.0.25
