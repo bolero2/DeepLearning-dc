@@ -8,3 +8,8 @@ opencv-python==4.1.0.25
 graphviz
 Pillow
 pydot
+pydotpls
+
+
+#!/bin/bash
+# apt install graphviz
