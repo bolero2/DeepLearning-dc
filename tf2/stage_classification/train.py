@@ -19,18 +19,18 @@ from sklearn.utils import class_weight
 
 # Linux Version
 # TrainDir = "/home/Cyberlogitec/dataset/classification/cifar5/train/"
-TrainDir = "/home/Cyberlogitec/dc2/c16_cls/train/"
+TrainDir = "/home/yb/dc/c16_cls/train/"
 # EvalDir = "/home/Cyberlogitec/dataset/classification/cifar5/eval/"
-EvalDir = "/home/Cyberlogitec/dc2/c16_cls/eval/"
+EvalDir = "/home/yb/dc/c16_cls/eval/"
+TestImage = "./test.jpg"
 
 train_counter = [len(os.listdir(filelist)) for filelist in [TrainDir + num_files + "/" for num_files in sorted(os.listdir(TrainDir))]] 
 eval_counter = [len(os.listdir(filelist)) for filelist in [EvalDir + num_files + "/" for num_files in sorted(os.listdir(EvalDir))]]
 total_train = sum(train_counter)
 total_eval = sum(eval_counter)
-print(f' * Total train: {total_train}'
-       ' * Total Eval: {total_eval}')
+print(f'Total train: {total_train}, Total Eval: {total_eval}')
 classes = sorted(os.listdir(TrainDir))
-print(f' * classes= {classes}')
+print(f'classes= {classes}')
 label_size = len(classes)
 
 ########################################
@@ -43,12 +43,12 @@ dropout_rate = 0.5
 ########################################
 # Hyper-Parameter for training #
 ########################################
-num_epochs = 150 
+num_epochs = 300 
 batch_size = 8 
 train_with_validation = True
 verbose = 1
 lr = 0.00001
-optimizer = keras.optimizers.Adam(lr=lr) 
+optimizer = keras.optimizers.Adam(lr=lr)
 loss_function = keras.losses.CategoricalCrossentropy()
 
 ########################################
@@ -286,6 +286,7 @@ if __name__ == "__main__":
         class_weights.append(value)
 
     d_class_weights = dict(enumerate(class_weights))
+    print(f'd_class_weights= {d_class_weights}')
 
     history = model.fit(train_images, train_labels, epochs=num_epochs, batch_size=batch_size, validation_data=(eval_images, eval_labels), class_weight=d_class_weights, callbacks=[cb_ckpt, cb_logger])
 
