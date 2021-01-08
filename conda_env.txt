@@ -1,4 +1,5 @@
 tensorflow==2.3.0
+# or 2.4.0 + CUDA 11.0 + cudnn8
 Keras
 scikit-learn
 matplotlib
@@ -9,6 +10,7 @@ graphviz
 Pillow
 pydot
 pydotpls
+tqdm
 
 
 #!/bin/bash
