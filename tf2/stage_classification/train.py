@@ -19,9 +19,9 @@ from sklearn.utils import class_weight
 
 # Linux Version
 # TrainDir = "/home/Cyberlogitec/dataset/classification/cifar5/train/"
-TrainDir = "/home/yb/dc/c16_cls/train/"
+TrainDir = "/home/clt_dc/dataset/c18_rid/train/"
 # EvalDir = "/home/Cyberlogitec/dataset/classification/cifar5/eval/"
-EvalDir = "/home/yb/dc/c16_cls/eval/"
+EvalDir = "/home/clt_dc/dataset/c18_rid/eval/"
 TestImage = "./test.jpg"
 
 train_counter = [len(os.listdir(filelist)) for filelist in [TrainDir + num_files + "/" for num_files in sorted(os.listdir(TrainDir))]] 
@@ -264,6 +264,7 @@ if __name__ == "__main__":
             class_mode='categorical')
     """
     model = network()
+    # model = keras.models.load_model('yb_best_1.hdf5')
     cb_ckpt = keras.callbacks.ModelCheckpoint(filepath=saved_name, verbose=1, save_best_only=True)
     cb_logger = keras.callbacks.CSVLogger('history.log')
     # model = multi_gpu_model(model, gpus=4)
