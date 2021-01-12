@@ -13,6 +13,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import copy
+from tqdm import tqdm
 import random
 
 
@@ -248,7 +249,7 @@ def augment_for_detection(image_path, new_image_path, label_path, new_label_path
     image_list = os.listdir(image_path)
     label_list = os.listdir(label_path)
 
-    for num in range(0, len(image_list)):
+    for num in tqdm(range(0, len(image_list))):
         img = cv2.imread(image_path + image_list[num])    # Original Image
         col, row, ch = img.shape
 
