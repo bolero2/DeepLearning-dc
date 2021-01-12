@@ -12,10 +12,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import copy
 import random
+from tqdm import tqdm
 
-image_path = "C:\\dataset\\MyDataset\\classifier_colon\\1\\"
-new_image_path = "C:\\dataset\\MyDataset\\classifier_colon\\new1\\"
-crop_rate = 0.15
+
+image_path = '/home/Cyberlogitec/dc2/c16_rid_aug/train/0/'
+new_image_path = '/home/Cyberlogitec/dc2/c16_rid_aug/train/0/'
+crop_rate = 0
 
 
 def filtering(img, number):
@@ -85,7 +87,7 @@ def adjust_gamma(image, gamma=1.0):
 def main():
     image_list = os.listdir(image_path)
 
-    for num in range(0, len(image_list)):
+    for num in tqdm(range(0, len(image_list))):
         img = cv2.imread(image_path + image_list[num])    # Original Image
         # img = cv2.resize(img, (448, 448))
         col, row, ch = img.shape
@@ -95,10 +97,12 @@ def main():
         img_flip1 = cv2.flip(img, -1)
         img_flip2 = cv2.flip(img, 1)
         img_flip3 = cv2.flip(img, 0)
-        img_crop1 = copy.deepcopy(img[0:int(col * (1 - crop_rate)), 0:int(row * (1 - crop_rate)), :])
-        img_crop2 = copy.deepcopy(img[0:int(col * (1 - crop_rate)), int(row * crop_rate):row, :])
-        img_crop3 = copy.deepcopy(img[int(col * crop_rate):col, 0:int(row * (1 - crop_rate)), :])
-        img_crop4 = copy.deepcopy(img[int(col * crop_rate):col, int(row * crop_rate):row, :])
+
+        if crop_rate != 0:
+            img_crop1 = copy.deepcopy(img[0:int(col * (1 - crop_rate)), 0:int(row * (1 - crop_rate)), :])
+            img_crop2 = copy.deepcopy(img[0:int(col * (1 - crop_rate)), int(row * crop_rate):row, :])
+            img_crop3 = copy.deepcopy(img[int(col * crop_rate):col, 0:int(row * (1 - crop_rate)), :])
+            img_crop4 = copy.deepcopy(img[int(col * crop_rate):col, int(row * crop_rate):row, :])
         # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
         img_rot1 = filtering(img_rot1, random.randint(0, 5))
@@ -116,17 +120,18 @@ def main():
         img_flip3 = filtering(img_flip3, random.randint(0, 5))
         cv2.imwrite(new_image_path + image_list[num][:-4] + "_flip_3" + ".jpg", img_flip3)
 
-        img_crop1 = filtering(img_crop1, random.randint(0, 5))
-        cv2.imwrite(new_image_path + image_list[num][:-4] + "_crop_1" + ".jpg", img_crop1)
+        if crop_rate != 0:
+            img_crop1 = filtering(img_crop1, random.randint(0, 5))
+            cv2.imwrite(new_image_path + image_list[num][:-4] + "_crop_1" + ".jpg", img_crop1)
 
-        img_crop2 = filtering(img_crop2, random.randint(0, 5))
-        cv2.imwrite(new_image_path + image_list[num][:-4] + "_crop_2" + ".jpg", img_crop2)
+            img_crop2 = filtering(img_crop2, random.randint(0, 5))
+            cv2.imwrite(new_image_path + image_list[num][:-4] + "_crop_2" + ".jpg", img_crop2)
 
-        img_crop3 = filtering(img_crop3, random.randint(0, 5))
-        cv2.imwrite(new_image_path + image_list[num][:-4] + "_crop_3" + ".jpg", img_crop3)
+            img_crop3 = filtering(img_crop3, random.randint(0, 5))
+            cv2.imwrite(new_image_path + image_list[num][:-4] + "_crop_3" + ".jpg", img_crop3)
 
-        img_crop4 = filtering(img_crop4, random.randint(0, 5))
-        cv2.imwrite(new_image_path + image_list[num][:-4] + "_crop_4" + ".jpg", img_crop4)
+            img_crop4 = filtering(img_crop4, random.randint(0, 5))
+            cv2.imwrite(new_image_path + image_list[num][:-4] + "_crop_4" + ".jpg", img_crop4)
 
 
 if __name__ == "__main__":
