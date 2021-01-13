@@ -1,0 +1,58 @@
+[If you have socket error when docker runnig?]
+$ sudo chmod 666 /var/run/docker.sock
+
+[<none> images?]
+$ docker rmi $(docker image ls --filter=dangling=true -q)
+
+
+1. Image commands
+
+[build]
+$ docker build -t {name}:{tag} {Dockerfile} : build docker image from Dockerfile
+ex. docker build -t bolero:20.04 ./
+
+[delete]
+$ docker rmi {imageID} : remove image
+$ docker rmi -f {imageID} 
+: force remove with container(although it is running)
+
+[list images]
+$ docker images : show all images
+
+2. Container commands
+
+[list containers]
+$ docker ps : list running containers
+$ docker ps -a : list all containers
+
+[delete]
+$ docker rm {containerID} : remove container
+(force remove : -f option, docker rm -f {container})
+$ docker rm 'docker ps -a -q' : remove all containers
+(= docker rm $(docker ps -qa))
+
+3. Running
+
+[run]
+$ docker run {option} {imageName or imageID}
+ex. docker run -i -t --name hadoop bolero:20.04 /bin/bash
+- Options
+    1) --it = -i -t : connect keyboard Input between local and container
+    2) --name : set your container name
+    3) -d : background mode
+    4) --rm : auto remove when process exit
+
+[start container]
+$ docker start {containerName or containerID}
+
+[restart container]
+$ docker restart {containerName or containerID}
+
+[stop container]
+$ docker stop {containerName or containerID}
+
+[connect in container]
+$ Ctrl + p, Ctrl + q : escape from container
+
+(normal permission) 
+$ docker attach {containerName of containerID}
