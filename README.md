@@ -15,7 +15,7 @@ Folder link is [Here](https://github.com/bolero2/DeepLearning-dc/tree/master/_pa
 
 ## Classification Model (*Updated 2020. 12. 09*)
 **All of source codes are written by myself using python language.**
-|TensorFlow2|PyTorch|
+|TensorFlow2 (+ Keras)|PyTorch|
 |:-----------:|:-----------:|
 |[ResNet-34-tf2](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-34-tf2)|[ResNet-34-torch](https://github.com/bolero2/DeepLearning-dc/tree/master/torch/ResNet-34-torch)|
 |[ResNet-101-tf2](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-101-tf2)||
