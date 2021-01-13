@@ -18,9 +18,9 @@ from sklearn.utils import class_weight
 
 # Linux Version
 # TrainDir = "/home/Cyberlogitec/dataset/classification/cifar5/train/"
-TrainDir = "/home/bolero/.dc/dl/dataset/cifar10/train/"
+TrainDir = "/home/clt_dc/dataset/classification/cifar10/train/"
 # EvalDir = "/home/Cyberlogitec/dataset/classification/cifar5/eval/"
-EvalDir = "/home/bolero/.dc/dl/dataset/cifar10/eval/"
+EvalDir = "/home/clt_dc/dataset/classification/cifar10/eval/"
 TestImage = "./test.jpg"
 
 train_counter = [len(os.listdir(filelist)) for filelist in [TrainDir + num_files + "/" for num_files in sorted(os.listdir(TrainDir))]] 
@@ -41,7 +41,7 @@ dropout_rate = 0.5
 ######################################## # Hyper-Parameter for training #
 ########################################
 num_epochs = 20 
-batch_size = 4 
+batch_size = 64 
 train_with_validation = True
 verbose = 1
 lr = 0.00001
@@ -138,9 +138,9 @@ def block_residual(input_data, filters, kernel_size, stride=1, training=True):
     return x
 
 def network(training):
-    input_data = tf.keras.Input(shape=(cfg.image_size, cfg.image_size, cfg.channel))
+    input_data = tf.keras.Input(shape=(image_size, image_size, channel))
     out = tf.keras.layers.Conv2D(filters=64, kernel_size=7, strides=2, padding='same', activation='relu',
-                                 input_shape=(cfg.image_size, cfg.image_size, cfg.channel))(input_data)
+                                 input_shape=(image_size, image_size, channel))(input_data)
     out = tf.keras.layers.MaxPool2D(pool_size=(3, 3), strides=(2, 2), padding='same')(out)
 
     out = block_residual(out, 64, kernel_size=3, stride=1, training=training)
@@ -165,8 +165,8 @@ def network(training):
 
     out = tf.keras.layers.GlobalAveragePooling2D()(out)
     out = tf.keras.layers.Flatten()(out)
-    out = tf.keras.layers.Dropout(cfg.dropout_rate)(out)
-    output = tf.keras.layers.Dense(units=cfg.label_size, activation='softmax')(out)
+    out = tf.keras.layers.Dropout(dropout_rate)(out)
+    output = tf.keras.layers.Dense(units=label_size, activation='softmax')(out)
 
     model = tf.keras.Model(input_data, output)
 
@@ -191,7 +191,7 @@ if __name__ == "__main__":
         model.compile(optimizer=optimizer, loss=loss_function, metrics=['accuracy'])
     """
     # Single-GPU Model
-    model = network()
+    model = network(training=True)
     model.summary()
     model.compile(optimizer=optimizer, loss=loss_function, metrics=['accuracy'])
     
