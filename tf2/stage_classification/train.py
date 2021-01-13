@@ -19,9 +19,9 @@ from sklearn.utils import class_weight
 
 # Linux Version
 # TrainDir = "/home/Cyberlogitec/dataset/classification/cifar5/train/"
-TrainDir = "/home/clt_dc/dataset/c18_rid/train/"
+TrainDir = "/home/Cyberlogitec/dc2/c16_rid_aug/train/"
 # EvalDir = "/home/Cyberlogitec/dataset/classification/cifar5/eval/"
-EvalDir = "/home/clt_dc/dataset/c18_rid/eval/"
+EvalDir = "/home/Cyberlogitec/dc2/c16_rid_aug/eval/"
 TestImage = "./test.jpg"
 
 train_counter = [len(os.listdir(filelist)) for filelist in [TrainDir + num_files + "/" for num_files in sorted(os.listdir(TrainDir))]] 
@@ -126,18 +126,24 @@ def stage(tensor, multiplier, stride=1):
     residual = tensor
     in_channels = residual.shape[-1]
 
-    origin = keras.layers.Conv2D(filters=int(in_channels) * multiplier, kernel_size=1, strides=(stride, stride), padding='SAME')(tensor)
+    origin = keras.layers.Conv2D(filters=int(in_channels) * multiplier, kernel_size=1, strides=(stride, stride), padding='SAME', 
+            kernel_initializer=keras.initializers.he_normal(seed=None))(tensor)
     origin = keras.layers.BatchNormalization()(origin)
     origin = keras.layers.ReLU()(origin)
 
-    residual = keras.layers.Conv2D(filters=int(in_channels) * multiplier, kernel_size=3, strides=(stride, stride), padding='SAME')(residual)
+    residual = keras.layers.Conv2D(filters=int(in_channels) * multiplier, kernel_size=3, strides=(stride, stride), padding='SAME', 
+            kernel_initializer=keras.initializers.he_normal(seed=None))(residual)
     residual = keras.layers.BatchNormalization()(residual)
     residual = keras.layers.ReLU()(residual)
 
-    elem1 = keras.layers.DepthwiseConv2D(kernel_size=3, strides=(stride, stride), padding='SAME', depth_multiplier=multiplier)(tensor)
-    elem2 = keras.layers.DepthwiseConv2D(kernel_size=3, strides=(stride, stride), padding='SAME', depth_multiplier=multiplier, dilation_rate=2)(tensor)
-    elem3 = keras.layers.DepthwiseConv2D(kernel_size=3, strides=(stride, stride), padding='SAME', depth_multiplier=multiplier, dilation_rate=4)(tensor)
-    elem4 = keras.layers.DepthwiseConv2D(kernel_size=3, strides=(stride, stride), padding='SAME', depth_multiplier=multiplier, dilation_rate=8)(tensor)
+    elem1 = keras.layers.DepthwiseConv2D(kernel_size=3, strides=(stride, stride), padding='SAME', depth_multiplier=multiplier, 
+            kernel_initializer=keras.initializers.he_normal(seed=None))(tensor)
+    elem2 = keras.layers.DepthwiseConv2D(kernel_size=3, strides=(stride, stride), padding='SAME', depth_multiplier=multiplier, dilation_rate=2, 
+            kernel_initializer=keras.initializers.he_normal(seed=None))(tensor)
+    elem3 = keras.layers.DepthwiseConv2D(kernel_size=3, strides=(stride, stride), padding='SAME', depth_multiplier=multiplier, dilation_rate=4, 
+            kernel_initializer=keras.initializers.he_normal(seed=None))(tensor)
+    elem4 = keras.layers.DepthwiseConv2D(kernel_size=3, strides=(stride, stride), padding='SAME', depth_multiplier=multiplier, dilation_rate=8,
+            kernel_initializer=keras.initializers.he_normal(seed=None))(tensor)
 
     elem1 = keras.layers.BatchNormalization()(elem1)
     elem2 = keras.layers.BatchNormalization()(elem2)
@@ -149,7 +155,7 @@ def stage(tensor, multiplier, stride=1):
     elem3 = keras.layers.ReLU()(elem3)
     elem4 = keras.layers.ReLU()(elem4)
 
-    print(origin.shape, residual.shape, elem1.shape, elem2.shape, elem3.shape, elem4.shape)
+    # print(origin.shape, residual.shape, elem1.shape, elem2.shape, elem3.shape, elem4.shape)
     total = keras.layers.Add()([origin, residual, elem1, elem2, elem3, elem4])
 
     return total
@@ -159,11 +165,13 @@ def network():
     multiplier = 0
 
     input_tensor = keras.layers.Input(shape=(image_size, image_size, channel))
-    out = keras.layers.Conv2D(filters=32, kernel_size=7, strides=(2, 2), padding='SAME')(input_tensor)
+    out = keras.layers.Conv2D(filters=32, kernel_size=7, strides=(2, 2), padding='SAME', 
+            kernel_initializer=keras.initializers.he_normal(seed=None))(input_tensor)
     out = keras.layers.BatchNormalization()(out)
     out = keras.layers.ReLU()(out)
 
-    out = keras.layers.Conv2D(filters=32, kernel_size=3, strides=(1, 1), padding='SAME')(out)
+    out = keras.layers.Conv2D(filters=32, kernel_size=3, strides=(1, 1), padding='SAME', 
+            kernel_initializer=keras.initializers.he_normal(seed=None))(out)
     out = keras.layers.BatchNormalization()(out)
     out = keras.layers.ReLU()(out)
 
@@ -225,9 +233,11 @@ def network():
     avgpool = keras.layers.AveragePooling2D(pool_size=(new_size, new_size))(out)
 
     flatten = keras.layers.Flatten()(avgpool)
-    dense1 = keras.layers.Dense(units=1024)(flatten)
+    dense1 = keras.layers.Dense(units=1024,
+            kernel_initializer=keras.initializers.he_normal(seed=None))(flatten)
     dense1 = keras.layers.Dropout(rate=dropout_rate)(dense1)
-    dense2 = keras.layers.Dense(units=label_size, activation='softmax')(dense1)
+    dense2 = keras.layers.Dense(units=label_size, activation='softmax',
+            kernel_initializer=keras.initializers.he_normal(seed=None))(dense1)
     model = keras.models.Model(input_tensor, dense2)
 
     return model
@@ -263,14 +273,25 @@ if __name__ == "__main__":
             batch_size=batch_size,
             class_mode='categorical')
     """
+
+    # Multi-GPU Model
+    mirrored_strategy = tf.distribute.MirroredStrategy()
+
+    with mirrored_strategy.scope():
+        model = network()
+        model.summary()
+        model.compile(optimizer=optimizer, loss=loss_function, metrics=['accuracy'])
+
+    # Single-GPU Model
+    """
     model = network()
-    # model = keras.models.load_model('yb_best_1.hdf5')
-    cb_ckpt = keras.callbacks.ModelCheckpoint(filepath=saved_name, verbose=1, save_best_only=True)
-    cb_logger = keras.callbacks.CSVLogger('history.log')
     # model = multi_gpu_model(model, gpus=4)
 
     model.summary()
     model.compile(optimizer=optimizer, loss=loss_function, metrics=['accuracy'])
+    """
+    
+    # Training with ImageDataGenerator
     """
     history = model.fit_generator(
             train_generator,
@@ -281,6 +302,10 @@ if __name__ == "__main__":
             verbose=1,
             callbacks=[cb_ckpt, cb_logger])
     """
+    cb_ckpt = keras.callbacks.ModelCheckpoint(filepath=saved_name, verbose=1, save_best_only=True)
+    cb_logger = keras.callbacks.CSVLogger('history.log')
+
+    # Class_weights params for Imbalanced Dataset
     class_weights = list()
     for count in train_counter:
         value = (1 / count) * (total_train) / label_size

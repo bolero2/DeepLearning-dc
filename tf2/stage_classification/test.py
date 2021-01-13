@@ -10,12 +10,14 @@ from keras.utils import multi_gpu_model
 
 if __name__ == "__main__":
     # C16
-    data_path = f'/home/joyhyuk/dc/c16_cls/test/'
-    model = "weights/c16_image_best.hdf5"
+    # data_path = f'/home/joyhyuk/dc/c16_cls/test/'
+    # model = "weights/c16_image_best.hdf5"
+    # model = "weights/trained1_best.hdf5"
 
     # c18
-    # data_path = f'/home/joyhyuk/dc/c18_cls/test/'
+    data_path = f'/home/joyhyuk/dc/c18_rid/test/'
     # model = "weights/c18_image_best.hdf5"
+    model = "c18_rid_test1.hdf5"
 
     keras.backend.clear_session()
     model_best = keras.models.load_model(model)
