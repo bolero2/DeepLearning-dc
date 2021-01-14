@@ -13,6 +13,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import copy
+import glob
 from tqdm import tqdm
 import random
 
@@ -246,8 +247,11 @@ def augment_for_detection(image_path, new_image_path, label_path, new_label_path
     2. text file with label coordinate information for Augmented Image
     """
     # cv2.namedWindow("test")
-    image_list = os.listdir(image_path)
-    label_list = os.listdir(label_path)
+    os.chdir(image_path)
+    image_list = [x for x in glob.glob('*.jpg')] 
+
+    os.chdir(label_path)
+    label_list = [x for x in glob.glob('*.jpg')]  
 
     for num in tqdm(range(0, len(image_list))):
         img = cv2.imread(image_path + image_list[num])    # Original Image
@@ -535,10 +539,10 @@ def augment_for_detection(image_path, new_image_path, label_path, new_label_path
 
 
 if __name__ == "__main__":
-    image_path = "C:\\dataset\\MyDataset\\polyps_kvasir7000_yolo\\original_train_images\\"
-    label_path = "C:\\dataset\\MyDataset\\polyps_kvasir7000_yolo\\original_train_labels\\"
-    new_image_path = "C:\\dataset\\MyDataset\\polyps_kvasir7000_yolo\\new_aug_train_image\\"
-    new_label_path = "C:\\dataset\\MyDataset\\polyps_kvasir7000_yolo\\new_aug_train_label\\"
+    image_path = '/home/yb/dc/yolo_c16/train/'
+    label_path = '/home/yb/dc/yolo_c16/train/' 
+    new_image_path = '/home/yb/dc/yolo_c16/train/'  
+    new_label_path = '/home/yb/dc/yolo_c16/train/'   
 
     # if you don't want cropping -> crop_rate = 0
     crop_rate = 0
