@@ -1,12 +1,20 @@
-path = "C:\\dataset\\MyDataset\\mmdet_kvasir7000_ETIS_text_xyrb\\training\\label\\"
-
 import os
+import glob
 
-annot_list = os.listdir(path)
+
+path = '/home/yb/dc/yolo_c16/train/'
+os.chdir(path)
+annot_list = [x for x in glob.glob('*.txt')]
 sentence_list = list()
 
 for i in annot_list:
-    lines = open(path + i, 'r').readlines()
+    f = open(path + i, 'r')
+    lines = f.readlines()
+    sentence_list = ['0' + sentence[1:] for sentence in lines]
+    print(sentence_list)
+
+    f2 = open(path + i, 'w')
+    """
     for line in lines:
         temp = line.split(' ')
         # print(len(temp))
@@ -18,3 +26,4 @@ for i in annot_list:
                 temp[2] = '1'
                 print("temp[2] = 0")
         print(temp)
+        """
