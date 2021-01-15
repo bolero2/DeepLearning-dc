@@ -311,22 +311,22 @@ if __name__ == "__main__":
     ###########################################
     # Single experiment
     ###########################################
-    image_path = "C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/yolov5/test_images_c18_cancer/"
-    gt_path = "C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/yolov5/test_labels_c18_cancer/"
+    image_path = "/home/bolero/.dc/private/yolo_c16/test/"
+    gt_path = "/home/bolero/.dc/private/yolo_c16/test/"
     # dt_path = f"D:\\Files\\works\\1+AICenter\\result\\detectoRS\\inference_xyrb_abs\\epoch{e}\\"
-    dt_path = "C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/yolov5/results_idc_yolov5_cancer/output_conf0.001/"
-    gt_coord = 'xyrb'
-    gt_coord_type = 'abs'
+    dt_path = "/home/bolero/.dc/private/yolo_c16/runs/detect/exp/labels/"
+    gt_coord = 'ccwh'
+    gt_coord_type = 'relat'
     dt_coord = 'ccwh'
     dt_coord_type = 'relat'
-    csv_save_path = "C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/yolov5/metric_idc_yolov5_cancer/"
+    csv_save_path = "/home/bolero/.dc/private/yolo_c16/"
     sorting_index = 1
 
     # sorting index
     # 0 = list not sorted
     # 1 = confidence score
     # 2 = IoU
-    iou_threshold = 0.3
+    iou_threshold = 0.5
     csv_save_name = f'best_conf0.001_IoU{iou_threshold}'
     prc_save_name = f'best_conf0.001_IoU{iou_threshold}'
 

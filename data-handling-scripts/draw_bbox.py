@@ -230,17 +230,17 @@ def draw_bbox(image_path, num_type,
 
 if __name__ == "__main__":
     # image_path = "C:/Users/bolero/Desktop/metric_dc/deeplesion_valid/images/"
-    image_path = "C:/Users/bolero/Desktop/metric_dc/idc_c16_cancer/detectoRS/test_images_c16_normal/"
-    num_type = 1
+    image_path = "/home/bolero/.dc/private/yolo_c16/test/"
+    num_type = 2
 
-    path1 = "C:/Users/bolero/Desktop/metric_dc/idc_c16_cancer/detectoRS/results_idc_c16_mmdet_normal/epoch1/"
-    path1_coord = 'xyrb'
-    path1_coord_type = 'abs'
+    path1 = "/home/bolero/.dc/private/yolo_c16/runs/detect/exp/labels/"
+    path1_coord = 'ccwh'
+    path1_coord_type = 'relat'
     path1_is_confidence = True
 
-    path2 = None
-    path2_coord = None
-    path2_coord_type = None
+    path2 = "/home/bolero/.dc/private/yolo_c16/test/"
+    path2_coord = 'ccwh'
+    path2_coord_type = 'relat'
     path2_is_confidence = False
 
     # path2 = f"D:/Files/works/1+AICenter/result/detectoRS/inference_result_deeplesion/epoch12/"
