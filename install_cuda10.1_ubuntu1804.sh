@@ -26,3 +26,6 @@ sudo apt install libcudnn7
 # ==============================================================================================
 
 # reboot system.
+
+# CUDNN7 setting after reboot
+# /sbin/ldconfig -N -v $(sed ‘s/:/ /’ <<< $LD_LIBRARY_PATH) 2>/dev/null | grep libcudnn
