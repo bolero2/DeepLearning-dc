@@ -4,12 +4,11 @@ Keras
 scikit-learn
 matplotlib
 pandas
-numpy
+numpy==1.18.5
 opencv-python==4.1.0.25
 graphviz
 Pillow
 pydot
-pydotpls
 tqdm
 
 
