@@ -56,3 +56,15 @@ $ Ctrl + p, Ctrl + q : escape from container
 
 (normal permission) 
 $ docker attach {containerName of containerID}
+
+[copy files local -> container]
+$ docker cp ./mylocalfile {containerName}:/home/user
+
+[copy files container -> local]
+$ docker cp {containerName}:/home/user/mydockerfile ~/my/local/path
+
+===============================
+[Upload my image on docker hub]
+$ docker login
+$ docker push [hubID]/[imageNAME]:[imageTAG]
+(ex. docker push sheocjf1025/bolero:20.04)
