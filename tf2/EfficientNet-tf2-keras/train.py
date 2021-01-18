@@ -13,12 +13,11 @@ import tensorflow as tf
 from tensorflow.keras.callbacks import ModelCheckpoint, CSVLogger
 
 ###############################################################
-n_classes = 4 
-img_size = 299
-train_data_dir = '/home/aigpuserver/img_cls/c_data4/train'
-validation_data_dir = '/home/aigpuserver/img_cls/c_data4/valid'
-nb_train_samples = 2461
-nb_validation_samples = 274
+train_data_dir = '/home/clt_dc/dataset/classification/cifar-animal/train'
+validation_data_dir = '/home/clt_dc/dataset/classification/cifar-animal/eval'
+nb_train_samples = [len(os.listdir(filelist)) for filelist in [train_data_dir + "/" + num_files + "/" for num_files in sorted(os.listdir(train_data_dir))]]
+nb_validation_samples = [len(os.listdir(filelist)) for filelist in [validation_data_dir + "/" + num_files + "/" for num_files in sorted(os.listdir(validation_data_dir))]]
+n_classes = len(os.listdir(train_data_dir))
 batch_size = 16
 ###############################################################
 

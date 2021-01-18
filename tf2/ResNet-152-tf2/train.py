@@ -40,7 +40,7 @@ channel = 3
 dropout_rate = 0.5
 ######################################## # Hyper-Parameter for training #
 ########################################
-num_epochs = 30 
+num_epochs = 300
 batch_size = 64 
 train_with_validation = True
 verbose = 1
@@ -113,7 +113,6 @@ def load_image(filenames, type):
     for i in range(filenames.shape[0]):
         image_buffer[i, :, :, :] = cv2.resize(cv2.imread(images[i]), (image_size, image_size)) / 255.0
         label_buffer[i, int(labels[i])] = 1     # one-hot encoding
-
     print("Loading dataset in Array ... End")
 
     return image_buffer, label_buffer
