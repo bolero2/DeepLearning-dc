@@ -14,11 +14,16 @@ import tensorflow as tf
 from tensorflow.keras.callbacks import ModelCheckpoint, CSVLogger
 
 ###############################################################
-train_data_dir = '/home/clt_dc/dataset/classification/cifar-animal/train'
-validation_data_dir = '/home/clt_dc/dataset/classification/cifar-animal/eval'
-nb_train_samples = [len(os.listdir(filelist)) for filelist in [train_data_dir + "/" + num_files + "/" for num_files in sorted(os.listdir(train_data_dir))]]
-nb_validation_samples = [len(os.listdir(filelist)) for filelist in [validation_data_dir + "/" + num_files + "/" for num_files in sorted(os.listdir(validation_data_dir))]]
-n_classes = len(os.listdir(train_data_dir))
+TrainDir = '/home/clt_dc/dataset/classification/cifar-animal/train'
+EvalDir = '/home/clt_dc/dataset/classification/cifar-animal/eval'
+train_counter = [len(os.listdir(filelist)) for filelist in [TrainDir + "/" + num_files + "/" for num_files in sorted(os.listdir(TrainDir))]]
+eval_counter = [len(os.listdir(filelist)) for filelist in [EvalDir + "/" + num_files + "/" for num_files in sorted(os.listdir(EvalDir))]]
+total_train = sum(train_counter)
+total_eval = sum(eval_counter)
+print(f'Total train: {total_train}, Total Eval: {total_eval}')
+classes = sorted(os.listdir(TrainDir))
+print(f'classes= {classes}')
+label_size = len(classes)
 batch_size = 8 
 img_height = img_width = 300
 ###############################################################
@@ -32,20 +37,20 @@ train_datagen = ImageDataGenerator(
 valid_datagen = ImageDataGenerator(rescale=1. / 255)
 
 train_generator = train_datagen.flow_from_directory(
-    train_data_dir,
+    TrainDir,
     target_size=(img_height, img_width),
     batch_size=batch_size,
     class_mode='categorical')
 
 validation_generator = valid_datagen.flow_from_directory(
-    validation_data_dir,
+    EvalDir,
     target_size=(img_height, img_width),
     batch_size=batch_size,
     class_mode='categorical')
 
 model = Sequential()
 model.add(efn.EfficientNetB3(weights="imagenet", include_top=False, pooling='avg'))
-model.add(layers.Dense(n_classes, activation="softmax"))
+model.add(layers.Dense(label_size, activation="softmax"))
 model = utils.multi_gpu_model(model, gpus=4)
 model.compile(metrics=['acc'], loss='categorical_crossentropy', optimizer='adam')
 
