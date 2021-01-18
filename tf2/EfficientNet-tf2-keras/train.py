@@ -48,7 +48,7 @@ validation_generator = valid_datagen.flow_from_directory(
     batch_size=batch_size,
     class_mode='categorical')
 
-mirrored_strategy = tf.diostribute.MirroredStrategy()
+mirrored_strategy = tf.distribute.MirroredStrategy()
 
 with mirrored_strategy.scope():
     model = Sequential()
