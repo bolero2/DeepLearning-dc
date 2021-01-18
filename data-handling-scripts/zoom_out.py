@@ -15,7 +15,7 @@ def zoom_out(img, out_rate, lines):
     scaled_w = int(col / out_rate)
     scaled_h = int(row / out_rate)
     new_img = cv2.resize(img, (scaled_w, scaled_h))
-    cv2.imshow("new_img", new_img)
+    # cv2.imshow("new_img", new_img)
     # cv2.waitKey(0)
     scaled_center_x = int(scaled_w)
     scaled_center_y = int(scaled_h)
@@ -52,24 +52,34 @@ def zoom_out(img, out_rate, lines):
 
 
 if __name__ == "__main__":
-    path = "/home/bolero/.dc/dl/dataset/train_original/"
-    new_path = "/home/bolero/.dc/dl/dataset/train_zout/"
+    path = "/home/yb/dc/yolo_c16/train/"
+    new_path = "/home/yb/dc/yolo_c16/train/"
     os.chdir(path)
     imglist = [x for x in glob.glob('*.jpg')]
     random.shuffle(imglist)
+    limit = int(len(imglist) / 3)
+    count = 0
 
     for image in imglist:
-        annotfile = image[:-3] + "txt"
-        f = open(path + annotfile, 'r')
-        lines = f.readlines()
+        if count < limit:
+            annotfile = image[:-3] + "txt"
+            f = open(path + annotfile, 'r')
+            lines = f.readlines()
+            f.close()
 
-        img = cv2.imread(path + image)
-        zout_img, zout_coord = zoom_out(img, 2, lines)
-        print(lines)
-        print(zout_coord)
-        cv2.imwrite(new_path + image[:-4] + "_zout2.jpg", zout_img)
-        f2 = open(new_path + image[:-4] + "_zout2.txt", 'w')
-        f2.writelines(zout_coord)
-        cv2.imshow("zoom_out", zout_img)
-        cv2.imshow("Original", img)
-        # cv2.waitKey(0)
+            img = cv2.imread(path + image)
+            zout_img, zout_coord = zoom_out(img, 2, lines)
+            print(lines)
+            print(zout_coord)
+            cv2.imwrite(new_path + image[:-4] + "_zout2.jpg", zout_img)
+            f2 = open(new_path + image[:-4] + "_zout2.txt", 'w')
+            f2.writelines(zout_coord)
+            f2.close()
+            # cv2.imshow("zoom_out", zout_img)
+            # cv2.imshow("Original", img)
+
+            os.remove(path + image)
+            os.remove(path + annotfile)
+            count += 1
+        else:
+            break
