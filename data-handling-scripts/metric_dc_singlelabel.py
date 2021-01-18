@@ -92,7 +92,7 @@ def extract_file_name(image_path, gt_path, dt_path):
 
 def convert_coordinate(coord, coord_type, shape, bbox):
     row = shape[0]
-    col = shape[1]
+    col = shape[1] 
     output = list()
     if coord == 'ccwh' and coord_type == 'relat':
         output = [bbox[0] * col - (bbox[2] * col / 2), bbox[1] * row - (bbox[3] * row / 2),
@@ -202,8 +202,8 @@ def make_csv(image_path, gt_path, dt_path, gt_coord, gt_coord_type, dt_coord, dt
                 dt_line[-2] = dt_line[-2] + dt_line[-1]
                 del dt_line[-1]
             class_dt = dt_line[0]
-            conf_score = float(dt_line[1])
-            coord = list(map(float, dt_line[2:]))
+            conf_score = float(dt_line[-1])
+            coord = list(map(float, dt_line[1:5]))
             # print(coord)
             dt_coordinate = convert_coordinate(dt_coord, dt_coord_type, [row, col], coord)
 
@@ -311,24 +311,26 @@ if __name__ == "__main__":
     ###########################################
     # Single experiment
     ###########################################
-    image_path = "/home/bolero/.dc/private/yolo_c16/test/"
-    gt_path = "/home/bolero/.dc/private/yolo_c16/test/"
-    # dt_path = f"D:\\Files\\works\\1+AICenter\\result\\detectoRS\\inference_xyrb_abs\\epoch{e}\\"
-    dt_path = "/home/bolero/.dc/private/yolo_c16/runs/detect/exp/labels/"
+    image_path = "/home/bolero/.dc/private/yolov5-c16/test/"
+    gt_path = "/home/bolero/.dc/private/yolov5-c16/test/"
+    dt_path = "/home/bolero/.dc/private/yolov5-c16/runs_v5l/detect/exp2/labels/"
     gt_coord = 'ccwh'
     gt_coord_type = 'relat'
     dt_coord = 'ccwh'
     dt_coord_type = 'relat'
-    csv_save_path = "/home/bolero/.dc/private/yolo_c16/"
+    csv_save_path = "/home/bolero/.dc/private/yolov5-c16/"
     sorting_index = 1
 
     # sorting index
     # 0 = list not sorted
     # 1 = confidence score
     # 2 = IoU
-    iou_threshold = 0.5
-    csv_save_name = f'best_conf0.001_IoU{iou_threshold}'
-    prc_save_name = f'best_conf0.001_IoU{iou_threshold}'
+    iou_threshold = 0.3
+    # csv_save_name = f'best_conf0.001_IoU{iou_threshold}'
+    # prc_save_name = f'best_conf0.001_IoU{iou_threshold}'
+    csv_save_name = f'best_conf0.001_IoU{iou_threshold}-yolov5l'
+    prc_save_name = f'best_conf0.001_IoU{iou_threshold}-yolov5l'
+
 
     # csv_save_name = f"csv_epoch{e}_IoU{iou_threshold}"
     # prc_save_name = f"prc_epoch{e}_IoU{iou_threshold}"
