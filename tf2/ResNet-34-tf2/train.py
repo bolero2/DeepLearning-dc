@@ -141,7 +141,7 @@ def network(training):
     input_data = tf.keras.Input(shape=(image_size, image_size, channel))
     out = tf.keras.layers.Conv2D(filters=64, kernel_size=7, strides=2, padding='same', activation='relu',
                                  input_shape=(image_size, image_size, channel))(input_data)
-    out = tf.keras.layers.MaxPool2D(pool_size=(3, 3), strides=(2, 2), padding='same')(out)
+    out = tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=(2, 2), padding='same')(out)
 
     out = block_residual(out, 64, kernel_size=3, stride=1, training=training)
     out = block_residual(out, 64, kernel_size=3, stride=1, training=training)
