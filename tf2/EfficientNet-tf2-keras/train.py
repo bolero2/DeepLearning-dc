@@ -55,6 +55,7 @@ model.add(layers.Dense(label_size, activation="softmax"))
 model = utils.multi_gpu_model(model, gpus=4)
 model.compile(metrics=['acc'], loss='categorical_crossentropy', optimizer='adam')
 """
+
 mirrored_strategy = tf.distribute.MirroredStrategy()
 
 with mirrored_strategy.scope():
