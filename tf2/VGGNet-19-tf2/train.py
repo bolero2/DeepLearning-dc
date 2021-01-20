@@ -45,7 +45,7 @@ batch_size = 256
 train_with_validation = True
 verbose = 1
 lr = 0.0001
-optimizer = keras.optimizers.Adam(lr=lr)
+optimizer = keras.optimizers.SGD(lr=lr, momentum=0.9, nesterov=True)
 loss_function = keras.losses.CategoricalCrossentropy()
 
 ########################################
@@ -123,31 +123,66 @@ def network():
     input_data = tf.keras.Input(shape=(image_size, image_size, channel))
 
     out = tf.keras.layers.Conv2D(filters=64, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal(),
+                                 kernel_regularizer=keras.regularizers.L2(),
                                  input_shape=(image_size, image_size, channel))(input_data)
-    out = tf.keras.layers.Conv2D(filters=64, kernel_size=3, strides=1, padding='same', activation='relu')(out)
+    out = tf.keras.layers.Conv2D(filters=64, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal(),
+                                 kernel_regularizer=keras.regularizers.L2())(out)
 
     out = tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=(2, 2), padding='same')(out)
 
-    out = tf.keras.layers.Conv2D(filters=128, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=128, kernel_size=3, strides=1, padding='same', activation='relu')(out)
+    out = tf.keras.layers.Conv2D(filters=128, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal())(out)
+    out = tf.keras.layers.Conv2D(filters=128, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal(),
+                                 kernel_regularizer=keras.regularizers.L2())(out)
+
     out = tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=(2, 2), padding='same')(out)
 
-    out = tf.keras.layers.Conv2D(filters=256, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=256, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=256, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=256, kernel_size=3, strides=1, padding='same', activation='relu')(out)
+    out = tf.keras.layers.Conv2D(filters=256, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal(),
+                                 kernel_regularizer=keras.regularizers.L2())(out)
+    out = tf.keras.layers.Conv2D(filters=256, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal(),
+                                 kernel_regularizer=keras.regularizers.L2())(out)
+    out = tf.keras.layers.Conv2D(filters=256, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal(),
+                                 kernel_regularizer=keras.regularizers.L2())(out)
+    out = tf.keras.layers.Conv2D(filters=256, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal(),
+                                 kernel_regularizer=keras.regularizers.L2())(out)
+
     out = tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=(2, 2), padding='same')(out)
 
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
+    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal(),
+                                 kernel_regularizer=keras.regularizers.L2())(out)
+    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal(),
+                                 kernel_regularizer=keras.regularizers.L2())(out)
+    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal(),
+                                 kernel_regularizer=keras.regularizers.L2())(out)
+    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal(),
+                                 kernel_regularizer=keras.regularizers.L2())(out)
+
     out = tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=(2, 2), padding='same')(out)
 
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
+    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal(),
+                                 kernel_regularizer=keras.regularizers.L2())(out)
+    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal(),
+                                 kernel_regularizer=keras.regularizers.L2())(out)
+    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal(),
+                                 kernel_regularizer=keras.regularizers.L2())(out)
+    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu',
+                                 kernel_initializer=keras.initializers.he_normal(),
+                                 kernel_regularizer=keras.regularizers.L2())(out)
+
     out = tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=(2, 2), padding='same')(out)
 
     out = tf.keras.layers.GlobalAveragePooling2D()(out)
