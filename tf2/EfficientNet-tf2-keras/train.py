@@ -47,6 +47,7 @@ validation_generator = valid_datagen.flow_from_directory(
     target_size=(img_height, img_width),
     batch_size=batch_size,
     class_mode='categorical')
+
 """
 model = Sequential()
 model.add(efn.EfficientNetB3(weights="imagenet", include_top=False, pooling='avg'))
@@ -60,7 +61,6 @@ with mirrored_strategy.scope():
     model = Sequential()
     model.add(efn.EfficientNetB3(weights="imagenet", include_top=False, pooling='avg'))
     model.add(layers.Dense(label_size, activation="softmax"))
-    model = utils.multi_gpu_model(model, gpus=4)
     model.compile(metrics=['acc'], loss='categorical_crossentropy', optimizer='adam')
 # """
 
