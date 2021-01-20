@@ -37,14 +37,14 @@ label_size = len(classes)
 ########################################
 image_size = 224 
 channel = 3
-dropout_rate = 0.5
+dropout_rate = 0.2
 ######################################## # Hyper-Parameter for training #
 ########################################
-num_epochs = 30 
-batch_size = 64 
+num_epochs = 100 
+batch_size = 256 
 train_with_validation = True
 verbose = 1
-lr = 0.00001
+lr = 0.0001
 optimizer = keras.optimizers.Adam(lr=lr)
 loss_function = keras.losses.CategoricalCrossentropy()
 
@@ -119,7 +119,7 @@ def load_image(filenames, type):
     return image_buffer, label_buffer
 
 
-def network(training):
+def network():
     input_data = tf.keras.Input(shape=(image_size, image_size, channel))
 
     out = tf.keras.layers.Conv2D(filters=64, kernel_size=3, strides=1, padding='same', activation='relu',
@@ -172,7 +172,8 @@ if __name__ == "__main__":
     mirrored_strategy = tf.distribute.MirroredStrategy()
 
     with mirrored_strategy.scope():
-        model = network(training=True)
+        model = network()
+        # model = tf.keras.Models.load_model('trained/trained0_best.hdf5')
         model.summary()
         model.compile(optimizer=optimizer, loss=loss_function, metrics=['accuracy'])
     """ 
@@ -193,7 +194,7 @@ if __name__ == "__main__":
     d_class_weights = dict(enumerate(class_weights))
     print(f'd_class_weights= {d_class_weights}')
 
-    history = model.fit(train_images, train_labels, epochs=num_epochs, batch_size=batch_size, validation_data=(eval_images, eval_labels), class_weight=d_class_weights, callbacks=[cb_ckpt, cb_logger])
+    history = model.fit(train_images, train_labels, epochs=num_epochs, batch_size=batch_size, validation_data=(eval_images, eval_labels), callbacks=[cb_ckpt, cb_logger])
 
     model.save(saved_name)
     print(" *** END ***")

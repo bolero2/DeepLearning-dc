@@ -37,14 +37,14 @@ label_size = len(classes)
 ########################################
 image_size = 224 
 channel = 3
-dropout_rate = 0.5
+dropout_rate = 0.3
 ######################################## # Hyper-Parameter for training #
 ########################################
-num_epochs = 20 
-batch_size = 64 
+num_epochs = 200 
+batch_size = 128
 train_with_validation = True
 verbose = 1
-lr = 0.00001
+lr = 0.0001
 optimizer = keras.optimizers.Adam(lr=lr)
 loss_function = keras.losses.CategoricalCrossentropy()
 
