@@ -6,7 +6,7 @@ import tensorflow as tf
 import keras
 import collections
 from keras.preprocessing.image import ImageDataGenerator
-from sklearn.utils import class_weight
+import matplotlib.pyplot as plt
 
 
 ########################################
@@ -119,44 +119,48 @@ def load_image(filenames, type):
     return image_buffer, label_buffer
 
 
-def network(training):
+def generator_model():
     input_data = tf.keras.Input(shape=(image_size, image_size, channel))
 
-    out = tf.keras.layers.Conv2D(filters=64, kernel_size=3, strides=1, padding='same', activation='relu',
-                                 input_shape=(image_size, image_size, channel))(input_data)
-    out = tf.keras.layers.Conv2D(filters=64, kernel_size=3, strides=1, padding='same', activation='relu')(out)
+    out = tf.keras.layers.Dense(7 * 7 * 256, use_bias=False, input_shape=(image_size, image_size, channel))(input_data)
+    out = tf.keras.layers.BatchNormalization()(out)
+    out = tf.keras.layers.ReLU()(out)
 
-    out = tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=(2, 2), padding='same')(out)
+    out = tf.keras.layers.Reshape((7, 7, 256))(out)
 
-    out = tf.keras.layers.Conv2D(filters=128, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=128, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=(2, 2), padding='same')(out)
+    out = tf.keras.layers.Conv2DTranspose(128, (5, 5), strides=(1, 1), padding='same', use_bias=False)(out)
+    out = tf.keras.layers.BatchNormalization()(out)
+    out = tf.keras.layers.ReLU()(out)
 
-    out = tf.keras.layers.Conv2D(filters=256, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=256, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=256, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=256, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=(2, 2), padding='same')(out)
+    out = tf.keras.layers.Conv2DTranspose(64, (5, 5), strides=(2, 2), padding='same', use_bias=False)(out)
+    out = tf.keras.layers.BatchNormalization()(out)
+    out = tf.keras.layers.ReLU()(out)
 
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=(2, 2), padding='same')(out)
-
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.Conv2D(filters=512, kernel_size=3, strides=1, padding='same', activation='relu')(out)
-    out = tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=(2, 2), padding='same')(out)
-
-    out = tf.keras.layers.GlobalAveragePooling2D()(out)
-    out = tf.keras.layers.Flatten()(out)
-    out = tf.keras.layers.Dropout(dropout_rate)(out)
-    output = tf.keras.layers.Dense(units=label_size, activation='softmax')(out)
+    output = tf.keras.layers.Conv2DTranspose(1, (5, 5), strides=(2, 2), padding='same', use_bias=Falsem, activation='tanh')(out)
 
     model = tf.keras.Model(input_data, output)
 
+    return model
+
+
+def discriminator_model():
+    input_data = tf.keras.Input(shape=(image_size, image_size, channel))
+
+    out = tf.keras.layers.Conv2D(64, (5, 5), strides=(2, 2), padding='same', 
+            input_shape=[image_size, image_size, channel]))(input_data)
+
+    out = tf.keras.layers.ReLU()(out)
+    out = tf.keras.layers.Dropout(dropout_rate)(out)
+
+    out = tf.keras.layers.Conv2D(128, (5, 5), strides=(2, 2), padding='same')(out)
+    out = tf.keras.layers.ReLU()(out)
+    out = tf.keras.layers.Dropout(dropout_rate)(out)
+
+    out = tf.keras.layers.Flatten()(out)
+    output = tf.keras.layers.Dense(1)(out)
+
+    model = tf.keras.Model(input_data, output)
+    
     return model
 
 
@@ -165,6 +169,19 @@ if __name__ == "__main__":
 
     train_images, train_labels = load_image(filenames_train, type='train')
     eval_images, eval_labels = load_image(filenames_eval, type='eval')
+
+    generator = generator_model()
+
+    noise = tf.random.normal([1, 100])
+    generated_image = generator(noise, training=False)
+
+    plt.imshow(generated_image[0, :, :, 0], cmap='gray')
+
+    discriminator = discriminator_model()
+    decision = discriminator(generated_image)
+    print(decision)
+
+
     
     # Multi-GPU Model
     from keras.utils import multi_gpu_model
