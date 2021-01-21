@@ -32,10 +32,11 @@ Transformer의 End-to-End 방식의 학습을 통해 없앴다고 볼 수 있습
 
 해당 네트워크는 크게 본다면  
 > 1. **C**onvolution **N**eural **N**etwork(ResNet)
-> 2. **Transformer** Encoder + Decoder
-> 3. **F**eed-**F**oward **N**etwork(FFN)
+> 2. **Transformer** Encoder
+> 3. **Transformer** Decoder
+> 4. **F**eed-**F**oward **N**etwork(FFN)
 
-이렇게 3단계로 구분할 수 있습니다.  
+이렇게 4단계로 구분할 수 있습니다.  
 
 ### 1) Convolution Neural Network
 
@@ -43,7 +44,7 @@ CNN의 주 목적은 입력 영상 데이터의 _**특징 추출**_ 입니다.
 논문에서 사용한 CNN(=Backbone)은 ResNet으로,  
 **3ch * W * H** 영상 데이터가 입력으로 들어온 후 > 최종 **2048ch * W/32 * H/32** 크기의 Feature Map을 생성합니다.  
 
-### 2) Transformer Encoder + Decoder
+### 2) Transformer Encoder
 
 CNN을 거쳐 생성된 Feature Map은 1x1 convolution을 통해 **d 차원**(=d 채널)으로 축소됩니다.  
 > * _**Encoder는 Sequence Data를 입력으로 받기 때문에, Vectorizing함을 알 수 있습니다.**_  
@@ -54,6 +55,11 @@ CNN을 거쳐 생성된 Feature Map은 1x1 convolution을 통해 **d 차원**(=d
 
 여기서 하나 살펴 볼 부분은 다음과 같습니다:
 ```
-* Transformer는 입력 데이터의 순서에 영향을 받지 않습니다.  
-* 하지만 Vision 문제에서는 쪼개진 d개의 조각에 대한 순서가 중요하기 때문에 Position Embedding을 실시하게 됩니다.
+* Transformer는 입력 데이터의 순서에 영향을 받지 않습니다.
+* 하지만 Vision 문제에서는 분리 된 d개의 조각에 대한 순서가 중요하기 때문에 Position Embedding을 실시하게 됩니다.
 ```
+
+### 3) Transformer Decoder
+
+Decoder 역시 Encoder와 동일하게 Standard한 구조를 따릅니다.  
+Encoder의 출력으로 d size의 N Embedding이 나오고, 이는 그대로 Decoder의 입력으로 들어갑니다.  
