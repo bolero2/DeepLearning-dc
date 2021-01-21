@@ -11,3 +11,14 @@ Transformer의 End-to-End 방식의 학습을 통해 없앴다고 볼 수 있습
 
 --------
 
+## 1. Abstract
+
+논문에서 크게 주장하는 바는 다음과 같습니다:  
+
+```
+1. 사용자가 설정해야 하는 것(Hand-designed Components) 을 제거  
+2. Simple한 Network 구성  
+3. 이분법적 매칭(Bipartite Matching)과 Transformer의 Encoder-Decoder 구조 사용  
+```
+추가적으로, Object Detection 분야 뿐 만 아니라  
+**Panoptic Segmentation(a.k.a Instance Segmentation)** 분야에서도 좋은 성능을 보여준다고 합니다.  
