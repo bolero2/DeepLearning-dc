@@ -114,11 +114,27 @@ Predict 할 때, Ground-Truth 개수가 5개이고, Detection 객체 개수가 7
 
 ## 3. Experiments
 
+실험 조건은 다음과 같습니다:  
+
+|Item|Content|
+|:--------:|:--------:|
+|Comparison Network|Faster-RCNN|
+|Optimizer|AdamW|
+|Backbone|ResNet-50, ResNet-101|
+|Epoch|300|
+|Dataset|COCO 2017|
+
 실험에 사용된 Dataset은 [COCO 2017](https://cocodataset.org/#home)의 detection + segmentation 데이터 세트 입니다.  
-또한, Detection 성능 비교를 위한 Network는 Faster-RCNN을 대상으로 하였습니다.  
+Segmentation은 Panoptic Segmentation의 성능 측정을 위해 사용하였습니다.  
 
 ![exp1](https://user-images.githubusercontent.com/41134624/105329673-bf172b00-5c14-11eb-8ca7-468b4020761e.jpg)
 
 그림에서 보는 것과 같이, 
 1. 대부분의 상황에서 DETR의 parameter 개수가 현저히 낮음을 알 수 있으며
 2. Average Precision은 6 case 중 4 case에서 Faster-RCNN보다 높음을 알 수 있습니다.
+
+여기서 Faster-RCNN이 높은 케이스 중,  
+**AP-Small size는 Faster-RCNN이 27.2로 23.7의 DETR보다 우월하게 높습니다. 즉, DETR은 작은 Object에 대해서 상대적으로 약함을 보입니다.**  
+
+
+
