@@ -136,5 +136,13 @@ Segmentation은 Panoptic Segmentation의 성능 측정을 위해 사용하였습
 여기서 Faster-RCNN이 높은 케이스 중, AP-Small size는 Faster-RCNN이 27.2로 23.7의 DETR보다 우월하게 높습니다.  
 **즉, DETR은 작은 Object에 대해서 상대적으로 약함을 보입니다.**  
 
+--------
 
+## 4. Source Code
 
+논문의 저자는 Paper 맨 뒤에 간단한 구현 코드를 공개했습니다.  
+Abstract에서 말한 것처럼, 코드는 매우 간단한 구조로 되어 있습니다:
+
+![code](https://user-images.githubusercontent.com/41134624/105314318-75711500-5c01-11eb-98b2-90eae749d3d0.jpg)
+
+이 코드에서 우리는 ResNet-50 모델을 사용한 것과, 내부 프레임워크에서 제공하는 수준의 Transformer 함수를 그대로 사용한 것을 알 수 있습니다.
