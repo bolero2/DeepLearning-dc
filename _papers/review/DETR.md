@@ -61,7 +61,7 @@ CNN을 거쳐 생성된 Feature Map은 1x1 convolution을 통해 **d 차원**(=d
 Encoder에서 살펴 볼 것은 다음과 같습니다:
 ```
 * 원래 Transformer는 입력 데이터의 순서가 출력 데이터에 영향을 주지 않습니다.
-* 하지만 Vision 문제에서는 분리 된 d개의 조각에 대한 순서가 중요하기 때문에 각각의 Attention Layer마다 Position Embedding을 실시하게 됩니다.
+* 하지만 Vision 문제에서는 분리 된 d개의 조각에 대한 순서가 중요하기 때문에 각각의 Attention Layer마다 Position Embedding을 실시니다.
 ```
 
 ### 3) Transformer Decoder
