@@ -130,11 +130,11 @@ Segmentation은 Panoptic Segmentation의 성능 측정을 위해 사용하였습
 ![exp1](https://user-images.githubusercontent.com/41134624/105329673-bf172b00-5c14-11eb-8ca7-468b4020761e.jpg)
 
 그림에서 보는 것과 같이, 
-1. 대부분의 상황에서 DETR의 parameter 개수가 현저히 낮음을 알 수 있으며
+1. 대부분의 상황에서 DETR의 parameter 개수가 현저히 낮음을 알 수 있AP-Small size는 Faster-RCNN이 27.2로 23.7의 DETR보다 우월하게 높습니다. 즉, DETR은 작은 Object에 대해서 상대적으로 약함을 보입니다.으며
 2. Average Precision은 6 case 중 4 case에서 Faster-RCNN보다 높음을 알 수 있습니다.
 
-여기서 Faster-RCNN이 높은 케이스 중,  
-**AP-Small size는 Faster-RCNN이 27.2로 23.7의 DETR보다 우월하게 높습니다. 즉, DETR은 작은 Object에 대해서 상대적으로 약함을 보입니다.**  
+여기서 Faster-RCNN이 높은 케이스 중, AP-Small size는 Faster-RCNN이 27.2로 23.7의 DETR보다 우월하게 높습니다.  
+**즉, DETR은 작은 Object에 대해서 상대적으로 약함을 보입니다.**  
 
 
 
