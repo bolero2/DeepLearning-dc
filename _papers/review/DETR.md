@@ -104,7 +104,8 @@ FFN 같은 경우는 단순한 구조로 되어 있습니다:
 (Relative한 좌표는 픽셀의 개수를 count하는 절대 좌표가 아닌, 이미지 전체의 H/W에 비례하는 0과 1사이의 좌표 값입니다.)
 
 FFN은 Softmax 함수를 통해 분류 라벨 또한 Predict 합니다.  
-Predict 할 때, Ground-Truth 개수가 5개이고, Detection 객체 개수가 7개라면 2개의 (no object)를 만들어줍니다.  
+Predict 할 때, Ground-Truth 개수가 5개이고, Detection 객체 개수가 7개라면  
+Ground-Truth 쪽에 2개의 (no object)를 만들어줍니다.  
 
 ![label_predict](https://user-images.githubusercontent.com/41134624/105328912-e5889680-5c13-11eb-8a99-9e9e822a3da2.jpg)
 
