@@ -74,7 +74,7 @@ Encoder는 Sequence Data를 입력으로 받기 때문에, Vectorizing함을 알
 Encoder에서 살펴 볼 것은 다음과 같습니다:
 ```
 * 원래 Transformer는 입력 데이터의 순서가 출력 데이터에 영향을 주지 않습니다.
-* 하지만 Vision 문제에서는 분리 된 d개의 조각에 대한 순서가 중요하기 때문에 각각의 Attention Layer마다 Position Embedding을 실시합니다.
+* 하지만 Vision 문제에서는 분리 된 d개의 조각에 대한 순서다가 중요하기 때문에 각각의 Attention Layer마다 Position Embedding을 실시합니다.
 ```
 
 ### 3) Transformer Decoder
@@ -133,7 +133,8 @@ Segmentation은 Panoptic Segmentation의 성능 측정을 위해 사용하였습
 1. 대부분의 상황에서 DETR의 parameter 개수가 현저히 낮음을 알 수 있으며,
 2. Average Precision은 6 case 중 4 case에서 Faster-RCNN보다 높음을 알 수 있습니다.
 
-여기서 Faster-RCNN이 높은 케이스 중, AP-Small size는 Faster-RCNN이 27.2로 23.7의 DETR보다 우월하게 높습니다.  
+여기서 Faster-RCNN이 높은 케이스 중, AP-Small size는 Faster-RCNN이 27.2로 23.7의 DETR보다 우월하게 높습니다.   
+
 **즉, DETR은 작은 Object에 대해서 상대적으로 약함을 보입니다.**  
 
 --------
