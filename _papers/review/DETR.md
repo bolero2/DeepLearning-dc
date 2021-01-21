@@ -73,5 +73,5 @@ Decoder에서 살펴 볼 것은 다음과 같습니다:
 ```
 * 원래의 Decoder는 분리 된 d 개의 조각을 하나의 Sequence로 보고, 통째로 입력 데이터로 들어갑니다.
 * 하지만 DETR에서는 각각의 Decoder Layer마다 N 개의 Embedding 객체를 Parallel하게 Decoding합니다.
-* 또한, Encoder와 유사하게 **Object Query**라는 것을 각각의 Attention Layer에 추가하여 Position Embedding과 유사한 작업을 합니다.
+* 또한, Encoder처럼 각각의 Attention Layer에 Object Query를 추가하여 Position Embedding과 유사한 작업을 합니다.
 ```
