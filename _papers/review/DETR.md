@@ -58,15 +58,13 @@ CNN의 주 목적은 입력 영상 데이터의 _**특징 추출**_ 입니다.
 
 CNN을 거쳐 생성된 Feature Map은 1x1 convolution을 통해 **d 차원**(=d 채널)으로 축소됩니다.  
 > * _**Encoder는 Sequence Data를 입력으로 받기 때문에, Vectorizing함을 알 수 있습니다.**_  
-> * _**또한, 축소 된 d 채널은 Spatial하게 분리하여 H*W 크기로 구성된 d 개의 조각으로 분리할 수 있습니다.**_Backbone CNN으로 ResNet50 모델을 사용하였는데,
-해당 모델의 맨 마지막 channel 깊이는 2048임을 알 수 있습니다.
+> * _**또한, 축소 된 d 채널은 Spatial하게 분리하여 H*W 크기로 구성된 d 개의 조각으로 분리할 수 있습니다.**_
 
 2) Transformer Encoder
 CNN을 거쳐 생성된 Feature Map은 1x1 convolution을 통해 d 차원(=d 채널)으로 축소됩니다.
 
 Encoder는 Sequence Data를 입력으로 받기 때문에, Vectorizing함을 알 수 있습니다.
 또한, 축소 된 d 채널은 Spatial하게 분리하여 H*W 크기로 구성된 d 개의 조각으로 분리할 수 있습니다.
-각각의 d개 조각은 Encoder Layer의 입력으로 Sequencial하게 들어가며, Encoder Layer는 기본적인 구조
 
 각각의 d개 조각은 Encoder Layer의 입력으로 Sequencial하게 들어가며, Encoder Layer는 기본적인 구조로 구성되어 있습니다.  
 > * _**Encoder Layer는 Multi-head Self-attention module로 구성되어 있습니다.**_
