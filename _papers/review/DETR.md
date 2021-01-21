@@ -46,5 +46,5 @@ CNN의 주 목적은 입력 영상 데이터의 _**특징 추출**_ 입니다.
 ### 2) Transformer Encoder + Decoder
 
 CNN을 거쳐 생성된 Feature Map은 1x1 convolution을 통해 1차원 채널로 축소됩니다.  
-> _** Encoder는 Sequence Data를 입력으로 받기 때문에, Vectorizing함을 알 수 있습니다.**_
+> _**Encoder는 Sequence Data를 입력으로 받기 때문에, Vectorizing함을 알 수 있습니다.**_
 
