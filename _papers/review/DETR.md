@@ -42,7 +42,11 @@ Transformer의 End-to-End 방식의 학습을 통해 없앴다고 볼 수 있습
 
 CNN의 주 목적은 입력 영상 데이터의 _**특징 추출**_ 입니다.  
 논문에서 사용한 CNN(=Backbone)은 ResNet으로,  
-**3ch * W * H** 영상 데이터가 입력으로 들어온 후 > 최종 **2048ch * W/32 * H/32** 크기의 Feature Map을 생성합니다.  
+**3ch * W * H** 영상 데이터가 입력으로 들어온 후 > 최종 **2048ch * W/32 * H/32** 크기의 Feature Map을 생성합니다. 
+
+![resnet](https://user-images.githubusercontent.com/41134624/105318398-d3542b80-5c06-11eb-8fc1-1268f238ca7a.jpg)
+
+저자는 Backbone CNN으로 ResNet50 모델을 사용하였는데, 해당 모델의 맨 마지막 channel 깊이는 2048임을 알 수 있습니다.
 
 ### 2) Transformer Encoder
 
@@ -53,9 +57,9 @@ CNN을 거쳐 생성된 Feature Map은 1x1 convolution을 통해 **d 차원**(=d
 각각의 d개 조각은 Encoder Layer의 입력으로 Sequencial하게 들어가며, Encoder Layer는 기본적인 구조로 구성되어 있습니다.  
 > * _**Encoder Layer는 Multi-head Self-attention module로 구성되어 있습니다.**_
 
-여기서 하나 살펴 볼 부분은 다음과 같습니다:
+Encoder에서 살펴 볼 것은 다음과 같습니다:
 ```
-* Transformer는 입력 데이터의 순서에 영향을 받지 않습니다.
+* 원래 Transformer는 입력 데이터의 순서가 출력 데이터에 영향을 주지 않습니다.
 * 하지만 Vision 문제에서는 분리 된 d개의 조각에 대한 순서가 중요하기 때문에 Position Embedding을 실시하게 됩니다.
 ```
 
@@ -63,3 +67,10 @@ CNN을 거쳐 생성된 Feature Map은 1x1 convolution을 통해 **d 차원**(=d
 
 Decoder 역시 Encoder와 동일하게 Standard한 구조를 따릅니다.  
 Encoder의 출력으로 d size의 N Embedding이 나오고, 이는 그대로 Decoder의 입력으로 들어갑니다.  
+
+Decoder에서 살펴 볼 것은 다음과 같습니다:
+```
+* 원래의 Decoder는 분리 된 d 개의 조각을 하나의 Sequence로 보고, 통째로 입력 데이터로 들어갑니다.
+* 하지만 DETR에서는 각각의 Decoder Layer마다 N 개의 Embedding 객체를 Parallel하게 Decoding합니다.
+* 또한, Encoder와 유사하게(Position Embedding)
+```
