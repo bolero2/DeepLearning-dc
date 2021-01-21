@@ -38,6 +38,11 @@ Transformer의 End-to-End 방식의 학습을 통해 없앴다고 볼 수 있습
 
 이렇게 4단계로 구분할 수 있습니다.  
 
+```
+DETR은 이 4단계를 통해 입력 데이터를 곧바로 분류 정보 및 bbox 정보를 추론 하기 때문에,  
+NMS와 같은 사용자의 입력 값을 요구하는 알고리즘이 필요하지 않습니다.
+```
+
 ### 1) Convolution Neural Network
 
 CNN의 주 목적은 입력 영상 데이터의 _**특징 추출**_ 입니다.  
@@ -98,4 +103,22 @@ FFN 같은 경우는 단순한 구조로 되어 있습니다:
 
 (Relative한 좌표는 픽셀의 개수를 count하는 절대 좌표가 아닌, 이미지 전체의 H/W에 비례하는 0과 1사이의 좌표 값입니다.)
 
-FFN은 Softmax 함수를 통해 분류 라벨 또한 Predict 합니다.
+FFN은 Softmax 함수를 통해 분류 라벨 또한 Predict 합니다.  
+Predict 할 때, Ground-Truth 개수가 5개이고, Detection 객체 개수가 7개라면 2개의 (no object)를 만들어줍니다.  
+
+![label_predict](https://user-images.githubusercontent.com/41134624/105328912-e5889680-5c13-11eb-8a99-9e9e822a3da2.jpg)
+
+그림과 같이, 4개의 객체를 검출했다면, 2개는 (no object) 항목으로 할당하고 2개는 정답으로 처리하여 **이분법(bipartite)적으로 처리하게 됩니다.**
+link
+--------
+
+## 3. Experiments
+
+실험에 사용된 Dataset은 [COCO 2017](https://cocodataset.org/#home)의 detection + segmentation 데이터 세트 입니다.  
+또한, Detection 성능 비교를 위한 Network는 Faster-RCNN을 대상으로 하였습니다.  
+
+![exp1](https://user-images.githubusercontent.com/41134624/105329673-bf172b00-5c14-11eb-8ca7-468b4020761e.jpg)
+
+그림에서 보는 것과 같이, 
+1. 대부분의 상황에서 DETR의 parameter 개수가 현저히 낮음을 알 수 있으며
+2. Average Precision은 6 case 중 4 case에서 Faster-RCNN보다 높음을 알 수 있습니다.
