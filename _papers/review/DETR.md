@@ -31,10 +31,10 @@ Transformer의 End-to-End 방식의 학습을 통해 없앴다고 볼 수 있습
 ![model1](https://user-images.githubusercontent.com/41134624/105303525-e6fb9400-5bfe-11eb-947c-ef4939938df6.jpg)
 
 해당 네트워크는 크게 본다면  
-> 1. **C**onvolution **N**eural **N**etwork(ResNet)
-> 2. **Transformer** Encoder
-> 3. **Transformer** Decoder
-> 4. **F**eed-**F**oward **N**etwork(FFN)
+> 1) **C**onvolution **N**eural **N**etwork(ResNet)
+> 2) **Transformer** Encoder
+> 3) **Transformer** Decoder
+> 4) **F**eed-**F**oward **N**etwork(FFN)
 
 이렇게 4단계로 구분할 수 있습니다.  
 
@@ -61,7 +61,7 @@ CNN을 거쳐 생성된 Feature Map은 1x1 convolution을 통해 **d 차원**(=d
 Encoder에서 살펴 볼 것은 다음과 같습니다:
 ```
 * 원래 Transformer는 입력 데이터의 순서가 출력 데이터에 영향을 주지 않습니다.
-* 하지만 Vision 문제에서는 분리 된 d개의 조각에 대한 순서가 중요하기 때문에 각각의 Attention Layer마다 Position Embedding을 실시니다.
+* 하지만 Vision 문제에서는 분리 된 d개의 조각에 대한 순서가 중요하기 때문에 각각의 Attention Layer마다 Position Embedding을 실시합니다.
 ```
 
 ### 3) Transformer Decoder
@@ -75,3 +75,17 @@ Decoder에서 살펴 볼 것은 다음과 같습니다:
 * 하지만 DETR에서는 각각의 Decoder Layer마다 N 개의 Embedding 객체를 Parallel하게 Decoding합니다.
 * 또한, Encoder처럼 각각의 Attention Layer에 Object Query를 추가하여 Position Embedding과 유사한 작업을 합니다.
 ```
+
+### 4) Feed-Foward Network(FFN)
+
+FFN 같은 경우는 단순한 구조로 되어 있습니다:  
+> * 3 Layer의 Perceptron으로 구성되어 있습니다.
+> * 각각의 Perceptron은 ReLU 활성화 함수와 d 차원의 은닉층, 1개의 Linear Projection으로 되어 있습니다.
+
+또한, FFN을 거치게 되면 Predict한 값이 나오게 되는데, 이 값은 다음과 같습니다:
+> 1) Center X (relative)
+> 2) Center Y (relative)
+> 3) Height (relative)
+> 4) Width (relative)
+
+(Relative한 좌표는 픽셀의 개수를 count하는 절대 좌표가 아닌, 이미지 전체의 H/W에 비례하는 0과 1사이의 좌표 값입니다.)
