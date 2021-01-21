@@ -109,7 +109,7 @@ Predict 할 때, Ground-Truth 개수가 5개이고, Detection 객체 개수가 7
 ![label_predict](https://user-images.githubusercontent.com/41134624/105328912-e5889680-5c13-11eb-8a99-9e9e822a3da2.jpg)
 
 그림과 같이, 4개의 객체를 검출했다면, 2개는 (no object) 항목으로 할당하고 2개는 정답으로 처리하여 **이분법(bipartite)적으로 처리하게 됩니다.**
-link
+
 --------
 
 ## 3. Experiments
