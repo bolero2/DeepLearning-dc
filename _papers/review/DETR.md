@@ -44,9 +44,10 @@ CNN의 주 목적은 입력 영상 데이터의 _**특징 추출**_ 입니다.
 논문에서 사용한 CNN(=Backbone)은 ResNet으로,  
 **3ch * W * H** 영상 데이터가 입력으로 들어온 후 > 최종 **2048ch * W/32 * H/32** 크기의 Feature Map을 생성합니다. 
 
-![resnet](https://user-images.githubusercontent.com/41134624/105318398-d3542b80-5c06-11eb-8fc1-1268f238ca7a.jpg)
+![resnet](https://user-images.githubusercontent.com/41134624/105318677-262de300-5c07-11eb-983c-c26c68abe782.jpg)
 
-저자는 Backbone CNN으로 ResNet50 모델을 사용하였는데, 해당 모델의 맨 마지막 channel 깊이는 2048임을 알 수 있습니다.
+저자는 Backbone CNN으로 ResNet50 모델을 사용하였는데,  
+해당 모델의 맨 마지막 channel 깊이는 **2048**임을 알 수 있습니다.
 
 ### 2) Transformer Encoder
 
