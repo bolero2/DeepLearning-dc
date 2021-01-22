@@ -95,11 +95,12 @@ def draw_bbox(image_path, num_type,
 
         img = cv2.imread(image_path + image_name)
         row, col, ch = img.shape
+
         try:
             path1_lines = open(path1 + image_name[:-4] + ".txt").readlines()
         except:
             print("no path1 annotation file!")
-
+            path1_lines = ['0 0 0 0 0 0\n']
         for path1_line in path1_lines:
             path1_line = path1_line.split(' ')
             for i in range(0, len(path1_line)):
@@ -219,7 +220,10 @@ def draw_bbox(image_path, num_type,
                 else:
                     img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=2, confidence=None)
         cv2.imshow(image_name, img)
-        cv2.waitKey(0)
+        key = cv2.waitKey(0)
+        if key == ord('q'):
+            print("key Q is entered.")
+            exit(0)
         if is_save:
             print(f"Save image >>> ./bbox_result_{image_name}.jpg")
             cv2.imwrite(f"./bbox_result_{image_name}.jpg", img)

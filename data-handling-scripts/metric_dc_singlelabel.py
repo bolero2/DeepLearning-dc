@@ -313,7 +313,7 @@ if __name__ == "__main__":
     ###########################################
     image_path = "/home/bolero/.dc/private/yolov5-c16/test_dataset/"
     gt_path = "/home/bolero/.dc/private/yolov5-c16/test_dataset/"
-    dt_path = "/home/bolero/.dc/private/yolov5-c16/runs_v5m_2/detect/labels/"
+    dt_path = "/home/bolero/.dc/private/yolov5-c16/runs_v5m_3/detect/labels/"
     gt_coord = 'ccwh'
     gt_coord_type = 'relat'
     dt_coord = 'ccwh'
@@ -328,8 +328,8 @@ if __name__ == "__main__":
     iou_threshold = 0.5
     # csv_save_name = f'best_conf0.001_IoU{iou_threshold}'
     # prc_save_name = f'best_conf0.001_IoU{iou_threshold}'
-    csv_save_name = f'best_conf0.001_IoU{iou_threshold}-yolov5m_zout2'
-    prc_save_name = f'best_conf0.001_IoU{iou_threshold}-yolov5m_zout2'
+    csv_save_name = f'best_conf0.001_IoU{iou_threshold}-yolov5m_augzout2'
+    prc_save_name = f'best_conf0.001_IoU{iou_threshold}-yolov5m_augzout2'
 
 
     # csv_save_name = f"csv_epoch{e}_IoU{iou_threshold}"
