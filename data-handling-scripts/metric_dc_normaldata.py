@@ -112,6 +112,7 @@ def make_csv(image_path, gt_path, dt_path, conf_threshold=0.1,
     df_total = pd.concat([df1, df2], axis=1)  # column bind
 
     print(f"Total TN Count: {count_TN}\n")
+    print(f"Specificity: {round(count_TN / len(image_file_list), 2)}\n")
 
     if csv_save_path is not None:
         if csv_save_name is not None:
@@ -172,30 +173,28 @@ if __name__ == "__main__":
     ###########################################
     # List of experiment results
     ###########################################
-    for e in range(1, 2):
-        for i in range(1, 2):
-            conf_threshold = round(float(i / 10), 1)
-            image_path = "C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/yolov5/test_images_c18_normal/"
-            gt_path = "C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/yolov5/test_images_c18_normal/"
-            # dt_path = f"D:\\Files\\works\\1+AICenter\\result\\detectoRS\\inference_xyrb_abs\\epoch{e}\\"
-            dt_path = f"C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/yolov5/results_idc_yolov5_normal/output_conf{conf_threshold}/"
-            # dt_path = f"C:/Users/bolero/Desktop/metric_dc/result_detectors_epoch{e}_conf0.001_label_abs_xyrb/"
-            csv_save_path = "C:/Users/bolero/Desktop/metric_dc/idc_c18_cancer/yolov5/metric_idc_yolov5_normal/"
-            sorting_index = 1
+    conf_threshold = 0.25
+    image_path = '/home/bolero/.dc/private/yolov5-c16/test_normal/'
+    gt_path = '/home/bolero/.dc/private/yolov5-c16/test_normal/'
+    # dt_path = f"D:\\Files\\works\\1+AICenter\\result\\detectoRS\\inference_xyrb_abs\\epoch{e}\\"
+    dt_path = '/home/bolero/.dc/private/yolov5-c16/runs_v5m_1/normal/labels/'
+    # dt_path = f"C:/Users/bolero/Desktop/metric_dc/result_detectors_epoch{e}_conf0.001_label_abs_xyrb/"
+    csv_save_path = '/home/bolero/.dc/private/yolov5-c16/'
+    sorting_index = 1
 
-            # sorting index
-            # 0 = list not sorted
-            # 1 = confidence score
-            # 2 = IoU
+    # sorting index
+    # 0 = list not sorted
+    # 1 = confidence score
+    # 2 = IoU
 
-            csv_save_name = f"csv_epoch{e}_conf{conf_threshold}"
-            prc_save_name = f"prc_epoch{e}_conf{conf_threshold}"
+    csv_save_name = f"csv_normaldata"
+    prc_save_name = f"prc_normaldata"
 
-            make_csv(image_path=image_path,
-                     gt_path=gt_path,
-                     dt_path=dt_path,
-                     conf_threshold=conf_threshold,
-                     csv_save_path=csv_save_path,
-                     csv_save_name=csv_save_name,
-                     sorting_index=sorting_index)
+    make_csv(image_path=image_path,
+             gt_path=gt_path,
+             dt_path=dt_path,
+             conf_threshold=conf_threshold,
+             csv_save_path=csv_save_path,
+             csv_save_name=csv_save_name,
+             sorting_index=sorting_index)
     exit(0)

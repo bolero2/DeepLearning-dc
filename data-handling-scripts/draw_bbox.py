@@ -67,6 +67,8 @@ def draw_bbox(image_path, num_type,
     for file in glob.glob('*.jpg'):
         image_list.append(file)
 
+    image_list = sorted(image_list)
+
     os.chdir(path1)
     print(f"Path1 directory: {path1}")
     path1_label_list = list()
@@ -233,10 +235,10 @@ def draw_bbox(image_path, num_type,
 
 
 if __name__ == "__main__":
-    image_path = "/home/bolero/.dc/private/yolov5-c16/test_dataset/"
+    image_path = "/home/bolero/.dc/private/yolov5-c16/test_bright/"
     num_type = 2
 
-    path1 = "/home/bolero/.dc/private/yolov5-c16/runs_v5m_2/detect/labels/"
+    path1 = "/home/bolero/.dc/private/yolov5-c16/runs_v5m_3/detect_bright/labels/"
     path1_coord = 'ccwh'
     path1_coord_type = 'relat'
     path1_is_confidence = True
@@ -248,7 +250,7 @@ if __name__ == "__main__":
     path2_is_confidence = False
     """
 
-    path2 = "/home/bolero/.dc/private/yolov5-c16/test_dataset/"
+    path2 = "/home/bolero/.dc/private/yolov5-c16/test_bright/"
     path2_coord = 'ccwh'
     path2_coord_type = 'relat'
     path2_is_confidence = False
