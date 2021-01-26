@@ -174,12 +174,12 @@ if __name__ == "__main__":
     # List of experiment results
     ###########################################
     conf_threshold = 0.25
-    image_path = '/home/bolero/.dc/private/yolov5-c16/test_normal/'
-    gt_path = '/home/bolero/.dc/private/yolov5-c16/test_normal/'
+    image_path = '/home/bolero/.dc/private/yolov5-c18/test_normal/'
+    gt_path = '/home/bolero/.dc/private/yolov5-c18/test_normal/'
     # dt_path = f"D:\\Files\\works\\1+AICenter\\result\\detectoRS\\inference_xyrb_abs\\epoch{e}\\"
-    dt_path = '/home/bolero/.dc/private/yolov5-c16/runs_v5m_1/normal/labels/'
+    dt_path = '/home/bolero/.dc/private/yolov5-c18/runs_v5m_1/normal/labels/'
     # dt_path = f"C:/Users/bolero/Desktop/metric_dc/result_detectors_epoch{e}_conf0.001_label_abs_xyrb/"
-    csv_save_path = '/home/bolero/.dc/private/yolov5-c16/'
+    csv_save_path = '/home/bolero/.dc/private/yolov5-c18/'
     sorting_index = 1
 
     # sorting index

@@ -240,15 +240,15 @@ def convert_coord_type(input_coord,
 
 
 if __name__ == "__main__":
-    image_path = "C:\\Users\\bolero\\Desktop\\temp\\result_yolov5_epoch300_img416_conf0.1_image\\"
-    label_path = "C:\\Users\\bolero\\Desktop\\temp\\result_yolov5_epoch300_img416_conf0.1_label_relat_ccwh\\"
-    new_label_path = "C:\\Users\\bolero\\Desktop\\temp\\result_yolov5_epoch300_img416_conf0.1_label_abs_xyrb\\"
+    image_path = '/home/bolero/.dc/dl/dataset/detection/instrument/tooldetection/m2cai16-tool-locations/JPEGImages/' 
+    label_path = '/home/bolero/.dc/dl/dataset/detection/instrument/tooldetection/m2cai16-tool-locations/annot_xyrb/'  
+    new_label_path = '/home/bolero/.dc/dl/dataset/detection/instrument/tooldetection/m2cai16-tool-locations/annot_ccwh/'   
 
-    convert_coord_type(input_coord='ccwh',
-                       input_type='relat',
-                       output_coord='xyrb',
-                       output_type='abs',
-                       conf_score=True,
+    convert_coord_type(input_coord='xyrb',
+                       input_type='abs',
+                       output_coord='ccwh',
+                       output_type='relat',
+                       conf_score=False,
                        image_path=image_path,
                        label_path=label_path,
                        new_label_path=new_label_path)
