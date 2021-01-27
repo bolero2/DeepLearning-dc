@@ -539,10 +539,10 @@ def augment_for_detection(image_path, new_image_path, label_path, new_label_path
 
 
 if __name__ == "__main__":
-    image_path = '/home/yb/dc/yolo_c16/train/'
-    label_path = '/home/yb/dc/yolo_c16/train/' 
-    new_image_path = '/home/yb/dc/yolo_c16/train/'  
-    new_label_path = '/home/yb/dc/yolo_c16/train/'   
+    image_path = '/home/bolero/.dc/dl/dataset/detection/instrument/tooldetection/m2cai16-tool-locations/yolo_dataset/train/'
+    label_path = '/home/bolero/.dc/dl/dataset/detection/instrument/tooldetection/m2cai16-tool-locations/yolo_dataset/train/'  
+    new_image_path = '/home/bolero/.dc/dl/dataset/detection/instrument/tooldetection/m2cai16-tool-locations/yolo_dataset/train/'  
+    new_label_path = '/home/bolero/.dc/dl/dataset/detection/instrument/tooldetection/m2cai16-tool-locations/yolo_dataset/train/'  
 
     # if you don't want cropping -> crop_rate = 0
     crop_rate = 0
