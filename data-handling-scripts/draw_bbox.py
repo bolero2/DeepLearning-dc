@@ -61,6 +61,14 @@ def draw_bbox(image_path, num_type,
     !!!!! Use convert_coordinate.py !!!!!
 
     """
+    original_pwd = os.getcwd()
+    if is_save:
+        os.chdir(original_pwd)
+        if not os.path.exists(f"{original_pwd}/BndboxImage"):
+            os.mkdir(f"{original_pwd}/BndboxImage")
+        os.chdir(f'{original_pwd}/BndboxImage/')
+        dircount = len(os.listdir())
+
     os.chdir(image_path)
     print(f"Image files directory: {image_path}")
     image_list = list()
@@ -222,23 +230,26 @@ def draw_bbox(image_path, num_type,
                 else:
                     img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=2, confidence=None)
         cv2.imshow(image_name, img)
-        key = cv2.waitKey(0)
+        key = cv2.waitKey(10)
         if key == ord('q'):
             print("key Q is entered.")
             exit(0)
         if is_save:
-            print(f"Save image >>> ./bbox_result_{image_name}.jpg")
-            cv2.imwrite(f"./bbox_result_{image_name}.jpg", img)
+            if not os.path.exists(f"{original_pwd}/BndboxImage/save{dircount + 1}"):
+                os.mkdir(f"{original_pwd}/BndboxImage/save{dircount + 1}")
+
+            print(f"Save image >>> {original_pwd}/BndboxImage/save{dircount + 1}/bbox_{image_name}")
+            cv2.imwrite(f"{original_pwd}/BndboxImage/save{dircount + 1}/bbox_{image_name}", img)
         else:
             pass
         cv2.destroyWindow(image_name)
 
 
 if __name__ == "__main__":
-    image_path = "/home/bolero/.dc/private/yolov5-c16/test_bright/"
+    image_path = "/home/bolero/.dc/dl/yolov5-c16/test_dataset/"
     num_type = 2
 
-    path1 = "/home/bolero/.dc/private/yolov5-c16/runs_v5m_3/detect_bright/labels/"
+    path1 = "/home/bolero/.dc/dl/yolov5-c16/runs_v5m_1/detect/labels/"
     path1_coord = 'ccwh'
     path1_coord_type = 'relat'
     path1_is_confidence = True
@@ -250,12 +261,12 @@ if __name__ == "__main__":
     path2_is_confidence = False
     """
 
-    path2 = "/home/bolero/.dc/private/yolov5-c16/test_bright/"
+    path2 = "/home/bolero/.dc/dl/yolov5-c16/test_dataset/"
     path2_coord = 'ccwh'
     path2_coord_type = 'relat'
     path2_is_confidence = False
 
-    is_save = False
+    is_save = True 
 
     draw_bbox(image_path=image_path,
               num_type=num_type,

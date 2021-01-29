@@ -240,9 +240,9 @@ def convert_coord_type(input_coord,
 
 
 if __name__ == "__main__":
-    image_path = '/home/bolero/.dc/dl/dataset/detection/instrument/tooldetection/m2cai16-tool-locations/JPEGImages/' 
-    label_path = '/home/bolero/.dc/dl/dataset/detection/instrument/tooldetection/m2cai16-tool-locations/annot_xyrb/'  
-    new_label_path = '/home/bolero/.dc/dl/dataset/detection/instrument/tooldetection/m2cai16-tool-locations/annot_ccwh/'   
+    image_path = '/home/bolero/.dc/dl/dataset/detection/idc_cancer/new_endo/new_data/'
+    label_path = '/home/bolero/.dc/dl/dataset/detection/idc_cancer/new_endo/annot_xyrb/'
+    new_label_path = '/home/bolero/.dc/dl/dataset/detection/idc_cancer/new_endo/annot_yolo/'
 
     convert_coord_type(input_coord='xyrb',
                        input_type='abs',

@@ -311,25 +311,25 @@ if __name__ == "__main__":
     ###########################################
     # Single experiment
     ###########################################
-    image_path = "/home/bolero/.dc/private/yolov5-c18/test_dataset/"
-    gt_path = "/home/bolero/.dc/private/yolov5-c18/test_dataset/"
-    dt_path = "/home/bolero/.dc/private/yolov5-c18/runs_v5m_1/detect/labels/"
+    image_path = "/home/bolero/.dc/dl/yolov5-c16//new_endo_dataset/"
+    gt_path = "/home/bolero/.dc/dl/yolov5-c16//new_endo_dataset/"
+    dt_path = "/home/bolero/.dc/dl/yolov5-c16/runs_v5m_1/new_endo/labels/"
     gt_coord = 'ccwh'
     gt_coord_type = 'relat'
     dt_coord = 'ccwh'
     dt_coord_type = 'relat'
-    csv_save_path = "/home/bolero/.dc/private/yolov5-c18/"
+    csv_save_path = "/home/bolero/.dc/dl/yolov5-c16/"
     sorting_index = 1
 
     # sorting index
     # 0 = list not sorted
     # 1 = confidence score
     # 2 = IoU
-    iou_threshold = 0.5
+    iou_threshold = 0.3
     # csv_save_name = f'best_conf0.001_IoU{iou_threshold}'
     # prc_save_name = f'best_conf0.001_IoU{iou_threshold}'
-    csv_save_name = f'best_IoU{iou_threshold}-yolov5m_augment'
-    prc_save_name = f'best_IoU{iou_threshold}-yolov5m_augment'
+    csv_save_name = f'best_IoU{iou_threshold}-yolov5m_newendo'
+    prc_save_name = f'best_IoU{iou_threshold}-yolov5m_newendo'
 
 
     # csv_save_name = f"csv_epoch{e}_IoU{iou_threshold}"
