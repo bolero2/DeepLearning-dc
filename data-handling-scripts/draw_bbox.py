@@ -229,11 +229,11 @@ def draw_bbox(image_path, num_type,
                     img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=2, confidence=confidence)
                 else:
                     img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=2, confidence=None)
-        cv2.imshow(image_name, img)
-        key = cv2.waitKey(10)
-        if key == ord('q'):
-            print("key Q is entered.")
-            exit(0)
+        # cv2.imshow(image_name, img)
+        # key = cv2.waitKey(10)
+        # if key == ord('q'):
+        #     print("key Q is entered.")
+        #     exit(0)
         if is_save:
             if not os.path.exists(f"{original_pwd}/BndboxImage/save{dircount + 1}"):
                 os.mkdir(f"{original_pwd}/BndboxImage/save{dircount + 1}")
@@ -241,15 +241,19 @@ def draw_bbox(image_path, num_type,
             print(f"Save image >>> {original_pwd}/BndboxImage/save{dircount + 1}/bbox_{image_name}")
             cv2.imwrite(f"{original_pwd}/BndboxImage/save{dircount + 1}/bbox_{image_name}", img)
         else:
-            pass
-        cv2.destroyWindow(image_name)
+            cv2.imshow(image_name, img)
+            key = cv2.waitKey(10)
+            if key == ord('q'):
+                print("key Q is entered.")
+                exit(0)
+            cv2.destroyWindow(image_name)
 
 
 if __name__ == "__main__":
-    image_path = "/home/bolero/.dc/dl/yolov5-c16/new_endo_dataset/"
+    image_path = "/home/bolero/.dc/dl/yolov5-c16/test_dataset/"
     num_type = 2
 
-    path1 = "/home/bolero/.dc/dl/yolov5-c16/runs_v5m_1/new_endo_detect/labels/"
+    path1 = "/home/bolero/.dc/dl/yolov5-c16/runs_v5m_1/detect/labels/"
     path1_coord = 'ccwh'
     path1_coord_type = 'relat'
     path1_is_confidence = True
@@ -261,7 +265,7 @@ if __name__ == "__main__":
     path2_is_confidence = False
     """
 
-    path2 = "/home/bolero/.dc/dl/yolov5-c16/new_endo_dataset/"
+    path2 = "/home/bolero/.dc/dl/yolov5-c16/test_dataset/"
     path2_coord = 'ccwh'
     path2_coord_type = 'relat'
     path2_is_confidence = False
