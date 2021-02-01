@@ -2,7 +2,7 @@ import os
 import glob
 
 
-path = '/home/yb/dc/yolo_c16/train/'
+path = '/home/yb/dc/yolo_c16/eval/'
 os.chdir(path)
 annot_list = [x for x in glob.glob('*.txt')]
 sentence_list = list()
