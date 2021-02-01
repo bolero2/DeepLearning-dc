@@ -61,11 +61,21 @@ def draw_bbox(image_path, num_type,
     !!!!! Use convert_coordinate.py !!!!!
 
     """
+    original_pwd = os.getcwd()
+    if is_save:
+        os.chdir(original_pwd)
+        if not os.path.exists(f"{original_pwd}/BndboxImage"):
+            os.mkdir(f"{original_pwd}/BndboxImage")
+        os.chdir(f'{original_pwd}/BndboxImage/')
+        dircount = len(os.listdir())
+
     os.chdir(image_path)
     print(f"Image files directory: {image_path}")
     image_list = list()
     for file in glob.glob('*.jpg'):
         image_list.append(file)
+
+    image_list = sorted(image_list)
 
     os.chdir(path1)
     print(f"Path1 directory: {path1}")
@@ -95,11 +105,12 @@ def draw_bbox(image_path, num_type,
 
         img = cv2.imread(image_path + image_name)
         row, col, ch = img.shape
+
         try:
             path1_lines = open(path1 + image_name[:-4] + ".txt").readlines()
         except:
             print("no path1 annotation file!")
-
+            path1_lines = ['0 0 0 0 0 0\n']
         for path1_line in path1_lines:
             path1_line = path1_line.split(' ')
             for i in range(0, len(path1_line)):
@@ -218,37 +229,48 @@ def draw_bbox(image_path, num_type,
                     img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=2, confidence=confidence)
                 else:
                     img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=2, confidence=None)
-        cv2.imshow(image_name, img)
-        cv2.waitKey(0)
+        # cv2.imshow(image_name, img)
+        # key = cv2.waitKey(10)
+        # if key == ord('q'):
+        #     print("key Q is entered.")
+        #     exit(0)
         if is_save:
-            print(f"Save image >>> ./bbox_result_{image_name}.jpg")
-            cv2.imwrite(f"./bbox_result_{image_name}.jpg", img)
+            if not os.path.exists(f"{original_pwd}/BndboxImage/save{dircount + 1}"):
+                os.mkdir(f"{original_pwd}/BndboxImage/save{dircount + 1}")
+
+            print(f"Save image >>> {original_pwd}/BndboxImage/save{dircount + 1}/bbox_{image_name}")
+            cv2.imwrite(f"{original_pwd}/BndboxImage/save{dircount + 1}/bbox_{image_name}", img)
         else:
-            pass
-        cv2.destroyWindow(image_name)
+            cv2.imshow(image_name, img)
+            key = cv2.waitKey(10)
+            if key == ord('q'):
+                print("key Q is entered.")
+                exit(0)
+            cv2.destroyWindow(image_name)
 
 
 if __name__ == "__main__":
-    # image_path = "C:/Users/bolero/Desktop/metric_dc/deeplesion_valid/images/"
-    image_path = "/home/bolero/.dc/private/yolov5-c16/test/"
+    image_path = "/home/bolero/.dc/dl/yolov5-c16/test_dataset/"
     num_type = 2
 
-    path1 = "/home/bolero/.dc/private/yolov5-c16/runs_v5l/detect/exp2/labels/"
+    path1 = "/home/bolero/.dc/dl/yolov5-c16/runs_v5m_1/detect/labels/"
     path1_coord = 'ccwh'
     path1_coord_type = 'relat'
     path1_is_confidence = True
+    
+    """
+    path2 = None
+    path2_coord = None
+    parh2_coord_type = None
+    path2_is_confidence = False
+    """
 
-    path2 = "/home/bolero/.dc/private/yolov5-c16/test/"
+    path2 = "/home/bolero/.dc/dl/yolov5-c16/test_dataset/"
     path2_coord = 'ccwh'
     path2_coord_type = 'relat'
     path2_is_confidence = False
 
-    # path2 = f"D:/Files/works/1+AICenter/result/detectoRS/inference_result_deeplesion/epoch12/"
-    # path2_coord = 'xyrb'
-    # path2_coord_type = 'abs'
-    # path2_is_confidence = True
-
-    is_save = False
+    is_save = True 
 
     draw_bbox(image_path=image_path,
               num_type=num_type,

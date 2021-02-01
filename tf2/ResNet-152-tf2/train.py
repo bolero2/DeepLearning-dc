@@ -44,7 +44,7 @@ num_epochs = 300
 batch_size = 64 
 train_with_validation = True
 verbose = 1
-lr = 0.00001
+lr = 0.001
 optimizer = keras.optimizers.Adam(lr=lr)
 loss_function = keras.losses.CategoricalCrossentropy()
 
@@ -164,7 +164,7 @@ def network(training):
     input_data = tf.keras.Input(shape=(image_size, image_size, channel))
     out = tf.keras.layers.Conv2D(filters=64, kernel_size=7, strides=2, padding='same', activation='relu',
                                  input_shape=(image_size, image_size, channel))(input_data)
-    out = tf.keras.layers.MaxPool2D(pool_size=(3, 3), strides=(2, 2), padding='same')(out)
+    out = tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=(2, 2), padding='same')(out)
 
     for c in range(3):
         stride = 1

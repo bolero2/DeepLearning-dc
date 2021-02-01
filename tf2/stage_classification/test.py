@@ -9,8 +9,8 @@ from keras.utils.vis_utils import plot_model
 
 if __name__ == "__main__":
     # C16
-    data_path = f'/home/bolero/.dc/dl/dataset/test/'
-    model = "/home/bolero/.dc/dl/trained2_best.hdf5"
+    data_path = f'/home/bolero/.dc/dl/dataset/test_123/'
+    model = "/home/bolero/.dc/dl/trained4_best.hdf5"
     # model = "weights/trained1_best.hdf5"
 
     # c18
@@ -23,15 +23,15 @@ if __name__ == "__main__":
     print('[model layers]\n', model_best.layers)
     plot_model(model_best, to_file='output/model.jpg')
 
-    total_count = [0, 0, 0, 0]
-    predict_count = [0, 0, 0, 0]
+    total_count = [0, 0, 0]
+    predict_count = [0, 0, 0]
     test_label = sorted(os.listdir(data_path))
     print(f'test label= {test_label}')
 
     for label in test_label:
         print(f'\n * target test label: [{label}]')
         img_list = os.listdir(f'{data_path}{label}/') 
-        count = [0, 0, 0, 0]
+        count = [0, 0, 0]
         total_count[test_label.index(label)] = len(img_list)
 
         for image in img_list:
@@ -50,9 +50,8 @@ if __name__ == "__main__":
         print(f'result: {count} ---> {temp_result}')
         predict_count[int(label)] += count[int(label)]
     print(f"\n ========== Total Result ==========\n"
-            f"Label 0: {predict_count[0]} / {total_count[0]}\n"
-            f"Label 1: {predict_count[1]} / {total_count[1]}\n"
-            f"Label 2: {predict_count[2]} / {total_count[2]}\n"
-            f"Label 3: {predict_count[3]} / {total_count[3]}")
+          f"Label 0: {predict_count[0]} / {total_count[0]}\n"
+          f"Label 1: {predict_count[1]} / {total_count[1]}\n"
+          f"Label 2: {predict_count[2]} / {total_count[2]}\n")
     acc = round((sum(predict_count) / sum(total_count)) * 100, 2)
     print(f'\nAcc: {acc} %')

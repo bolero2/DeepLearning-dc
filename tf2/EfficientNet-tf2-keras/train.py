@@ -48,11 +48,22 @@ validation_generator = valid_datagen.flow_from_directory(
     batch_size=batch_size,
     class_mode='categorical')
 
+"""
 model = Sequential()
 model.add(efn.EfficientNetB3(weights="imagenet", include_top=False, pooling='avg'))
 model.add(layers.Dense(label_size, activation="softmax"))
 model = utils.multi_gpu_model(model, gpus=4)
 model.compile(metrics=['acc'], loss='categorical_crossentropy', optimizer='adam')
+"""
+
+mirrored_strategy = tf.distribute.MirroredStrategy()
+
+with mirrored_strategy.scope():
+    model = Sequential()
+    model.add(efn.EfficientNetB3(weights="imagenet", include_top=False, pooling='avg'))
+    model.add(layers.Dense(label_size, activation="softmax"))
+    model.compile(metrics=['acc'], loss='categorical_crossentropy', optimizer='adam')
+# """
 
 checkpointer = ModelCheckpoint(filepath='best.hdf5', verbose=1, save_best_only=True) # Save best weight file
 csv_logger = CSVLogger('history.log')
