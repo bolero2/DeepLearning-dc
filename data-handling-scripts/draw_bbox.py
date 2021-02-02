@@ -28,8 +28,8 @@ def _draw_bbox(image, xyrb, type, confidence=None):
 
         bg_color = (0, 0, 0)
         bg = np.full((image.shape), bg_color, dtype=np.uint8)
-        bg = cv2.putText(bg, text=f"{str(round(confidence, 2))}", org=(xyrb[2], xyrb[3]),
-                         fontFace=cv2.FONT_HERSHEY_COMPLEX_SMALL, fontScale=1, color=(255, 255, 255), thickness=1)
+        bg = cv2.putText(bg, text=f"{str(round(confidence, 2))}", org=(xyrb[0], xyrb[1]),
+                         fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=1, color=(255, 255, 255), thickness=2)
         x, y, w, h = cv2.boundingRect(bg[:, :, 2])
 
         # copy bounding box region from bg to img
@@ -125,6 +125,7 @@ def draw_bbox(image_path, num_type,
                 path2_lines = open(path2 + image_name[:-4] + ".txt").readlines()
             except:
                 print("no path2 annotation file!")
+                path2_lines = ['0 0 0 0 0 0\n']
 
             for path2_line in path2_lines:
                 path2_line = path2_line.split(' ')
@@ -133,6 +134,7 @@ def draw_bbox(image_path, num_type,
                         path2_line[-2] = path2_line[-2] + path2_line[-1]
                         del path2_line[-1]
                 path2_coordinate.append(list(map(float, path2_line[1:])))
+            print(f"{image_name} | coord: {path2_coordinate}")
 
         # change coordinate system into [xyrb -> xmin, ymin, xmax, ymax] + [abs]
         for coord in path1_coordinate:
@@ -178,16 +180,16 @@ def draw_bbox(image_path, num_type,
                 xmax = new_coord[2]
                 ymax = new_coord[3]
             if path1_is_confidence:
-                img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=1, confidence=confidence)
+                img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=2, confidence=confidence)
             else:
-                img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=1, confidence=None)
+                img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=2, confidence=None)
 
         if valid_param is not None:
             for coord in path2_coordinate:
                 confidence = 0
                 if path2_is_confidence:
                     confidence = coord[-1]
-                    new_coord = coord[1:5]
+                    new_coord = coord[0:4]
                 else:
                     new_coord = coord
                 xmin = 0
@@ -226,9 +228,9 @@ def draw_bbox(image_path, num_type,
                     xmax = new_coord[2]
                     ymax = new_coord[3]
                 if path2_is_confidence:
-                    img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=2, confidence=confidence)
+                    img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=1, confidence=confidence)
                 else:
-                    img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=2, confidence=None)
+                    img = _draw_bbox(img, [xmin, ymin, xmax, ymax], type=1, confidence=None)
         # cv2.imshow(image_name, img)
         # key = cv2.waitKey(10)
         # if key == ord('q'):
@@ -250,13 +252,18 @@ def draw_bbox(image_path, num_type,
 
 
 if __name__ == "__main__":
-    image_path = "/home/bolero/.dc/dl/yolov5-c16/test_dataset/"
+    image_path = "/home/bolero/.dc/dl/yolov5-c16-rid/test_dataset/"
     num_type = 2
 
-    path1 = "/home/bolero/.dc/dl/yolov5-c16/runs_v5m_1/detect/labels/"
+    path1 = "/home/bolero/.dc/dl/yolov5-c16-rid/test_dataset/"
     path1_coord = 'ccwh'
     path1_coord_type = 'relat'
-    path1_is_confidence = True
+    path1_is_confidence = False
+
+    path2 = "/home/bolero/.dc/dl/yolov5-c16-rid/c16_rid_aug_img416/labels/"
+    path2_coord = 'ccwh'
+    path2_coord_type = 'relat'
+    path2_is_confidence = True
     
     """
     path2 = None
@@ -264,11 +271,6 @@ if __name__ == "__main__":
     parh2_coord_type = None
     path2_is_confidence = False
     """
-
-    path2 = "/home/bolero/.dc/dl/yolov5-c16/test_dataset/"
-    path2_coord = 'ccwh'
-    path2_coord_type = 'relat'
-    path2_is_confidence = False
 
     is_save = True 
 
