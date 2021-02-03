@@ -136,12 +136,14 @@ def make_csv(image_path, gt_path, dt_path, gt_coord, gt_coord_type, dt_coord, dt
              csv_save_path=None, csv_save_name=None, sorting_index=0):
     count_TP = 0
     count_FP = 0
+    count_FN = 0
     gt_count = 0
     dt_count = 0
     iou_val = 0
 
     csv_list1 = list()
     csv_list2 = list()
+    csv_list3 = list()
 
     precision_list = list()
     recall_list = list()
@@ -188,8 +190,8 @@ def make_csv(image_path, gt_path, dt_path, gt_coord, gt_coord_type, dt_coord, dt
         ###########################################
         dt_file = open(dt_path + detect_index, 'r')
         gt_file = open(gt_path + detect_index, 'r')
-        dt_line_list = dt_file.readlines()
-        gt_line_list = gt_file.readlines()
+        dt_line_list = dt_file.readlines()    # detected box count
+        gt_line_list = gt_file.readlines()    # ground-truth box count
         # Reading 1-line in one Detection(Inference) file(.txt)
 
         number_TP = 0           # TP count in 1 detection result file
@@ -240,6 +242,10 @@ def make_csv(image_path, gt_path, dt_path, gt_coord, gt_coord_type, dt_coord, dt
                 iou_val = -1
                 tp_gt_same = True
 
+        val_FN = len(gt_line_list) - number_TP
+        count_FN += val_FN
+        csv_list3.append([f'{detect_index[:-3]}jpg', val_FN, count_FN])
+            
     if sorting_index == 0:
         csv_list1 = csv_list1
     else:
@@ -263,11 +269,12 @@ def make_csv(image_path, gt_path, dt_path, gt_coord, gt_coord_type, dt_coord, dt
 
     df1 = pd.DataFrame(csv_list1, columns=['filename', 'confidence', 'IoU', 'TP', 'FP'])
     df2 = pd.DataFrame(csv_list2, columns=['sum TP', 'sum FP', 'precision', 'recall'])
+    df_fn = pd.DataFrame(csv_list3, columns=['imagename', 'FN', 'sum FN'])
     df_total = pd.concat([df1, df2], axis=1)  # column bind
 
     ap = AP(ap_precision_list, ap_recall_list)
 
-    print(f"Total TP Count: {count_TP}\nTotal FP Count: {count_FP}\n\n"
+    print(f"Total TP Count: {count_TP}\nTotal FP Count: {count_FP}\nTotal FN Count: {count_FN}\n\n"
           f"False Positive Rate per Image: {round(int(csv_list2[-1][1]) / len(gt_file_list), 3)}\n"
           f"Recall(=Sensitivity, True Positive Rate): {float(graph_recall_list[-1]):.2f}\n"
           f"Precision: {float(graph_precision_list[-1]):.2f}\n"
@@ -286,18 +293,26 @@ def make_csv(image_path, gt_path, dt_path, gt_coord, gt_coord_type, dt_coord, dt
 
     if csv_save_path is not None:
         if csv_save_name is not None:
-            print(f"Save file : {csv_save_path + csv_save_name}.csv")
+            print(f"Save file 1 (TP+FP) : {csv_save_path + csv_save_name}.csv")
+            print(f"Save file 2 (FN)    : {csv_save_path + csv_save_name}_FN.csv")
             df_total.to_csv(csv_save_path + csv_save_name + ".csv", index=False)
+            df_fn.to_csv(csv_save_path + csv_save_name + "_FN.csv", index=False)
         else:
-            print(f"Save file : {csv_save_path}result.csv")
+            print(f"Save file 1 (TP+FP) : {csv_save_path}result.csv")
+            print(f"Save file 2 (FN)    : {csv_save_path}result_FN.csv")
             df_total.to_csv(csv_save_path + "result.csv", index=False)
+            df_fn.to_csv(csv_save_path + "result_FN.csv", index=False)
     else:
         if csv_save_name is not None:
-            print(f"Save file : ./{csv_save_path}.csv")
+            print(f"Save file 1 (TP+FP) : ./{csv_save_name}.csv")
+            print(f"Save file 2 (FN)    : ./{csv_save_name}_FN.csv")
             df_total.to_csv(csv_save_name + ".csv", index=False)
+            df_fn.to_csv(csv_save_name + "_FN.csv", index=False)
         else:
-            print(f"Save file : ./result.csv")
+            print(f"Save file 1 (TP+FP) : ./result.csv")
+            print(f"Save file 2 (FN)    : ./result_FN.csv")
             df_total.to_csv("result.csv", index=False)
+            df_fn.to_csv("result_FN.csv", index=False)
 
     if prc_save_name is None:
         plt.savefig(csv_save_path + 'precision-recall-curve.jpg')
@@ -311,9 +326,9 @@ if __name__ == "__main__":
     ###########################################
     # Single experiment
     ###########################################
-    image_path = "/home/bolero/.dc/dl/yolov5-c16-rid/test_dataset/"
-    gt_path = "/home/bolero/.dc/dl/yolov5-c16-rid/test_dataset/"
-    dt_path = "/home/bolero/.dc/dl/yolov5-c16-rid/c16_rid_aug_img416/labels/"
+    image_path = "/home/bolero/.dc/dl/yolov5-c16-rid/test_total_dataset/"
+    gt_path = "/home/bolero/.dc/dl/yolov5-c16-rid/test_total_dataset/"
+    dt_path = "/home/bolero/.dc/dl/yolov5-c16-rid/c16+newendo_rid_aug_inf_total_conf0.001/labels/"
     gt_coord = 'ccwh'
     gt_coord_type = 'relat'
     dt_coord = 'ccwh'
@@ -325,11 +340,11 @@ if __name__ == "__main__":
     # 0 = list not sorted
     # 1 = confidence score
     # 2 = IoU
-    iou_threshold = 0.3
+    iou_threshold = 0.5
     # csv_save_name = f'best_conf0.001_IoU{iou_threshold}'
     # prc_save_name = f'best_conf0.001_IoU{iou_threshold}'
-    csv_save_name = f'best_IoU{iou_threshold}-c16_rid_aug_img416'
-    prc_save_name = f'best_IoU{iou_threshold}-c16_rid_aug_img416'
+    csv_save_name = f'best_IoU{iou_threshold}-c16+newendo_rid_aug_inf_total_conf0.001'
+    prc_save_name = f'best_IoU{iou_threshold}-c16+newendo_rid_aug_inf_total_conf0.001'
 
 
     # csv_save_name = f"csv_epoch{e}_IoU{iou_threshold}"
