@@ -174,12 +174,10 @@ if __name__ == "__main__":
     # List of experiment results
     ###########################################
     conf_threshold = 0.25
-    image_path = '/home/bolero/.dc/private/yolov5-c18/test_normal/'
-    gt_path = '/home/bolero/.dc/private/yolov5-c18/test_normal/'
-    # dt_path = f"D:\\Files\\works\\1+AICenter\\result\\detectoRS\\inference_xyrb_abs\\epoch{e}\\"
-    dt_path = '/home/bolero/.dc/private/yolov5-c18/runs_v5m_1/normal/labels/'
-    # dt_path = f"C:/Users/bolero/Desktop/metric_dc/result_detectors_epoch{e}_conf0.001_label_abs_xyrb/"
-    csv_save_path = '/home/bolero/.dc/private/yolov5-c18/'
+    image_path = '/home/bolero/.dc/dl/yolov5-c16/test_normal/'
+    gt_path = '/home/bolero/.dc/dl/yolov5-c16/test_normal/'
+    dt_path = '/home/bolero/.dc/dl/yolov5-c16-rid/c16+newendo_aug_train_inf_normal/labels/'
+    csv_save_path = '/home/bolero/.dc/dl/yolov5-c16-rid/'
     sorting_index = 1
 
     # sorting index
@@ -187,8 +185,7 @@ if __name__ == "__main__":
     # 1 = confidence score
     # 2 = IoU
 
-    csv_save_name = f"csv_normaldata"
-    prc_save_name = f"prc_normaldata"
+    csv_save_name = f"best_csv_normaldata_c16+newendo_aug_train_inf_normal"
 
     make_csv(image_path=image_path,
              gt_path=gt_path,
