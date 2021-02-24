@@ -11,6 +11,7 @@ import glob
 from decimal import Decimal as dec
 import matplotlib.pyplot as plt
 from sklearn.metrics import average_precision_score, precision_recall_curve
+import datetime
 
 
 def extract_file_name(image_path, gt_path, dt_path):
@@ -55,7 +56,9 @@ def make_csv(image_path, gt_path, dt_path, conf_threshold=0.1,
         except:
             print("Can't read detection result file!")
     print("   ============== START ==============")
-    print(f"Number of total normal images : {len(image_file_list)}\n"
+    print(" TITLE : C18 YOLOv5 Model -> Normal Dataset inference\n\n")
+    print(f"Now Date and Time : {datetime.datetime.now()}\n\n"
+          f"Number of total normal images : {len(image_file_list)}\n"
           f"Number of detected Objects Count : {dt_count}\n"
           f"Confidence score Threshold : {conf_threshold}\n")
 
@@ -111,8 +114,10 @@ def make_csv(image_path, gt_path, dt_path, conf_threshold=0.1,
     df2 = pd.DataFrame(csv_list2, columns=['sum TN'])
     df_total = pd.concat([df1, df2], axis=1)  # column bind
 
+    specificity = round(count_TN / len(image_file_list), 2)
+
     print(f"Total TN Count: {count_TN}\n")
-    print(f"Specificity: {round(count_TN / len(image_file_list), 2)}\n")
+    print(f"[Specificity] (expression: TN={count_TN} / normal data count={len(image_file_list)}): {specificity}\n")
 
     if csv_save_path is not None:
         if csv_save_name is not None:
@@ -174,10 +179,10 @@ if __name__ == "__main__":
     # List of experiment results
     ###########################################
     conf_threshold = 0.25
-    image_path = '/home/bolero/.dc/dl/yolov5-c16/test_normal/'
-    gt_path = '/home/bolero/.dc/dl/yolov5-c16/test_normal/'
-    dt_path = '/home/bolero/.dc/dl/yolov5-c16-rid/c16+newendo_aug_train_inf_normal/labels/'
-    csv_save_path = '/home/bolero/.dc/dl/yolov5-c16-rid/'
+    image_path = '/home/bolero/.dc/dl/yolov5-c18-rid/test_normal_dataset/'
+    gt_path = '/home/bolero/.dc/dl/yolov5-c18-rid/test_normal_dataset/'
+    dt_path = '/home/bolero/.dc/dl/yolov5-c18-rid/c18_rid_aug_inf_normal/labels/'
+    csv_save_path = '/home/bolero/.dc/dl/yolov5-c18-rid/'
     sorting_index = 1
 
     # sorting index
@@ -185,7 +190,7 @@ if __name__ == "__main__":
     # 1 = confidence score
     # 2 = IoU
 
-    csv_save_name = f"best_csv_normaldata_c16+newendo_aug_train_inf_normal"
+    csv_save_name = f"best_csv_normaldata_c18_rid_aug_inf_normal"
 
     make_csv(image_path=image_path,
              gt_path=gt_path,

@@ -12,6 +12,8 @@ from decimal import Decimal as dec
 import matplotlib.pyplot as plt
 from sklearn.metrics import average_precision_score, precision_recall_curve
 
+import datetime
+
 
 def floor(x, index):
     number = str(x)
@@ -175,7 +177,9 @@ def make_csv(image_path, gt_path, dt_path, gt_coord, gt_coord_type, dt_coord, dt
         except:
             print("Can't read detection result file!")
     print("   ============== START ==============")
-    print(f"Number of total Objects Count : {gt_count}\n"
+    print(" TITLE : C18 YOLOv5 Model -> Cancer Dataset inference\n\n")
+    print(f"Now Date and Time : {datetime.datetime.now()}\n\n"
+          f"Number of total Objects Count : {gt_count}\n"
           f"Number of detected Objects Count : {dt_count}\n"
           f"IoU Threshold : {iou_threshold}\n")
 
@@ -274,10 +278,15 @@ def make_csv(image_path, gt_path, dt_path, gt_coord, gt_coord_type, dt_coord, dt
 
     ap = AP(ap_precision_list, ap_recall_list)
 
+    precision = round(float(graph_precision_list[-1]), 2)
+    recall = round(float(graph_recall_list[-1]), 2)
+    f1 = round(2 * (precision * recall) / (precision + recall), 2)
+
     print(f"Total TP Count: {count_TP}\nTotal FP Count: {count_FP}\nTotal FN Count: {count_FN}\n\n"
-          f"False Positive Rate per Image: {round(int(csv_list2[-1][1]) / len(gt_file_list), 3)}\n"
-          f"Recall(=Sensitivity, True Positive Rate): {float(graph_recall_list[-1]):.2f}\n"
-          f"Precision: {float(graph_precision_list[-1]):.2f}\n"
+            f"[False Positive Rate per Image] (expression: FP={int(csv_list2[-1][1])} / GT={len(gt_file_list)}): {round(int(csv_list2[-1][1]) / len(gt_file_list), 3)}\n"
+            f"[Recall(=Sensitivity, True Positive Rate)] (expression: TP={count_TP} / GT={gt_count}): {recall}\n"
+            f"[Precision] (expression: TP={count_TP} / TP={count_TP} + FP={count_FP}): {precision}\n"
+            f"[F1 Score] (expression: 2 * (precision={precision} * recall={recall} / precision={precision} + recall={recall})): {f1}\n\n"
           f"AP: {str(ap * 100)[:5]}%\n")
 
     plt.clf()
@@ -326,14 +335,14 @@ if __name__ == "__main__":
     ###########################################
     # Single experiment
     ###########################################
-    image_path = "/home/bolero/.dc/dl/yolov5-c16-rid/test_total_dataset/"
-    gt_path = "/home/bolero/.dc/dl/yolov5-c16-rid/test_total_dataset/"
-    dt_path = "/home/bolero/.dc/dl/yolov5-c16-rid/c16+newendo_rid_aug_inf_total_conf0.001/labels/"
+    image_path = "/home/bolero/.dc/dl/yolov5-c18-rid/test_rid_dataset/"
+    gt_path = "/home/bolero/.dc/dl/yolov5-c18-rid/test_rid_dataset/"
+    dt_path = "/home/bolero/.dc/dl/yolov5-c18-rid/c18_rid_aug_inf_cancer/labels/"
     gt_coord = 'ccwh'
     gt_coord_type = 'relat'
     dt_coord = 'ccwh'
     dt_coord_type = 'relat'
-    csv_save_path = "/home/bolero/.dc/dl/yolov5-c16-rid/"
+    csv_save_path = "/home/bolero/.dc/dl/yolov5-c18-rid/"
     sorting_index = 1
 
     # sorting index
@@ -343,8 +352,8 @@ if __name__ == "__main__":
     iou_threshold = 0.5
     # csv_save_name = f'best_conf0.001_IoU{iou_threshold}'
     # prc_save_name = f'best_conf0.001_IoU{iou_threshold}'
-    csv_save_name = f'best_IoU{iou_threshold}-c16+newendo_rid_aug_inf_total_conf0.001'
-    prc_save_name = f'best_IoU{iou_threshold}-c16+newendo_rid_aug_inf_total_conf0.001'
+    csv_save_name = f'best_IoU{iou_threshold}-c18_rid_aug_inf_cancer_conf0.25_1'
+    prc_save_name = f'best_IoU{iou_threshold}-c18_rid_aug_inf_cancer_conf0.25_1'
 
 
     # csv_save_name = f"csv_epoch{e}_IoU{iou_threshold}"
