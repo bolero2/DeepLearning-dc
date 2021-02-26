@@ -335,25 +335,25 @@ if __name__ == "__main__":
     ###########################################
     # Single experiment
     ###########################################
-    image_path = "/home/bolero/.dc/dl/yolov5-c18-rid/test_rid_dataset/"
-    gt_path = "/home/bolero/.dc/dl/yolov5-c18-rid/test_rid_dataset/"
-    dt_path = "/home/bolero/.dc/dl/yolov5-c18-rid/c18_rid_aug_inf_cancer/labels/"
+    image_path = "/home/bolero/.dc/dl/yolov5-c16-rid/test_c16_dataset/"
+    gt_path = "/home/bolero/.dc/dl/yolov5-c16-rid/test_c16_dataset/"
+    dt_path = "/home/bolero/.dc/dl/yolov5-c16-rid/c16_rid_aug_inf_c16_conf0.001/labels/"
     gt_coord = 'ccwh'
     gt_coord_type = 'relat'
     dt_coord = 'ccwh'
     dt_coord_type = 'relat'
-    csv_save_path = "/home/bolero/.dc/dl/yolov5-c18-rid/"
+    csv_save_path = "/home/bolero/.dc/dl/yolov5-c16-rid/"
     sorting_index = 1
 
     # sorting index
     # 0 = list not sorted
     # 1 = confidence score
     # 2 = IoU
-    iou_threshold = 0.5
+    iou_threshold = 0.3
     # csv_save_name = f'best_conf0.001_IoU{iou_threshold}'
     # prc_save_name = f'best_conf0.001_IoU{iou_threshold}'
-    csv_save_name = f'best_IoU{iou_threshold}-c18_rid_aug_inf_cancer_conf0.25_1'
-    prc_save_name = f'best_IoU{iou_threshold}-c18_rid_aug_inf_cancer_conf0.25_1'
+    csv_save_name = f'best_IoU{iou_threshold}-c16_rid_aug_inf_c16_conf0.001'
+    prc_save_name = f'best_IoU{iou_threshold}-c16_rid_aug_inf_c16_conf0.001'
 
 
     # csv_save_name = f"csv_epoch{e}_IoU{iou_threshold}"
