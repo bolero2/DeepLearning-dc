@@ -125,9 +125,9 @@ class convert_coordinate(object):
 
 
 if __name__ == "__main__":
-    imgpath = "voc2012/JPEGImages/"
-    annotpath = "voc2012/Annotations/"
-    save_path = "voc2012/TextAnnotations/"
+    imgpath = "/home/neuralworks/dataset/VOCdevkit/VOC2012/JPEGImages/"
+    annotpath = "/home/neuralworks/dataset/VOCdevkit/VOC2012/Annotations/"
+    save_path = "/home/neuralworks/dataset/VOCdevkit/VOCdetection/annotations/"
 
     imglist = [x.split('/')[-1] for x in glob.glob(imgpath + '*.jpg')]
     annotlist = glob.glob(annotpath + "*.xml")
@@ -164,8 +164,3 @@ if __name__ == "__main__":
         file = open(save_path + filename[:-3] + "txt", "w")
         file.writelines(sentence)
         file.close()
-
-
-
-
-
