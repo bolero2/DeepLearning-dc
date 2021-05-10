@@ -25,9 +25,9 @@ from torch.autograd import Variable
 from datasets import CustomDataset
 
 
-class VGGNet(nn.Module):
+class SRNet(nn.Module):
     def __init__(self, name, ch, num_classes, setting=None, job=None):
-        super(VGGNet, self).__init__()
+        super(SRNet, self).__init__()
         # =========================== Setting ============================
         self.job = job
 
