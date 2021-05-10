@@ -8,7 +8,7 @@
 |TensorFlow2 (+ Keras)|PyTorch|
 |:-----------:|:-----------:|
 |[ResNet-34-tf2](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-34-tf2)|[ResNet-34-torch](https://github.com/bolero2/DeepLearning-dc/tree/master/torch/ResNet-34-torch)|
-|[ResNet-101-tf2](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-101-tf2)||
+|[ResNet-101-tf2](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-101-tf2)|[VGGNet-torch](https://github.com/bolero2/DeepLearning-dc/tree/master/torch/VGGNet-torch)|
 |[ResNet-152-tf2](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/ResNet-152-tf2)||
 |[EfficientNet-tf2-keras](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/EfficientNet-tf2-keras)||
 |[Cancer-stage-classification](https://github.com/bolero2/DeepLearning-dc/tree/master/tf2/stage_classification)||
