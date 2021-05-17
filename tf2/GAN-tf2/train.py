@@ -181,8 +181,6 @@ if __name__ == "__main__":
     decision = discriminator(generated_image)
     print(decision)
 
-
-    
     # Multi-GPU Model
     from keras.utils import multi_gpu_model
 
@@ -210,7 +208,11 @@ if __name__ == "__main__":
     d_class_weights = dict(enumerate(class_weights))
     print(f'd_class_weights= {d_class_weights}')
 
-    history = model.fit(train_images, train_labels, epochs=num_epochs, batch_size=batch_size, validation_data=(eval_images, eval_labels), class_weight=d_class_weights, callbacks=[cb_ckpt, cb_logger])
+    history = model.fit(train_images, train_labels, 
+                        epochs=num_epochs, batch_size=batch_size, 
+                        validation_data=(eval_images, eval_labels), 
+                        class_weight=d_class_weights, 
+                        callbacks=[cb_ckpt, cb_logger])
 
     model.save(saved_name)
     print(" *** END ***")
