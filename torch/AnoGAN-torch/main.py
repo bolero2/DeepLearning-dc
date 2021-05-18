@@ -3,7 +3,7 @@ from glob import glob
 import cv2
 import numpy as np
 from dataset import CustomDataset
-from model import Model
+from model import Generator, Discriminator
 
 import torch
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
@@ -53,24 +53,33 @@ if __name__ == "__main__":
                              shuffle=False,
                              pin_memory=True)
 
-    network = Model(input_size=input_dim, image_size=imgsz, batch_size=batch_size)
+    # Loss function
+    adversarial_loss = torch.nn.BCELoss()
+
+    # Initialize generator and discriminator
+    generator = Generator()
+    discriminator = Discriminator()
 
     if torch.cuda.is_available():
-        network = network.to('cuda')
-
-    optimizer = torch.optim.Adam(network.parameters(), lr=0.001)
+        generator = generator.to('cuda')
+        discriminator = discriminator.to('cuda')
+        adversarial_loss = adversarial_loss.to('cuda')
 
     # Optimizers
-    optimizer_G = torch.optim.Adam(network.generator.parameters(), lr=1e-4, betas=(0.5, 0.999))
-    optimizer_D = torch.optim.Adam(network.discriminator.parameters(), lr=1e-4, betas=(0.5, 0.999))
+    optimizer_G = torch.optim.Adam(generator.parameters(), lr=1e-4, betas=(0.5, 0.999))
+    optimizer_D = torch.optim.Adam(discriminator.parameters(), lr=1e-4, betas=(0.5, 0.999))
 
     Tensor = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
     for epoch in range(epochs):
         for i, (img, label) in enumerate(trainloader):
+            # print(img.size(1))
+
             # Adversarial ground truths
+            # labeling, Y value
             valid = Variable(Tensor(img.size(0), 1).fill_(1.0), requires_grad=False)
             fake = Variable(Tensor(img.size(0), 1).fill_(0.0), requires_grad=False)
+            # print(valid, "\n", fake)
 
             # Configure input
             real_img = Variable(img.type(Tensor))
@@ -82,13 +91,13 @@ if __name__ == "__main__":
             optimizer_G.zero_grad()
 
             # Sample noise as generator input
-            z = Variable(Tensor(np.random.normal(0, 1, (img.shape[0], 100))))
+            noise = Variable(Tensor(np.random.normal(0, 1, (img.shape[0], 100))))
 
             # Generate a batch of images
-            gen_img = network.generator(z)
+            gen_img = generator(noise)
 
             # Loss measures generator's ability to fool the discriminator
-            g_loss = adversarial_loss(network.discriminator(gen_img), valid)
+            g_loss = adversarial_loss(discriminator(gen_img), valid)
 
             g_loss.backward()
             optimizer_G.step()
@@ -100,34 +109,18 @@ if __name__ == "__main__":
             optimizer_D.zero_grad()
 
             # Measure discriminator's ability to classify real from generated samples
-            real_loss = adversarial_loss(network.discriminator(real_img), valid)
-            fake_loss = adversarial_loss(network.discriminator(gen_img.detach()), fake)
+            real_loss = adversarial_loss(discriminator(real_img), valid)
+            # print(disc)
+            fake_loss = adversarial_loss(discriminator(gen_img.detach()), fake)
             d_loss = (real_loss + fake_loss) / 2
 
             d_loss.backward()
             optimizer_D.step()
 
-            print(
-                "[Epoch %d/%d] [Batch %d/%d] [D loss: %f] [G loss: %f]"
-                % (epoch, epochs, i, len(dataloader), d_loss.item(), g_loss.item())
-            )
+            if i % 200 == 0:
+                print(
+                    "[Epoch %d/%d] [Batch %d/%d] [D loss: %f] [G loss: %f]"
+                    % (epoch, epochs, i, len(trainloader), d_loss.item(), g_loss.item())
+                )
 
-            batches_done = epoch * len(dataloader) + i
-            # if batches_done % opt.sample_interval == 0:
-            #     save_image(gen_imgs.data[:25], "images/%d.png" % batches_done, nrow=5, normalize=True)
-
-            # if torch.cuda.is_available():
-            #     img = img.to(device)
-            #     label = label.to(device)
-
-            # noise = torch.rand(size=(batch_size, input_dim))
-            # noise = (-1 - 1) * noise
-            # generated_image = network.generator(noise)
-            # output = network(noise)
-
-            # print(output)
-            # print(generated_image)
-            # exit(0)
-            
-
-
+            batches_done = epoch * len(trainloader) + i

@@ -25,17 +25,17 @@ from torch.autograd import Variable
 from collections import OrderedDict
 
 
+img_shape = (3, 28, 28)
+#pytorch image shape : (batch_size, channel, height, width)
+
+"""
+Generator : 작은 Array에서 de-conv2d를 통해 원본 수준의 이미지를 생성해냄.
+Discriminator : Generator가 생성해낸 이미지(라고 부르는 것)가 거짓인지 진짜인지 판별해냄.
+    이 때, real-loss와 fake-loss가 존재함. 
+"""
 class Generator(nn.Module):
-    def __init__(self, input_size=int(28 * 28 * 3), image_size=[28, 28, 3], batch_size=4):
+    def __init__(self):
         super(Generator, self).__init__()
-        # if len(input_size) == 3:
-        #     self.ih, self.iw, self.ic = input_size
-        # elif len(input_size) == 2:
-        #     self.ih, self.iw = input_size
-        #     self.ic = 1 
-        self.batch_size = batch_size
-        self.input_size = input_size
-        self.image_size = image_size
 
         def block(in_feat, out_feat, normalize=True):
             layers = [nn.Linear(in_feat, out_feat)]
@@ -45,38 +45,27 @@ class Generator(nn.Module):
             return layers
 
         self.model = nn.Sequential(
-            *block(100, self.input_size, normalize=False),
+            *block(100, 128, normalize=False),
             *block(128, 256),
             *block(256, 512),
             *block(512, 1024),
-            nn.Linear(1024, int(np.prod(self.image_size))),
+            nn.Linear(1024, int(np.prod(img_shape))),
             nn.Tanh()
         )
 
     def forward(self, z):
         img = self.model(z)
-        img = img.view(img.size(0), *self.image_size)
+        img = img.view(img.size(0), *img_shape)
+
         return img
-
-    # def forward(self, x):
-
-    #     return output
 
 
 class Discriminator(nn.Module):
-    def __init__(self, image_size=[28, 28, 3], batch_size=4):
+    def __init__(self):
         super(Discriminator, self).__init__()
-        if len(image_size) == 3:
-            self.ih, self.iw, self.ic = image_size
-        elif len(image_size) == 2:
-            self.ih, self.iw = image_size
-            self.ic = 1
-        self.batch_size = batch_size
-        # self.input_size = input_size
-        self.image_size = image_size
 
         self.model = nn.Sequential(
-            nn.Linear(int(np.prod(self.image_size)), 512),
+            nn.Linear(int(np.prod(img_shape)), 512),
             nn.LeakyReLU(0.2, inplace=True),
             nn.Linear(512, 256),
             nn.LeakyReLU(0.2, inplace=True),
@@ -89,35 +78,12 @@ class Discriminator(nn.Module):
         validity = self.model(img_flat)
 
         return validity
-        
-    # def forward(self, x):
-
-    #     return output
 
 
 class Model(nn.Module):
-    def __init__(self, input_size=[7, 7, 128], image_size=[28, 28, 3], batch_size=4):
+    def __init__(self):
         super(Model, self).__init__()
-        self.input_size = input_size
-        self.image_size = image_size
-        self.batch_size = batch_size
 
-        print(self.input_size, self.image_size)
-        self.generator = Generator(input_size, image_size, batch_size)
-        self.discriminator = Discriminator(image_size, batch_size)
-
-        if torch.cuda.is_available():
-            self.device = torch.device('cuda')
-            self.generator = self.generator.to(self.device)
-            self.discriminator = self.discriminator.to(self.device)
-        
-        print(self.generator, "\n", self.discriminator)
-
-    def forward(self, x):
-        out1 = self.generator(x)
-        out2 = self.discriminator(out1)
-
-        return out1, out2
 
 if __name__ == "__main__":
     generator = Generator()

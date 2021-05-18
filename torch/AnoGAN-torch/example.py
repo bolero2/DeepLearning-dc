@@ -121,8 +121,19 @@ Tensor = torch.cuda.FloatTensor if cuda else torch.FloatTensor
 
 for epoch in range(opt.n_epochs):
     for i, (imgs, _) in enumerate(dataloader):
+        print(imgs.size(0), imgs.size(1), imgs.size(2), imgs.size(3))
+        print(Tensor(imgs.size(0), 1))
+        exit(0)
+
+        # imgs.size(0) = batch_size
+        # imgs.size(1) = channel
+        # imgs.size(2) = image height
+        # imgs.size(3) = image width
 
         # Adversarial ground truths
+        # Y - Valid = label number: 0
+        # Y - Fake = label number: 1
+
         valid = Variable(Tensor(imgs.size(0), 1).fill_(1.0), requires_grad=False)
         fake = Variable(Tensor(imgs.size(0), 1).fill_(0.0), requires_grad=False)
 
